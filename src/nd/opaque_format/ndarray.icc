@@ -1,0 +1,55 @@
+#include <functional>
+
+namespace tff {
+
+inline opaque_ndarray_format::opaque_ndarray_format
+(std::size_t elem_size, std::size_t align, std::size_t stride, bool pod, const ndsize_dyn& shape) :
+	elem_size_(elem_size),
+	elem_alignment_requirement_(align),
+	elem_stride_(stride),
+	pod_(pod),
+	shape_(shape) {}
+
+
+inline opaque_ndarray_format::opaque_ndarray_format
+(const pod_array_format& pod_format, const ndsize_dyn& shape) :
+	elem_size_(pod_format.elem_size()),
+	elem_alignment_requirement_(pod_format.elem_alignment()),
+	elem_stride_(pod_format.stride()),
+	pod_(true),
+	shape_(shape)
+{
+	Assert(pod_format.length() == shape_.product());
+}
+
+
+inline opaque_ndarray_format::opaque_ndarray_format(const pod_array_format& pod_format) :
+	opaque_ndarray_format(pod_format, { pod_format.length() }) { }
+
+
+inline pod_array_format opaque_ndarray_format::pod_format() const {
+	Assert(pod_);
+	return pod_array_format(elem_size_, elem_alignment_requirement_, shape_.product(), elem_stride_);
+}
+	
+
+inline bool operator==(const opaque_ndarray_format& a, const opaque_ndarray_format& b) {
+	return
+		(a.elem_size_ == b.elem_size_) &&
+		(a.elem_alignment_requirement_ == b.elem_alignment_requirement_) &&
+		(a.elem_stride_ == b.elem_stride_) && 
+		(a.pod_ == b.pod_) &&
+		(a.shape_ == b.shape_);
+}
+
+
+inline bool operator!=(const opaque_ndarray_format& a, const opaque_ndarray_format& b) {
+	return
+		(a.elem_size_ != b.elem_size_) ||
+		(a.elem_alignment_requirement_ != b.elem_alignment_requirement_) ||
+		(a.elem_stride_ != b.elem_stride_) ||
+		(a.pod_ != b.pod_) ||
+		(a.shape_ != b.shape_);
+}
+
+}
