@@ -1,9 +1,9 @@
 #include <catch.hpp>
 #include <array>
 #include <cstdint>
-#include "../../src/nd/ndarray_view.h"
-#include "../../src/nd/ndarray_view_cast.h"
-#include "../support/ndarray.h"
+#include "../src/ndarray_view.h"
+#include "../src/ndarray_view_cast.h"
+#include "support/ndarray.h"
 
 using namespace tff;
 using namespace tff::test;

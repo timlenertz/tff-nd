@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include "../../src/nd/ndspan.h"
+#include "../src/ndspan.h"
 
 using namespace tff;
 

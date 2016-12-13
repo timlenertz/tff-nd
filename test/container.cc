@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <algorithm>
-#include "../../src/nd/ndarray.h"
-#include "../support/ndarray.h"
+#include "../src/ndarray.h"
+#include "support/ndarray.h"
 
 using namespace tff;
 using namespace tff::test;

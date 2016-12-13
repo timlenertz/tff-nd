@@ -44,5 +44,5 @@ def include_file(filename):
 		
 
 sys.stdout.write(prefix)
-include_file(os.path.abspath('src/nd/nd.h'))
+include_file(os.path.abspath('src/nd.h'))
 

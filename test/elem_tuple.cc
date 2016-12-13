@@ -1,6 +1,6 @@
 #include <catch.hpp>
 #include <type_traits>
-#include "../../src/nd/elem_tuple.h"
+#include "../src/elem_tuple.h"
 
 using namespace tff;
 

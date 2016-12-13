@@ -1,8 +1,8 @@
 #include <catch.hpp>
 #include <array>
-#include "../../src/nd/ndarray_view.h"
-#include "../../src/nd/pod_array_format.h"
-#include "../support/ndarray.h"
+#include "../src/ndarray_view.h"
+#include "../src/pod_array_format.h"
+#include "support/ndarray.h"
 
 using namespace tff;
 using namespace tff::test;

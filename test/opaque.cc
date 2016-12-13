@@ -1,7 +1,7 @@
 #include <catch.hpp>
-#include "../../src/nd/opaque/ndarray_opaque_view.h"
-#include "../../src/nd/opaque_format/ndarray.h"
-#include "../../src/nd/opaque_format/raw.h"
+#include "../src/opaque/ndarray_opaque_view.h"
+#include "../src/opaque_format/ndarray.h"
+#include "../src/opaque_format/raw.h"
 
 using namespace tff;
 

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "../../src/nd/ndarray.h"
-#include "../../src/nd/opaque_format/raw.h"
+#include "../../src/ndarray.h"
+#include "../../src/opaque_format/raw.h"
 
 namespace tff { namespace test {
 

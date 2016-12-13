@@ -1,19 +1,26 @@
 #include <catch.hpp>
-#include "../../src/nd/ndarray_timed_view.h"
-#include "../support/ndarray.h"
+#include "../src/opaque/ndarray_timed_opaque_view.h"
+#include "../src/opaque/ndarray_opaque_view.h"
+#include "../src/opaque_format/ndarray.h"
+#include "support/ndarray.h"
 
 using namespace tff;
 using namespace tff::test;
 
-
-TEST_CASE("ndarray_timed_view", "[nd][ndarray_timed_view]") {
+TEST_CASE("ndarray_timed_opaque_view", "[nd][ndarray_timed_opaque_view]") {
 	auto shp = make_ndsize(10, 3, 4);
 	auto len = shp.product();
-	std::vector<int> raw(len);
+	std::vector<std::uint32_t> raw(len);
 	for(int i = 0; i < len; ++i) raw[i] = i;
 
-	ndarray_view<3, int> a1nt(raw.data(), shp);
-	ndarray_timed_view<3, int> a1(a1nt, 100);
+	opaque_raw_format frm(4);
+	ndarray_opaque_view<3, true, opaque_raw_format> a1nt(
+		raw.data(),
+		shp,
+		ndarray_opaque_view<3, true, opaque_raw_format>::default_strides(shp, frm),
+		frm
+	);
+	ndarray_timed_opaque_view<3, true, opaque_raw_format> a1(a1nt, 100);
 
 	SECTION("basics") {
 		REQUIRE(a1.start() == raw.data());
@@ -26,7 +33,7 @@ TEST_CASE("ndarray_timed_view", "[nd][ndarray_timed_view]") {
 		REQUIRE(a1.duration() == 10);
 		REQUIRE(a1.tspan() == time_span(100, 110));
 		
-		ndarray_view<3, int> a1nt_re = a1.non_timed();
+		ndarray_opaque_view<3, true, opaque_raw_format> a1nt_re = a1.non_timed();
 		REQUIRE(same(a1nt_re, a1nt));
 		REQUIRE(a1.time_to_coordinate(102) == 2);
 		REQUIRE(a1.coordinate_to_time(2) == 102);

@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include "../../src/nd/ndcoord.h"
+#include "../src/ndcoord.h"
 
 using namespace tff;
 
