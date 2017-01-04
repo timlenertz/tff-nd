@@ -20,7 +20,7 @@ enable_testing()
 
 include_directories(SYSTEM external/include)
 
-file(GLOB_RECURSE TEST_SRC "test/*.cc")
+file(GLOB_RECURSE TEST_SRC "test/*.cc" "src/*")
 add_executable(tff_nd_test ${TEST_SRC})
 target_compile_definitions(tff_nd_test PRIVATE TFF_ND_STANDALONE)
 target_compile_options(tff_nd_test PRIVATE -Wno-unused-comparison)

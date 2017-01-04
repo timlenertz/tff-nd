@@ -179,11 +179,6 @@ bool ndarray_view<Dim, T>::compare(const ndarray_view<Dim, const T>& other) cons
 	} else {
 		return std::equal(other.begin(), other.end(), begin());
 	}
-	
-	
-	if(shape() != other.shape()) return false;
-	else if(same(*this, other)) return true;
-	else return std::equal(other.begin(), other.end(), begin());
 }
 
 

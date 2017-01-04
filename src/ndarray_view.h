@@ -14,6 +14,7 @@
 namespace tff {
 
 template<std::size_t Dim, typename T> class ndarray_view;
+template<std::size_t Dim, typename T> class ndarray_wraparound_view;
 
 namespace detail {
 	template<std::size_t Dim, typename T>
@@ -178,11 +179,7 @@ public:
 	/// \name Iteration
 	///@{
 	std::ptrdiff_t contiguous_length() const { return contiguous_length_; }
-
-	coordinates_type index_to_coordinates(index_type) const;
-	index_type coordinates_to_index(const coordinates_type&) const;
-	pointer coordinates_to_pointer(const coordinates_type&) const;	
-			
+		
 	iterator begin() const;
 	iterator end() const;
 	///@}
@@ -191,6 +188,10 @@ public:
 
 	/// \name Indexing
 	///@{
+	coordinates_type index_to_coordinates(index_type) const;
+	index_type coordinates_to_index(const coordinates_type&) const;
+	pointer coordinates_to_pointer(const coordinates_type&) const;
+	
 	/// Access element at coordinates \a coord.
 	reference at(const coordinates_type& coord) const;
 
@@ -227,9 +228,10 @@ public:
 		return *this;
 	}
 	///@}
-		
 	
 	
+	ndarray_wraparound_view<Dim, T> wraparound_view();
+	ndarray_wraparound_view<Dim, T> wraparound_section(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1));
 
 	ndarray_view<1 + Dim, T> add_front_axis() const;
 	
