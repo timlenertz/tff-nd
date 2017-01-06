@@ -14,17 +14,22 @@
 namespace tff {
 
 template<std::size_t Dim, typename T> class ndarray_view;
-template<std::size_t Dim, typename T> class ndarray_wraparound_view;
 
 template<typename T>
-constexpr bool is_ndarray_view = true;
-/*
-template<std::size_t Dim, typename T>
-constexpr bool is_ndarray_view<ndarray_view<Dim, T>> = true;
+struct is_ndarray_view : std::false_type {};
 
 template<std::size_t Dim, typename T>
-constexpr bool is_ndarray_view<ndarray_wraparound_view<Dim, T>> = true;
-*/
+struct is_ndarray_view<ndarray_view<Dim, T>> : std::true_type {};
+
+
+template<typename From_view, typename To_view>
+struct is_convertible_ndarray_view : conjunction<
+    is_ndarray_view<From_view>,
+	is_ndarray_view<To_view>,
+	std::is_convertible<typename From_view::value_type, typename To_view::value_type>,
+	std::integral_constant<bool, From_view::dimension() == To_view::dimension()>
+> { };
+
 
 namespace detail {
 	template<std::size_t Dim, typename T>
@@ -73,7 +78,7 @@ namespace detail {
 template<std::size_t Dim, typename T>
 class ndarray_view {
 	static_assert(Dim >= 1, "ndarray_view dimension must be >= 1");
-
+	
 public:
 	using value_type = T;
 	using pointer = T*;
@@ -85,20 +90,18 @@ public:
 	using span_type = ndspan<Dim>;
 	
 	using iterator = ndarray_iterator<ndarray_view<Dim, T>>;
-
-	constexpr static std::size_t dimension = Dim;
-
+	
 protected:
 	pointer start_;
 	shape_type shape_;
 	strides_type strides_;
 	
-	std::ptrdiff_t contiguous_length_;
-	
-	ndarray_view section_(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
 	std::ptrdiff_t fix_coordinate_(std::ptrdiff_t c, std::ptrdiff_t dim) const;
 
 private:
+	template<typename Other_view, typename U = void>
+	using enable_if_convertible_ = std::enable_if_t<is_convertible_ndarray_view<Other_view, ndarray_view>::value, U>;
+	
 	using fcall_type = detail::ndarray_view_fcall<ndarray_view<Dim, T>, 1>;
 	
 public:
@@ -132,7 +135,8 @@ public:
 
 	/// \name Attributes 
 	///@{
-	/// Number of elements, i.e. product of shape components.	
+	static constexpr std::size_t dimension() { return Dim; }
+	
 	pointer start() const { return start_; }
 	const shape_type& shape() const { return shape_; }
 	const strides_type& strides() const { return strides_; }
@@ -164,7 +168,7 @@ public:
 	/// \name Deep assignment
 	///@{
 	template<typename Other_view>
-	std::enable_if_t<is_ndarray_view<Other_view>> assign(const Other_view&) const;
+	enable_if_convertible_<Other_view> assign(const Other_view&) const;
 	
 	void assign(const ndarray_view<Dim, const T>& other) const;
 
@@ -179,7 +183,7 @@ public:
 	/// \name Deep comparison
 	///@{
 	template<typename Other_view>
-	std::enable_if_t<is_ndarray_view<Other_view>, bool> compare(const Other_view&) const;
+	enable_if_convertible_<Other_view, bool> compare(const Other_view&) const;
 	
 	bool compare(const ndarray_view<Dim, const T>& other) const;
 		
@@ -191,7 +195,7 @@ public:
 	
 	/// \name Iteration
 	///@{
-	std::ptrdiff_t contiguous_length() const { return contiguous_length_; }
+	std::ptrdiff_t contiguous_length() const;
 		
 	iterator begin() const;
 	iterator end() const;
@@ -207,7 +211,10 @@ public:
 	
 	/// Access element at coordinates \a coord.
 	reference at(const coordinates_type& coord) const;
-
+	
+	
+	ndarray_view axis_section(std::ptrdiff_t axis, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
+	
 	
 	/// Cuboid section of view, with interval in each axis.
 	/** Can also specify step for each axis: Stride of the new view are stride of this view multiplied by step.
@@ -232,25 +239,16 @@ public:
 	}
 	
 	fcall_type operator()(std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step = 1) const {
-		return section_(0, start, end, step);
+		return axis_section(0, start, end, step);
 	}
 	fcall_type operator()(std::ptrdiff_t c) const {
-		if(c != -1) return section_(0, c, c + 1, 1);
-		else return section_(0, shape_[0] - 1, shape_[0], 1);
+		if(c != -1) return axis_section(0, c, c + 1, 1);
+		else return axis_section(0, shape_[0] - 1, shape_[0], 1);
 	}
 	fcall_type operator()() const {
 		return *this;
 	}
 	///@}
-	
-	
-	ndarray_wraparound_view<Dim, T> wraparound_view
-	(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1)) const;
-	
-	
-	ndarray_view<1 + Dim, T> add_front_axis() const;
-	
-	ndarray_view swapaxis(std::size_t axis1, std::size_t axis2) const;
 };
 
 
@@ -258,19 +256,17 @@ template<std::size_t Dim, typename T1, typename T2>
 bool same(const ndarray_view<Dim, T1>&, const ndarray_view<Dim, T2>&);
 
 
-
-template<std::size_t Dim_to, typename Elem_to, std::size_t Dim_from, typename Elem_from>
-constexpr bool ndarray_view_is_assignable = 
-	(Dim_to == Dim_from) &&
-	! std::is_const<Elem_to>::value &&
-	std::is_convertible<Elem_from, Elem_to>::value;
-
-
-
 template<typename T>
-ndarray_view<2, T> flip(const ndarray_view<2, T>& vw) {
-	return vw.swapaxis(0, 1);
-}
+ndarray_view<2, T> flip(const ndarray_view<2, T>& vw) { return swapaxis(vw, 0, 1); }
+
+template<std::size_t Dim, typename T>
+ndarray_view<1 + Dim, T> add_front_axis(const ndarray_view<Dim, T>&);
+
+template<std::size_t Dim, typename T>
+ndarray_view<Dim + 1, T> add_back_axis(const ndarray_view<Dim, T>&);
+
+template<std::size_t Dim, typename T>
+ndarray_view<Dim, T> swapaxis(const ndarray_view<Dim, T>&, std::ptrdiff_t axis1, std::ptrdiff_t axis2);
 
 
 template<std::size_t Dim, typename T, std::size_t New_dim>
@@ -279,6 +275,23 @@ ndarray_view<New_dim, T> reshape(const ndarray_view<Dim, T>&, const ndsize<New_d
 
 template<std::size_t Dim, typename T>
 ndarray_view<1, T> flatten(const ndarray_view<Dim, T>&);
+
+
+template<std::size_t Dim, typename T>
+ndarray_view<Dim, T> step(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis, std::ptrdiff_t step) {
+	return vw.axis_section(axis, 0, vw.shape()[axis], step);
+};
+
+template<typename T>
+ndarray_view<1, T> step(const ndarray_view<1, T>& vw, std::ptrdiff_t step) {
+	return vw.axis_section(0, 0, vw.shape()[0], step);
+};
+
+template<std::size_t Dim, typename T>
+ndarray_view<Dim, T> reverse(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis = 0) {
+	return step(vw, axis, -1);
+};
+
 
 
 ///////////////

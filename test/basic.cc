@@ -189,6 +189,11 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			// whole, and single value
 			REQUIRE(compare_sequence_(arr1(), raw));
 			REQUIRE(compare_sequence_(arr1(1), { 0x01 }));
+			
+			// reverse, step
+			REQUIRE(same(arr1(1, 6, -1), reverse(arr1(1, 6)) ));
+			REQUIRE(same(arr1(1, 6, 2), step(arr1(1, 6), 0, 2) ));
+			REQUIRE(same(arr1(1, 6, 2), step(arr1(1, 6), 2) ));
 		}
 		
 		SECTION("deep assign, compare") {
@@ -659,6 +664,11 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			REQUIRE(sec4[1][0][0] == 0x1B);
 			REQUIRE(same( sec4,
 				arr3.section(make_ndptrdiff(1, 0, 2), make_ndptrdiff(3, 3, 4), make_ndptrdiff(-1, -2, -1)) ));
+			
+			// reverse, step
+			REQUIRE(same(arr3(1, 3, 1)(0, 3, -2)(2, 4, 1), reverse(arr3(1, 3, 1)(0, 3, 2)(2, 4, 1), 1) ));
+			REQUIRE(same(arr3(1, 3, 2)(0, 3, -2)(2, 4, 1), step(arr3(1, 3, 1)(0, 3, -2)(2, 4, 1), 0, 2) ));
+			REQUIRE(same(arr3(1, 3, 1)(0, 3, -2)(2, 4, 1), step(arr3(1, 3, 1)(0, 3, -1)(2, 4, 1), 1, 2) ));
 		}
 		
 		SECTION("index") {
@@ -691,7 +701,7 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			REQUIRE(arr3.slice(1, 0)[2][3] == 0x1B);
 
 			
-			REQUIRE(arr3.slice(1, 0).dimension == 2);
+			REQUIRE(arr3.slice(1, 0).dimension() == 2);
 			REQUIRE(arr3.slice(1, 0).shape() == make_ndsize(4, 4));
 			
 			REQUIRE(compare_sequence_(arr3.slice(0, 0), {

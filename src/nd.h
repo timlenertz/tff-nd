@@ -17,6 +17,7 @@
 #include "pod_array_format.h"
 
 #include "ndarray_view.h"
+#include "ndarray_wraparound_view.h"
 #include "ndarray_iterator.h"
 #include "ndarray_view_cast.h"
 

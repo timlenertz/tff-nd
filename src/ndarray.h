@@ -10,12 +10,23 @@
 
 namespace tff {
 
+
+/// Container for \ref ndarray_view.
+template<std::size_t Dim, typename Elem, typename Allocator>
+class ndarray;
+
+template<std::size_t Dim, typename T, typename Allocator>
+struct is_ndarray_view<ndarray<Dim, T, Allocator>> : std::true_type {};
+
 /// Container for \ref ndarray_view.
 template<std::size_t Dim, typename Elem, typename Allocator = std::allocator<Elem>>
 class ndarray : public detail::ndarray_wrapper<ndarray_view<Dim, Elem>, ndarray_view<Dim, const Elem>, Allocator> {
 	using base = detail::ndarray_wrapper<ndarray_view<Dim, Elem>, ndarray_view<Dim, const Elem>, Allocator>;
 
 private:
+	template<typename Other_view, typename U = void>
+	using enable_if_convertible_ = std::enable_if_t<is_convertible_ndarray_view<Other_view, ndarray>::value, U>;
+	
 	void construct_elems_();
 	void destruct_elems_();
 
@@ -25,6 +36,10 @@ public:
 	using typename base::shape_type;
 	using typename base::strides_type;
 	
+	using value_type = Elem;
+	using pointer = Elem*;
+	using reference = Elem&;
+	
 	/// \name Constructor
 	///@{	
 	/// Construct empty \ref ndarray with given shape.
@@ -33,8 +48,9 @@ public:
 	
 	/// Construct \ref ndarray with shape and copy of elements from a \ref ndarray_view.
 	/** Has default strides, optionally with specified element padding. Does not take strides from \a vw. */
-	template<typename Other_elem>
-	explicit ndarray(const ndarray_view<Dim, Other_elem>& vw, std::size_t elem_pad = 0, const Allocator& = Allocator());
+	template<typename Other_view, typename = enable_if_convertible_<Other_view>>
+	explicit ndarray(const Other_view& vw, std::size_t elem_padding = 0, const Allocator& = Allocator());
+	
 	
 	/// Copy-construct from another \ref ndarray of same type.
 	/** Takes strides from \a arr. */
@@ -52,11 +68,13 @@ public:
 	///@{
 	/// Assign shape and elements from \ref vw.
 	/** Resets to default strides, optionally with specified element padding. Reallocates memory if necessary. */
-	template<typename Other_elem> void assign(const ndarray_view<Dim, Other_elem>& vw, std::size_t elem_padding = 0);
+	template<typename Other_view>
+	enable_if_convertible_<Other_view> assign(const Other_view& vw, std::size_t elem_padding = 0);
 	
 	/// Assign shape and elements from \ref vw.
 	/** Equivalent to `assign(vw)`. */
-	template<typename Other_elem> ndarray& operator=(const ndarray_view<Dim, Other_elem>& vw)
+	template<typename Other_view>
+	enable_if_convertible_<Other_view, ndarray&> operator=(const Other_view& vw)
 		{ assign(vw); return *this; }
 
 	/// Copy-assign from another \ref ndarray.

@@ -19,13 +19,6 @@ private:
 	time_unit start_time_;
 
 	using fcall_type = detail::ndarray_view_fcall<ndarray_timed_view_derived, 1>;
-
-protected:
-	ndarray_timed_view_derived section_
-	(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const {
-		return ndarray_timed_view_derived(base::section_(dim, start, end, step), start_time_ + (dim == 0 ? start : 0));
-	}
-	// required by ndarray_view_fcall
 	
 public:
 	using non_timed_view_type = Base;
@@ -76,6 +69,13 @@ public:
 	
 	/// \name Indexing
 	///@{
+	ndarray_timed_view_derived axis_section
+		(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const {
+		return ndarray_timed_view_derived(base::axis_section(dim, start, end, step), start_time_ + (dim == 0 ? start : 0));
+	}
+	// required by ndarray_view_fcall
+	
+	
 	decltype(auto) at_time(time_unit t) const { return base::operator[](time_to_coordinate(t)); }
 	
 	auto tsection(time_span span) {
@@ -94,10 +94,10 @@ public:
 	}
 	
 	fcall_type operator()(std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step = 1) const {
-		return ndarray_timed_view_derived(base::section_(0, start, end, step), start_time_ + start);
+		return ndarray_timed_view_derived(base::axis_section(0, start, end, step), start_time_ + start);
 	}
 	fcall_type operator()(std::ptrdiff_t c) const {
-		return ndarray_timed_view_derived(base::section_(0, c, c + 1, 1), start_time_ + c);
+		return ndarray_timed_view_derived(base::axis_section(0, c, c + 1, 1), start_time_ + c);
 	}
 	fcall_type operator()() const {
 		return *this;

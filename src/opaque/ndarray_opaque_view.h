@@ -43,8 +43,8 @@ public:
 
 	using iterator = ndarray_opaque_iterator<Dim, Mutable, Frame_format>;
 	
-	constexpr static std::size_t dimension = Dim;
-	constexpr static bool is_mutable = Mutable;
+	static constexpr std::size_t dimension() { return Dim; }
+	static constexpr bool is_mutable() { return Mutable; }
 	
 private:
 	frame_format_type frame_format_;
@@ -52,9 +52,6 @@ private:
 	using fcall_type = detail::ndarray_view_fcall<ndarray_opaque_view, 1>;
 
 protected:
-	ndarray_opaque_view section_(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
-	// required by ndarray_view_fcall
-	
 	using base::fix_coordinate_;
 	// required by ndarray_timed_view_derived<ndarray_opaque_view>
 
@@ -140,6 +137,9 @@ public:
 	/// \name Indexing
 	///@{
 	frame_view_type at(const coordinates_type&) const;
+	
+	ndarray_opaque_view axis_section(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
+	// required by ndarray_view_fcall
 	
 	ndarray_opaque_view section
 	(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1)) const {

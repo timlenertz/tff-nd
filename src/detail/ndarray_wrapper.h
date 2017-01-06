@@ -35,7 +35,6 @@ public:
 	using shape_type = typename view_type::shape_type;
 	using strides_type = typename view_type::strides_type;
 	
-
 private:
 	void allocate_(std::size_t allocate_size, std::size_t alignment);
 	void deallocate_();
@@ -101,6 +100,7 @@ public:
 
 	/// \name Attributes
 	///@{
+	constexpr static std::size_t dimension() { return view_type::dimension(); }
 	WRAP_VIEW_FUNCTION(start);
 	WRAP_VIEW_FUNCTION(shape);
 	WRAP_VIEW_FUNCTION(strides);

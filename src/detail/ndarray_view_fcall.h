@@ -10,7 +10,7 @@ namespace tff { namespace detail {
 
 template<typename View, std::ptrdiff_t Target_dim>
 class ndarray_view_fcall : public View {
-	static_assert(Target_dim <= View::dimension, "detail::ndarray_view_fcall target dimension out of bounds");
+	static_assert(Target_dim <= View::dimension(), "detail::ndarray_view_fcall target dimension out of bounds");
 	using base = View;
 
 private:
@@ -22,11 +22,11 @@ public:
 	ndarray_view_fcall(const base& vw) : base(vw) { }
 	
 	fcall_type operator()(std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step = 1) const {
-		return base::section_(Target_dim, start, end, step);
+		return base::axis_section(Target_dim, start, end, step);
 	}
 	fcall_type operator()(std::ptrdiff_t c) const {
-		if(c != -1) return base::section_(Target_dim, c, c + 1, 1);
-		else return base::section_(Target_dim, base::shape()[Target_dim] - 1, base::shape()[Target_dim], 1);
+		if(c != -1) return base::axis_section(Target_dim, c, c + 1, 1);
+		else return base::axis_section(Target_dim, base::shape()[Target_dim] - 1, base::shape()[Target_dim], 1);
 	}
 	fcall_type operator()() const {
 		return *this;

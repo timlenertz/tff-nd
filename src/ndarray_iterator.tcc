@@ -7,7 +7,7 @@ namespace tff {
 template<typename View>
 inline void ndarray_iterator<View>::forward_(std::ptrdiff_t d) {
 	Assert_crit(d >= 0);
-	std::ptrdiff_t contiguous_limit = view_.contiguous_length() - (index_ % view_.contiguous_length());
+	std::ptrdiff_t contiguous_limit = contiguous_length_ - (index_ % contiguous_length_);
 	index_ += d;
 	if(d < contiguous_limit) {
 		pointer_ = advance_raw_ptr(pointer_, d * view_.strides().back());
@@ -21,7 +21,7 @@ inline void ndarray_iterator<View>::forward_(std::ptrdiff_t d) {
 template<typename View>
 inline void ndarray_iterator<View>::backward_(std::ptrdiff_t d) {
 	Assert_crit(d >= 0);
-	std::ptrdiff_t contiguous_limit = index_ % view_.contiguous_length();
+	std::ptrdiff_t contiguous_limit = index_ % contiguous_length_;
 	index_ -= d;
 	if(d <= contiguous_limit) {
 		pointer_ = advance_raw_ptr(pointer_, -d * view_.strides().back());
@@ -35,12 +35,14 @@ inline void ndarray_iterator<View>::backward_(std::ptrdiff_t d) {
 template<typename View>
 ndarray_iterator<View>::ndarray_iterator(const view_type& vw, index_type index, pointer ptr) :
 	view_(vw),
+	contiguous_length_(vw.contiguous_length()),
 	pointer_(ptr),
 	index_(index) { }
 
 
 template<typename View>
 auto ndarray_iterator<View>::operator=(const ndarray_iterator& it) -> ndarray_iterator& {
+	Assert_crit(same(view(), it.view()));
 	pointer_ = it.pointer_;
 	index_ = it.index_;
 	return *this;

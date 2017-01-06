@@ -42,7 +42,7 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 	REQUIRE(compare_sequence_(col1, { 0x12, 0x16, 0x1a, 0x1e }));
 	
 	SECTION("1D") {
-		ndarray_wraparound_view<1, int> row0_w1 = row0.wraparound_view(make_ndptrdiff(-2), make_ndptrdiff(10));
+		ndarray_wraparound_view<1, int> row0_w1 = wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(10));
 		REQUIRE(row0_w1.shape() == make_ndsize(12));
 		REQUIRE(row0_w1[0] == 0x02);
 		REQUIRE(row0_w1[1] == 0x03);
@@ -58,7 +58,7 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 			0x00, 0x01
 		}));
 		
-		ndarray_wraparound_view<1, int> col1_w1 = col1.wraparound_view(make_ndptrdiff(-2), make_ndptrdiff(10));
+		ndarray_wraparound_view<1, int> col1_w1 = wraparound(col1, make_ndptrdiff(-2), make_ndptrdiff(10));
 		REQUIRE(compare_sequence_(col1_w1, {
 			            0x1a, 0x1e,
 			0x12, 0x16, 0x1a, 0x1e,
@@ -104,13 +104,13 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 	}
 	
 	SECTION("1D stride") {
-		ndarray_wraparound_view<1, int> row0_w2 = row0.wraparound_view(make_ndptrdiff(-2), make_ndptrdiff(11), make_ndptrdiff(3));
+		ndarray_wraparound_view<1, int> row0_w2 = wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(11), make_ndptrdiff(3));
 		REQUIRE(row0_w2.shape() == make_ndsize(5));
 		REQUIRE(compare_sequence_(row0_w2, {
 			0x02, 0x01, 0x00, 0x03, 0x02
 		}));
 		
-		ndarray_wraparound_view<1, int> col1_w2 = col1.wraparound_view(make_ndptrdiff(0), make_ndptrdiff(8), make_ndptrdiff(2));
+		ndarray_wraparound_view<1, int> col1_w2 = wraparound(col1, make_ndptrdiff(0), make_ndptrdiff(8), make_ndptrdiff(2));
 		REQUIRE(compare_sequence_(col1_w2, {
 			0x12, 0x1a, 0x12, 0x1a
 		}));
@@ -120,7 +120,7 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 	}
 	
 	SECTION("1D reverse") {
-		ndarray_wraparound_view<1, int> row0_w3 = row0.wraparound_view(make_ndptrdiff(-2), make_ndptrdiff(10), make_ndptrdiff(-1));
+		ndarray_wraparound_view<1, int> row0_w3 = wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(10), make_ndptrdiff(-1));
 		REQUIRE(row0_w3.shape() == make_ndsize(12));
 		REQUIRE(compare_sequence_(row0_w3, {
 			            0x01, 0x00,

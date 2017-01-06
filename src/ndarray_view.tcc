@@ -1,15 +1,11 @@
 #include <cstdlib>
 #include <algorithm>
 #include <type_traits>
-#include "ndarray_wraparound_view.h"
 #include "common.h"
 
 #include <stdexcept> // TODO remove
 
 namespace tff {
-
-template<std::size_t Dim, typename T>
-constexpr std::size_t ndarray_view<Dim, T>::dimension;
 
 
 template<std::size_t Dim, typename T>
@@ -65,15 +61,7 @@ ndarray_view<Dim, T>::ndarray_view(pointer start, const shape_type& shape) :
 
 template<std::size_t Dim, typename T>
 ndarray_view<Dim, T>::ndarray_view(pointer start, const shape_type& shape, const strides_type& strides) :
-	start_(start), shape_(shape), strides_(strides)
-{
-	std::ptrdiff_t i;
-	contiguous_length_ = shape_.back();	
-	for(i = Dim - 1; i > 0; i--) {
-		if(strides_[i - 1] == shape_[i] * strides_[i]) contiguous_length_ *= shape_[i - 1];
-		else break;
-	}
-}
+	start_(start), shape_(shape), strides_(strides) { }
 
 
 template<std::size_t Dim, typename T>
@@ -119,12 +107,11 @@ void ndarray_view<Dim, T>::reset(const ndarray_view& other) {
 	start_ = other.start_;
 	shape_ = other.shape_;
 	strides_ = other.strides_;
-	contiguous_length_ = other.contiguous_length_;
 }
 
 
 template<std::size_t Dim, typename T> template<typename Other_view>
-std::enable_if_t<is_ndarray_view<Other_view>> ndarray_view<Dim, T>::assign(const Other_view& other) const {
+auto ndarray_view<Dim, T>::assign(const Other_view& other) const -> enable_if_convertible_<Other_view> {
 	// converting assignment
 	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
 	if(shape().product() == 0) return;
@@ -151,7 +138,7 @@ void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, const T>& other) const
 
 
 template<std::size_t Dim, typename T> template<typename Other_view>
-std::enable_if_t<is_ndarray_view<Other_view>, bool> ndarray_view<Dim, T>::compare(const Other_view& other) const {
+auto ndarray_view<Dim, T>::compare(const Other_view& other) const -> enable_if_convertible_<Other_view, bool> {
 	if(shape() != other.shape()) return false;
 	else return std::equal(other.begin(), other.end(), begin());
 }
@@ -191,6 +178,18 @@ auto ndarray_view<Dim, T>::at(const coordinates_type& coord) const -> reference 
 
 
 template<std::size_t Dim, typename T>
+std::ptrdiff_t ndarray_view<Dim, T>::contiguous_length() const {
+	std::ptrdiff_t i;
+	std::ptrdiff_t contiguous_len = shape_.back();
+	for(i = Dim - 1; i > 0; i--) {
+		if(strides_[i - 1] == shape_[i] * strides_[i]) contiguous_len *= shape_[i - 1];
+		else break;
+	}
+	return contiguous_len;
+}
+
+
+template<std::size_t Dim, typename T>
 inline auto ndarray_view<Dim, T>::begin() const -> iterator {
 	return iterator(*this, 0, start_);
 }
@@ -205,7 +204,7 @@ auto ndarray_view<Dim, T>::end() const -> iterator {
 
 
 template<std::size_t Dim, typename T>
-auto ndarray_view<Dim, T>::section_(std::ptrdiff_t i, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const -> ndarray_view {
+auto ndarray_view<Dim, T>::axis_section(std::ptrdiff_t i, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const -> ndarray_view {
 	if(start < 0) start = shape_[i] + start;
 	if(end < 0) end = shape_[i] + end;
 	
@@ -240,7 +239,7 @@ template<std::size_t Dim, typename T>
 auto ndarray_view<Dim, T>::section(const coordinates_type& start, const coordinates_type& end, const strides_type& steps) const -> ndarray_view {
 	ndarray_view new_view = *this;
 	for(std::ptrdiff_t i = 0; i < Dim; ++i) {
-		auto sec = new_view.section_(i, start[i], end[i], steps[i]);
+		auto sec = new_view.axis_section(i, start[i], end[i], steps[i]);
 		new_view.reset(sec);
 	}
 	return new_view;
@@ -257,70 +256,31 @@ auto ndarray_view<Dim, T>::slice(std::ptrdiff_t c, std::ptrdiff_t dimension) con
 }
 
 
-
 template<std::size_t Dim, typename T>
-ndarray_wraparound_view<Dim, T> ndarray_view<Dim, T>::wraparound_view
-(const coordinates_type& start_pos, const coordinates_type& end_pos, const strides_type& steps) const {
-	pointer new_start = start_;
-	shape_type new_shape;
-	strides_type new_strides;
-	strides_type wrap_offsets;
-	strides_type wrap_circumferences;
-	
-	for(std::ptrdiff_t i = 0; i < Dim; ++i) {
-		std::ptrdiff_t start = start_pos[i];
-		std::ptrdiff_t end = end_pos[i];
-		std::ptrdiff_t step = steps[i];
-			
-		Assert_crit(start < end, "section start must be lower than end");
-		Assert_crit(step != 0, "section step must not be zero");
-
-		// start of wraparound section must be inside span of this view
-		std::ptrdiff_t n = end - start;
-		std::ptrdiff_t rel_start;
-		
-		wrap_circumferences[i] = shape_[i] * strides_[i];
-		new_strides[i] = strides_[i] * step;
-		
-		if(step > 0) {
-			new_shape[i] = 1 + ((n - 1) / step);
-			rel_start = positive_modulo(start, shape_[i]);
-		} else {
-			new_shape[i] = 1 + ((n - 1) / -step);
-			rel_start = positive_modulo(start - (step * (new_shape[i]-1)), shape_[i]);
-		}
-		
-		new_start = advance_raw_ptr(new_start, strides_[i] * rel_start);
-		wrap_offsets[i] = rel_start * strides_[i];
-	}
-
-	return ndarray_wraparound_view<Dim, T>(
-		new_start,
-		new_shape,
-		new_strides,
-		wrap_offsets,
-		wrap_circumferences
-	);
+ndarray_view<1 + Dim, T> add_front_axis(const ndarray_view<Dim, T>& vw) {
+	auto new_shape = ndcoord_cat(1, vw.shape());
+	auto new_strides = ndcoord_cat(0, vw.strides());
+	return ndarray_view<1 + Dim, T>(vw.start(), new_shape, new_strides);
 }
 
 
-
-
 template<std::size_t Dim, typename T>
-ndarray_view<1 + Dim, T> ndarray_view<Dim, T>::add_front_axis() const {
-	auto new_shape = ndcoord_cat(1, shape());
-	auto new_strides = ndcoord_cat(0, strides());
-	return ndarray_view<1 + Dim, T>(start(), new_shape, new_strides);
+ndarray_view<Dim + 1, T> add_front_axis(const ndarray_view<Dim, T>& vw) {
+	auto new_shape = ndcoord_cat(vw.shape(), 1);
+	auto new_strides = ndcoord_cat(vw.strides(), 0);
+	return ndarray_view<Dim + 1, T>(vw.start(), new_shape, new_strides);
 }
 
+
 template<std::size_t Dim, typename T>
-auto ndarray_view<Dim, T>::swapaxis(std::size_t axis1, std::size_t axis2) const -> ndarray_view {
-	if(axis1 >= Dim || axis2 >= Dim) throw std::invalid_argument("axis index out of range");
-	auto new_strides = strides_;
+ndarray_view<Dim, T> swapaxis(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis1, std::ptrdiff_t axis2) {
+	Assert_crit(axis1 >= 0 && axis1 < vw.dimension());
+	Assert_crit(axis2 >= 0 && axis2 < vw.dimension());
+	auto new_strides = vw.strides();
+	auto new_shape = vw.shape();
 	std::swap(new_strides[axis1], new_strides[axis2]);
-	auto new_shape = shape_;
 	std::swap(new_shape[axis1], new_shape[axis2]);
-	return ndarray_view(start_, new_shape, new_strides);
+	return ndarray_view<Dim, T>(vw.start(), new_shape, new_strides);
 }
 
 

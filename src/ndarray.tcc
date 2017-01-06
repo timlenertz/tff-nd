@@ -13,9 +13,9 @@ base(
 }
 	
 
-template<std::size_t Dim, typename Elem, typename Allocator> template<typename Other_elem>
+template<std::size_t Dim, typename Elem, typename Allocator> template<typename Other_view, typename>
 ndarray<Dim, Elem, Allocator>::ndarray
-(const ndarray_view<Dim, Other_elem>& vw, std::size_t elem_padding, const Allocator& allocator) :
+(const Other_view& vw, std::size_t elem_padding, const Allocator& allocator) :
 base(
 	vw.shape(),
 	view_type::default_strides(vw.shape(), elem_padding),
@@ -68,9 +68,9 @@ void ndarray<Dim, Elem, Allocator>::destruct_elems_() {
 }
 
 
-
-template<std::size_t Dim, typename Elem, typename Allocator> template<typename Other_elem>
-void ndarray<Dim, Elem, Allocator>::assign(const ndarray_view<Dim, Other_elem>& vw, std::size_t elem_padding) {
+template<std::size_t Dim, typename Elem, typename Allocator> template<typename Other_view>
+auto ndarray<Dim, Elem, Allocator>::assign(const Other_view& vw, std::size_t elem_padding)
+-> enable_if_convertible_<Other_view> {
 	Assert(! vw.is_null());
 	base::reset_(
 		vw.shape(),

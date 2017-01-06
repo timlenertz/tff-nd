@@ -36,8 +36,10 @@ public:
 
 private:
 	const view_type view_;
+	const std::ptrdiff_t contiguous_length_;
 	pointer pointer_ = nullptr;
 	index_type index_ = 0;
+	
 	
 	void forward_(std::ptrdiff_t);
 	void backward_(std::ptrdiff_t);

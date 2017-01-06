@@ -3,10 +3,10 @@
 namespace tff {
 
 template<std::size_t Dim, bool Mutable, typename Frame_format>
-auto ndarray_opaque_view<Dim, Mutable, Frame_format>::section_
+auto ndarray_opaque_view<Dim, Mutable, Frame_format>::axis_section
 (std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const -> ndarray_opaque_view {
 	Assert(dim < Dim);
-	return ndarray_opaque_view(base::section_(dim, start, end, step), frame_format_);
+	return ndarray_opaque_view(base::axis_section(dim, start, end, step), frame_format_);
 }
 
 

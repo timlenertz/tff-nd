@@ -59,7 +59,7 @@ public:
 		return components_[i];
 	}
 	
-	std::size_t dimension() const { return Dim; }
+	constexpr static std::size_t dimension() { return Dim; }
 	
 	iterator begin() { return components_.begin(); }
 	const_iterator begin() const { return components_.cbegin(); }
