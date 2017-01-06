@@ -25,7 +25,8 @@ public:
 		return base::section_(Target_dim, start, end, step);
 	}
 	fcall_type operator()(std::ptrdiff_t c) const {
-		return base::section_(Target_dim, c, c + 1, 1);
+		if(c != -1) return base::section_(Target_dim, c, c + 1, 1);
+		else return base::section_(Target_dim, base::shape()[Target_dim] - 1, base::shape()[Target_dim], 1);
 	}
 	fcall_type operator()() const {
 		return *this;

@@ -15,8 +15,8 @@ class ndarray_opaque_view;
 
 
 template<std::size_t Dim, bool Mutable, typename Frame_format>
-class ndarray_opaque_iterator : public ndarray_iterator<Dim + 1, std::conditional_t<Mutable, byte, const byte>> {
-	using base = ndarray_iterator<Dim + 1, std::conditional_t<Mutable, byte, const byte>>;
+class ndarray_opaque_iterator : public ndarray_iterator<ndarray_view<Dim + 1, std::conditional_t<Mutable, byte, const byte>>> {
+	using base = ndarray_iterator<ndarray_view<Dim + 1, std::conditional_t<Mutable, byte, const byte>>>;
 
 public:
 	using frame_format_type = Frame_format;

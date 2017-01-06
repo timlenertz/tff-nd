@@ -16,6 +16,16 @@ namespace tff {
 template<std::size_t Dim, typename T> class ndarray_view;
 template<std::size_t Dim, typename T> class ndarray_wraparound_view;
 
+template<typename T>
+constexpr bool is_ndarray_view = true;
+/*
+template<std::size_t Dim, typename T>
+constexpr bool is_ndarray_view<ndarray_view<Dim, T>> = true;
+
+template<std::size_t Dim, typename T>
+constexpr bool is_ndarray_view<ndarray_wraparound_view<Dim, T>> = true;
+*/
+
 namespace detail {
 	template<std::size_t Dim, typename T>
 	ndarray_view<Dim - 1, T> get_subscript(const ndarray_view<Dim, T>& array, std::ptrdiff_t c) {
@@ -74,7 +84,7 @@ public:
 	using strides_type = ndptrdiff<Dim>;
 	using span_type = ndspan<Dim>;
 	
-	using iterator = ndarray_iterator<Dim, T>;
+	using iterator = ndarray_iterator<ndarray_view<Dim, T>>;
 
 	constexpr static std::size_t dimension = Dim;
 
@@ -153,8 +163,9 @@ public:
 
 	/// \name Deep assignment
 	///@{
-	template<typename T2> void assign_static_cast(const ndarray_view<Dim, T2>&) const;
-	template<typename T2> void assign(const ndarray_view<Dim, T2>&) const;
+	template<typename Other_view>
+	std::enable_if_t<is_ndarray_view<Other_view>> assign(const Other_view&) const;
+	
 	void assign(const ndarray_view<Dim, const T>& other) const;
 
 	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const
@@ -167,7 +178,9 @@ public:
 
 	/// \name Deep comparison
 	///@{
-	template<typename T2> bool compare(const ndarray_view<Dim, T2>&) const;
+	template<typename Other_view>
+	std::enable_if_t<is_ndarray_view<Other_view>, bool> compare(const Other_view&) const;
+	
 	bool compare(const ndarray_view<Dim, const T>& other) const;
 		
 	template<typename Arg> bool operator==(Arg&& arg) const { return compare(std::forward<Arg>(arg)); }
@@ -222,7 +235,8 @@ public:
 		return section_(0, start, end, step);
 	}
 	fcall_type operator()(std::ptrdiff_t c) const {
-		return section_(0, c, c + 1, 1);
+		if(c != -1) return section_(0, c, c + 1, 1);
+		else return section_(0, shape_[0] - 1, shape_[0], 1);
 	}
 	fcall_type operator()() const {
 		return *this;
@@ -230,9 +244,10 @@ public:
 	///@}
 	
 	
-	ndarray_wraparound_view<Dim, T> wraparound_view();
-	ndarray_wraparound_view<Dim, T> wraparound_section(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1));
-
+	ndarray_wraparound_view<Dim, T> wraparound_view
+	(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1)) const;
+	
+	
 	ndarray_view<1 + Dim, T> add_front_axis() const;
 	
 	ndarray_view swapaxis(std::size_t axis1, std::size_t axis2) const;
@@ -293,6 +308,7 @@ template<std::size_t Dim, typename Elem>
 pod_array_format pod_format(const ndarray_view<Dim, Elem>& vw) {
 	return tail_pod_format<Dim>(vw);
 }
+
 
 }
 

@@ -568,7 +568,34 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 				arr3.section(make_ndptrdiff(0, 0, 1), make_ndptrdiff(3, 4, 3), make_ndptrdiff(1, 1, -1))
 			));
 
+			// single component in one dimension using operator(int)
+			REQUIRE(arr3()(1)().shape() == make_ndsize(3, 1, 4));
+			REQUIRE(arr3()(1)().strides() == arr3.strides());
+			REQUIRE(compare_sequence_(arr3()(1)(), {
+				0x04, 0x05, 0x06, 0x07,
+				0x14, 0x15, 0x16, 0x17,
+				0x24, 0x25, 0x26, 0x27
+			}));
+			
+			// (-1) is special case (-1 + 1 = 0 would be before last component -1)
+			REQUIRE(arr3()(-1)().shape() == make_ndsize(3, 1, 4));
+			REQUIRE(arr3()(-1)().strides() == arr3.strides());
+			REQUIRE(compare_sequence_(arr3()(-1)(), {
+				0x0c, 0x0d, 0x0e, 0x0f,
+				0x1c, 0x1d, 0x1e, 0x1f,
+				0x2c, 0x2d, 0x2e, 0x2f
+			}));
+			
+			// (-1) is special case (-1 + 1 = 0 would be before last component -1)
+			REQUIRE(arr3()(-2)().shape() == make_ndsize(3, 1, 4));
+			REQUIRE(arr3()(-2)().strides() == arr3.strides());
+			REQUIRE(compare_sequence_(arr3()(-2)(), {
+				0x08, 0x09, 0x0a, 0x0b,
+				0x18, 0x19, 0x1a, 0x1b,
+				0x28, 0x29, 0x2a, 0x2b
+			}));
 
+			
 			// multiple dimensions...
 			auto sec1 = arr3(1, 3, 1)()(2, 4, 1);
 			REQUIRE(sec1.shape() == make_ndsize(2, 4, 2));

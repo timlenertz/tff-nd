@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <type_traits>
+#include "ndarray_wraparound_view.h"
+#include "common.h"
 
 #include <stdexcept> // TODO remove
 
@@ -121,19 +123,8 @@ void ndarray_view<Dim, T>::reset(const ndarray_view& other) {
 }
 
 
-template<std::size_t Dim, typename T> template<typename T2>
-void ndarray_view<Dim, T>::assign_static_cast(const ndarray_view<Dim, T2>& other) const {
-	// converting assignment
-	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
-	if(shape().product() == 0) return;	
-	std::transform(other.begin(), other.end(), begin(), [](const T2& t) {
-		return static_cast<T>(t);
-	});
-}
-
-
-template<std::size_t Dim, typename T> template<typename T2>
-void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, T2>& other) const {
+template<std::size_t Dim, typename T> template<typename Other_view>
+std::enable_if_t<is_ndarray_view<Other_view>> ndarray_view<Dim, T>::assign(const Other_view& other) const {
 	// converting assignment
 	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
 	if(shape().product() == 0) return;
@@ -159,8 +150,8 @@ void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, const T>& other) const
 }
 
 
-template<std::size_t Dim, typename T> template<typename T2>
-bool ndarray_view<Dim, T>::compare(const ndarray_view<Dim, T2>& other) const {
+template<std::size_t Dim, typename T> template<typename Other_view>
+std::enable_if_t<is_ndarray_view<Other_view>, bool> ndarray_view<Dim, T>::compare(const Other_view& other) const {
 	if(shape() != other.shape()) return false;
 	else return std::equal(other.begin(), other.end(), begin());
 }
@@ -215,29 +206,31 @@ auto ndarray_view<Dim, T>::end() const -> iterator {
 
 template<std::size_t Dim, typename T>
 auto ndarray_view<Dim, T>::section_(std::ptrdiff_t i, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const -> ndarray_view {
-	using std::swap;
-
 	if(start < 0) start = shape_[i] + start;
 	if(end < 0) end = shape_[i] + end;
 	
 	Assert_crit(start >= 0 && start <= shape_[i], "section start range");
 	Assert_crit(end >= 0 && end <= shape_[i], "section end range");
-	Assert_crit(start < end, "section start must be lower than end"); // TODO instead swap + step=-step (so start=-x, end=-x + 1 works?)
+	Assert_crit(start < end, "section start must be lower than end");
 	Assert_crit(step != 0, "section step must not be zero");
 	
-	pointer new_start = advance_raw_ptr(start_, strides_[i] * start);
 	shape_type new_shape = shape_;
 	strides_type new_strides = strides_;
 	
 	std::ptrdiff_t n = end - start;
+	std::ptrdiff_t rel_start;
 	new_strides[i] = strides_[i] * step;
 	
 	if(step > 0) {
 		new_shape[i] = 1 + ((n - 1) / step);
+		rel_start = start;
+		
 	} else {
 		new_shape[i] = 1 + ((n - 1) / -step);
-		new_start = advance_raw_ptr(new_start, -new_strides[i] * (new_shape[i] - 1));
+		rel_start = start - (step * (new_shape[i]-1));
 	}
+	
+	pointer new_start = advance_raw_ptr(start_, strides_[i] * rel_start);
 
 	return ndarray_view(new_start, new_shape, new_strides);
 }
@@ -262,6 +255,55 @@ auto ndarray_view<Dim, T>::slice(std::ptrdiff_t c, std::ptrdiff_t dimension) con
 		strides_.erase(dimension)
 	);
 }
+
+
+
+template<std::size_t Dim, typename T>
+ndarray_wraparound_view<Dim, T> ndarray_view<Dim, T>::wraparound_view
+(const coordinates_type& start_pos, const coordinates_type& end_pos, const strides_type& steps) const {
+	pointer new_start = start_;
+	shape_type new_shape;
+	strides_type new_strides;
+	strides_type wrap_offsets;
+	strides_type wrap_circumferences;
+	
+	for(std::ptrdiff_t i = 0; i < Dim; ++i) {
+		std::ptrdiff_t start = start_pos[i];
+		std::ptrdiff_t end = end_pos[i];
+		std::ptrdiff_t step = steps[i];
+			
+		Assert_crit(start < end, "section start must be lower than end");
+		Assert_crit(step != 0, "section step must not be zero");
+
+		// start of wraparound section must be inside span of this view
+		std::ptrdiff_t n = end - start;
+		std::ptrdiff_t rel_start;
+		
+		wrap_circumferences[i] = shape_[i] * strides_[i];
+		new_strides[i] = strides_[i] * step;
+		
+		if(step > 0) {
+			new_shape[i] = 1 + ((n - 1) / step);
+			rel_start = positive_modulo(start, shape_[i]);
+		} else {
+			new_shape[i] = 1 + ((n - 1) / -step);
+			rel_start = positive_modulo(start - (step * (new_shape[i]-1)), shape_[i]);
+		}
+		
+		new_start = advance_raw_ptr(new_start, strides_[i] * rel_start);
+		wrap_offsets[i] = rel_start * strides_[i];
+	}
+
+	return ndarray_wraparound_view<Dim, T>(
+		new_start,
+		new_shape,
+		new_strides,
+		wrap_offsets,
+		wrap_circumferences
+	);
+}
+
+
 
 
 template<std::size_t Dim, typename T>

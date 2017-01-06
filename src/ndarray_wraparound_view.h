@@ -3,6 +3,7 @@
 
 #include "ndarray_view.h"
 #include "detail/ndarray_view_fcall.h"
+#include "ndarray_iterator.h"
 #include <utility>
 
 namespace tff {
@@ -37,19 +38,24 @@ public:
 	using typename base::strides_type;
 	using typename base::span_type;
 	
+	using iterator = ndarray_iterator<ndarray_wraparound_view<Dim, T>>;
+	
 	constexpr static std::size_t dimension = Dim;
 	
-private:
+protected:
 	strides_type wrap_offsets_;
 	strides_type wrap_circumferences_;
+	
+	ndarray_wraparound_view section_(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
+	using base::fix_coordinate_;
 
 private:
 	using fcall_type = detail::ndarray_view_fcall<ndarray_wraparound_view<Dim, T> ,1>;
-	
+
 public:
 	/// \name Construction
 	///@{
-	ndarray_wraparound_view();
+	ndarray_wraparound_view() { }
 	
 	ndarray_wraparound_view(
 		pointer start,
@@ -61,7 +67,7 @@ public:
 	
 	ndarray_wraparound_view(const ndarray_wraparound_view<Dim, std::remove_const_t<T>>& vw);
 	
-	static ndarray_wraparound_view null() const { return ndarray_wraparound_view(); }
+	static ndarray_wraparound_view null() { return ndarray_wraparound_view(); }
 	bool is_null() const { return (start() == nullptr); }
 	explicit operator bool () const { return ! is_null(); }
 	
@@ -86,22 +92,21 @@ public:
 	
 	/// \name Deep assignment
 	///@{
-	template<typename T2> void assign_static_cast(const ndarray_view<Dim, T2>&) const;
-	template<typename T2> void assign(const ndarray_view<Dim, T2>&) const;
-	void assign(const ndarray_view<Dim, const T>& other) const;
+	template<typename Other_view>
+	std::enable_if_t<is_ndarray_view<Other_view>> assign(const Other_view&) const;
 	
-	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const
-	{ assign(std::forward<Arg>(arg)); return *this; }
-	const ndarray_view& operator=(const ndarray_view& other) const
-	{ assign(other); return *this; }
+	template<typename Arg> const ndarray_wraparound_view& operator=(Arg&& arg) const
+		{ assign(std::forward<Arg>(arg)); return *this; }
+	const ndarray_wraparound_view& operator=(const ndarray_wraparound_view& other) const
+		{ assign(other); return *this; }
 	///@}
 	
 	
 	
 	/// \name Deep comparison
 	///@{
-	template<typename T2> bool compare(const ndarray_view<Dim, T2>&) const;
-	bool compare(const ndarray_view<Dim, const T>& other) const;
+	template<typename Other_view>
+	std::enable_if_t<is_ndarray_view<Other_view>, bool> compare(const Other_view&) const;
 	
 	template<typename Arg> bool operator==(Arg&& arg) const { return compare(std::forward<Arg>(arg)); }
 	template<typename Arg> bool operator!=(Arg&& arg) const { return ! compare(std::forward<Arg>(arg)); }
@@ -110,7 +115,7 @@ public:
 	
 	/// \name Iteration
 	///@{
-	std::ptrdiff_t contiguous_length() const { return 0; }
+	std::ptrdiff_t contiguous_length() const { return 1; }
 	
 	iterator begin() const;
 	iterator end() const;

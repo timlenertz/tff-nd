@@ -19,6 +19,13 @@ template<typename T> T* advance_raw_ptr(T* ptr, std::ptrdiff_t diff) {
 	return reinterpret_cast<T*>(raw_ptr);
 }
 
+template<typename T, typename T2>
+std::ptrdiff_t raw_ptr_difference(const T* a_ptr, const T2* b_ptr) {
+	std::intptr_t a = reinterpret_cast<std::intptr_t>(a_ptr);
+	std::intptr_t b = reinterpret_cast<std::intptr_t>(b_ptr);
+	return a - b;
+}
+
 template<typename T> bool is_aligned(T* ptr, std::size_t alignment_requirement) {
 	std::uintptr_t raw_ptr = reinterpret_cast<std::uintptr_t>(ptr);
 	return (raw_ptr % alignment_requirement == 0);
@@ -51,6 +58,12 @@ bool is_odd(T x) { return (x % 2) != 0; }
 
 template<typename T>
 bool is_even(T x) { return (x % 2) == 0; }
+
+
+template<typename T, typename T2>
+inline auto positive_modulo(T i, T2 d) {
+	return (i % d + d) % d;
+}
 
 }
 

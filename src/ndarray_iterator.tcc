@@ -1,15 +1,16 @@
 #include "common.h"
+#include "ndarray_view.h"
 
 namespace tff {
 
 
-template<std::size_t Dim, typename Elem>
-inline void ndarray_iterator<Dim, Elem>::forward_(std::ptrdiff_t d) {
+template<typename View>
+inline void ndarray_iterator<View>::forward_(std::ptrdiff_t d) {
 	Assert_crit(d >= 0);
-	std::ptrdiff_t contiguous_limit = contiguous_length_ - (index_ % contiguous_length_);
+	std::ptrdiff_t contiguous_limit = view_.contiguous_length() - (index_ % view_.contiguous_length());
 	index_ += d;
 	if(d < contiguous_limit) {
-		pointer_ = advance_raw_ptr(pointer_, d * pointer_step_);
+		pointer_ = advance_raw_ptr(pointer_, d * view_.strides().back());
 	} else {
 		auto new_coord = view_.index_to_coordinates(index_);
 		pointer_ = view_.coordinates_to_pointer(new_coord);
@@ -17,13 +18,13 @@ inline void ndarray_iterator<Dim, Elem>::forward_(std::ptrdiff_t d) {
 }
 
 
-template<std::size_t Dim, typename Elem>
-inline void ndarray_iterator<Dim, Elem>::backward_(std::ptrdiff_t d) {
+template<typename View>
+inline void ndarray_iterator<View>::backward_(std::ptrdiff_t d) {
 	Assert_crit(d >= 0);
-	std::ptrdiff_t contiguous_limit = index_ % contiguous_length_;
+	std::ptrdiff_t contiguous_limit = index_ % view_.contiguous_length();
 	index_ -= d;
 	if(d <= contiguous_limit) {
-		pointer_ = advance_raw_ptr(pointer_, -d * pointer_step_);
+		pointer_ = advance_raw_ptr(pointer_, -d * view_.strides().back());
 	} else {
 		auto new_coord = view_.index_to_coordinates(index_);
 		pointer_ = view_.coordinates_to_pointer(new_coord);
@@ -31,65 +32,61 @@ inline void ndarray_iterator<Dim, Elem>::backward_(std::ptrdiff_t d) {
 }
 
 
-template<std::size_t Dim, typename Elem>
-ndarray_iterator<Dim, Elem>::ndarray_iterator(const view_type& vw, index_type index, pointer ptr) :
+template<typename View>
+ndarray_iterator<View>::ndarray_iterator(const view_type& vw, index_type index, pointer ptr) :
 	view_(vw),
 	pointer_(ptr),
-	index_(index),
-	pointer_step_(vw.strides().back()),
-	contiguous_length_(vw.contiguous_length()) { }
+	index_(index) { }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator=(const ndarray_iterator& it) -> ndarray_iterator& {
+template<typename View>
+auto ndarray_iterator<View>::operator=(const ndarray_iterator& it) -> ndarray_iterator& {
 	pointer_ = it.pointer_;
 	index_ = it.index_;
-	pointer_step_ = it.pointer_step_;
-	contiguous_length_ = it.contiguous_length_;
 	return *this;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator++() -> ndarray_iterator& {
+template<typename View>
+auto ndarray_iterator<View>::operator++() -> ndarray_iterator& {
 	forward_(1);
 	return *this;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator++(int) -> ndarray_iterator {
+template<typename View>
+auto ndarray_iterator<View>::operator++(int) -> ndarray_iterator {
 	auto copy = *this;
 	forward_(1);
 	return copy;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator--() -> ndarray_iterator& {
+template<typename View>
+auto ndarray_iterator<View>::operator--() -> ndarray_iterator& {
 	backward_(1);
 	return *this;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator--(int) -> ndarray_iterator {
+template<typename View>
+auto ndarray_iterator<View>::operator--(int) -> ndarray_iterator {
 	auto copy = *this;
 	backward_(1);
 	return copy;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator+=(std::ptrdiff_t n) -> ndarray_iterator& {
+template<typename View>
+auto ndarray_iterator<View>::operator+=(std::ptrdiff_t n) -> ndarray_iterator& {
 	if(n > 0) forward_(n);
 	else backward_(-n);
 	return *this;
 }
 
 
-template<std::size_t Dim, typename Elem>
-auto ndarray_iterator<Dim, Elem>::operator-=(std::ptrdiff_t n) -> ndarray_iterator& {
+template<typename View>
+auto ndarray_iterator<View>::operator-=(std::ptrdiff_t n) -> ndarray_iterator& {
 	if(n > 0) backward_(n);
 	else forward_(-n);
 	return *this;

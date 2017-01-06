@@ -17,26 +17,27 @@ class ndarray_view;
  ** entire `ndarray_view`, or just for smaller segments at a time.
  ** If `coordinates()` is called at each iteration, using `ndspan_iterator` may be more efficient because it does not
  ** recompute the coordinates from an index each time. */
-template<std::size_t Dim, typename Elem>
+template<typename View>
 class ndarray_iterator {
-public:
-	using iterator_category = std::random_access_iterator_tag;
-	using value_type = Elem;
-	using difference_type = std::ptrdiff_t;
-	using pointer = Elem*;
-	using reference = Elem&;
+	//static_assert(is_ndarray_view<View>, "ndarray_iterator template argument must be ndarray view type");
 	
-	using view_type = ndarray_view<Dim, Elem>;
+public:
+	using view_type = View;
+	using value_type = typename view_type::value_type;
+	constexpr static std::size_t dimension = view_type::dimension;
+	
+	using iterator_category = std::random_access_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using pointer = value_type*;
+	using reference = value_type&;
+	
 	using index_type = typename view_type::index_type;
 	using coordinates_type = typename view_type::coordinates_type;
-	constexpr static std::size_t dimension = view_type::dimension;
 
 private:
 	const view_type view_;
 	pointer pointer_ = nullptr;
 	index_type index_ = 0;
-	std::ptrdiff_t pointer_step_;
-	std::ptrdiff_t contiguous_length_;
 	
 	void forward_(std::ptrdiff_t);
 	void backward_(std::ptrdiff_t);
@@ -90,8 +91,8 @@ public:
 };
 
 
-template<std::size_t Dim, typename Elem>
-constexpr std::size_t ndarray_iterator<Dim, Elem>::dimension;
+template<typename View>
+constexpr std::size_t ndarray_iterator<View>::dimension;
 
 
 }
