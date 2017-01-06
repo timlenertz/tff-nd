@@ -6,7 +6,7 @@ efficient application code. Extensively tested.
 
 Some features:
 
-* `ndarray<Dim, T>` type inspired by _numpy_'s ndarray. C++ `Container` with random-access iterators. Sectioning
+* `ndarray<Dim, T>` type inspired by _Numpy_'s ndarray. C++ `Container` with random-access iterators. Sectioning
   and slicing giving non-owning read-only or read-write `ndarray_view<Dim, T>` with same interface. Byte-level strided
   data. Axis can be reversed. Convenient slicing syntaxes. Optimized copying and comparing for POD element types `T`.
   Row-major, column-major, or any other data ordering. *Timed* variant for each view, where absolute time index is
@@ -21,10 +21,21 @@ Some features:
 
 * **Opaque view** where elements are replaced by frames or runtime-determined size and structure. Casting from and back
   to concrete `ndarray_view`, rendering given number of inner dimensions opaque. Provides type erasure and removes
-  unnecessary templatization in application code operating on arbitrary data. For example `ndarray<3, int>` may be
-  casted to `ndarray_opaque_view<1, ndarray_frame>`, and then back to `ndarray<3, int>`. Runtime verification of type.
-  For POD-data (even strided), assignment and comparison possible in opaque state.
+  unnecessary templatization in application code operating on arbitrary data. For example `ndarray_view<3, int>` may be
+  casted to `ndarray_opaque_view<1, ndarray_frame>`, and then back to `ndarray_view<3, int>`. Runtime verification of
+  type. For POD-data (even strided), assignment and comparison possible in opaque state.
 
 * **Opaque array** which is created and allocated in opaque state. Frames of may be of application-defined structure,
   instead of being casted `ndarray`s. Runtime-determined alignment requirement of frames is respected. Integrates
   application-defined *frame handle* class for convenient access to frame content.
+
+Possible future features:
+
+* Element-wise arithmetic or other operations on `ndarray_view`, possibly parallelized execution.
+* More features from _Numpy_ ndarray.
+* Convolution operations with _n_-dimensional kernel.
+* Arrays with non-contiguous memory, possibly partially offloaded to secondary storage.
+* Oblique slices, for example sloped line in 2D image. Iteration using Bresenham's line algorithm or similar.
+* Virtual memory mapping optimization for wrap-around, allowing contiguous memory access across border.
+* Helper functions for passing data to and from OpenCL or other accelerator API.
+* Subset of library useable from inside C++ OpenCL kernel code.
