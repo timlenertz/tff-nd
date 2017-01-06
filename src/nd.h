@@ -17,12 +17,18 @@
 #include "pod_array_format.h"
 
 #include "ndarray_view.h"
-#include "ndarray_wraparound_view.h"
 #include "ndarray_iterator.h"
 #include "ndarray_view_cast.h"
 
+#if TFF_ND_WITH_WRAPAROUND
+	#include "ndarray_wraparound_view.h"
+#endif
+
 #if TFF_ND_WITH_TIMED
 	#include "ndarray_timed_view.h"
+	#if TFF_ND_WITH_WRAPAROUND
+		#include "ndarray_timed_wraparound_view.h"
+	#endif
 #endif
 
 #if TFF_ND_WITH_ALLOCATION

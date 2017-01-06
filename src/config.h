@@ -19,6 +19,10 @@
 #define TFF_ND_WITH_TIMED 1
 #endif
 
+#ifndef TFF_ND_WITH_WRAPAROUND
+#define TFF_ND_WITH_WRAPAROUND 1
+#endif
+
 #ifndef TFF_ND_WITH_ALLOCATION
 #define TFF_ND_WITH_ALLOCATION 1
 #endif

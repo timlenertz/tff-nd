@@ -45,6 +45,10 @@ ndarray_wraparound_view<Dim, T> wraparound(
 		
 		new_start = advance_raw_ptr(new_start, vw.strides()[i] * rel_start);
 		wrap_offsets[i] = rel_start * vw.strides()[i];
+		
+		// TODO negative wrap_circumferences (if this->strides < 0)
+		// seems to work (-> tests)
+		// but same() no longer correct
 	}
 	
 	return view_type(

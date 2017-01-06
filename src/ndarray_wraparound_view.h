@@ -1,6 +1,9 @@
 #ifndef TFF_NDARRAY_WRAPAROUND_VIEW_H_
 #define TFF_NDARRAY_WRAPAROUND_VIEW_H_
 
+#include "config.h"
+#if TFF_ND_WITH_WRAPAROUND
+
 #include "ndarray_view.h"
 #include "detail/ndarray_view_fcall.h"
 #include "ndarray_iterator.h"
@@ -16,16 +19,16 @@ struct is_ndarray_view<ndarray_wraparound_view<Dim, T>> : std::true_type {};
 
 
 namespace detail {
-template<std::size_t Dim, typename T>
-ndarray_wraparound_view<Dim - 1, T> get_subscript(const ndarray_wraparound_view<Dim, T> &array, std::ptrdiff_t c) {
-	return array.slice(c, 0);
-}
+	template<std::size_t Dim, typename T>
+	ndarray_wraparound_view<Dim - 1, T> get_subscript(const ndarray_wraparound_view<Dim, T> &array, std::ptrdiff_t c) {
+		return array.slice(c, 0);
+	}
 
-template<typename T>
-T &get_subscript(const ndarray_wraparound_view<1, T> &array, std::ptrdiff_t c) {
-	return array.at({c});
+	template<typename T>
+	T &get_subscript(const ndarray_wraparound_view<1, T> &array, std::ptrdiff_t c) {
+		return array.at({c});
+	}
 }
-};
 
 
 template<std::size_t Dim, typename T>
@@ -61,7 +64,6 @@ public:
 	///@{
 	ndarray_wraparound_view() { }
 	
-	
 	ndarray_wraparound_view(
 		pointer start,
 		const shape_type& shape,
@@ -94,9 +96,8 @@ public:
 	using base::size;
 	using base::full_span;
 	
-	const strides_type &wrap_offsets() const { return wrap_offsets_; }
-	
-	const strides_type &wrap_circumferences() const { return wrap_circumferences_; }
+	const strides_type& wrap_offsets() const { return wrap_offsets_; }
+	const strides_type& wrap_circumferences() const { return wrap_circumferences_; }
 	///@}
 	
 	
@@ -137,7 +138,6 @@ public:
 	std::ptrdiff_t contiguous_length() const { return 1; }
 	
 	iterator begin() const;
-	
 	iterator end() const;
 	///@}
 	
@@ -221,5 +221,7 @@ ndarray_wraparound_view<Dim, T> reverse(const ndarray_wraparound_view<Dim, T>& v
 }
 
 #include "ndarray_wraparound_view.tcc"
+
+#endif
 
 #endif
