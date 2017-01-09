@@ -24,7 +24,6 @@ class ndarray_iterator {
 public:
 	using view_type = View;
 	using value_type = typename view_type::value_type;
-	constexpr static std::size_t dimension = view_type::dimension;
 	
 	using iterator_category = std::random_access_iterator_tag;
 	using difference_type = std::ptrdiff_t;
@@ -91,10 +90,6 @@ public:
 	friend std::ptrdiff_t operator-(const ndarray_iterator& a, const ndarray_iterator& b)
 		{ return a.index() - b.index(); }
 };
-
-
-template<typename View>
-constexpr std::size_t ndarray_iterator<View>::dimension;
 
 
 }

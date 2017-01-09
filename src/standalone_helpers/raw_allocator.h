@@ -2,6 +2,7 @@
 #define TFF_ND_RAW_ALLOCATOR_H_
 
 #include "../config.h"
+#include <cstdlib>
 
 namespace tff {
 	

@@ -42,7 +42,6 @@ public:
 
 	using view_type = ndarray_opaque_view<Dim, Mutable, Frame_format>;
 	using coordinates_type = typename view_type::coordinates_type;
-	constexpr static std::size_t dimension = view_type::dimension;
 
 
 public:

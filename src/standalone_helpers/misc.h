@@ -1,19 +1,20 @@
 #ifndef TFF_ND_MISC_H_
 #define TFF_ND_MISC_H_
 
+#include <cstddef>
+#include <cstdint>
+#include <type_traits>
+
 namespace tff {
 
 using time_unit = std::ptrdiff_t;
 constexpr static time_unit undefined_time = -1;
 
 using byte = std::uint8_t;
-
 	
 template<typename...> using void_t = void;
 
 template<bool Const, typename T> using const_if = std::conditional_t<Const, const T, T>;
-
-
 
 template<typename...> struct conjunction : std::true_type { };
 template<typename B1> struct conjunction<B1> : B1 { };

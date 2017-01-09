@@ -61,10 +61,10 @@ namespace detail {
 	// scalars from elem
 	template<std::size_t Dim, typename Input_elem>
 	struct ndarray_view_caster<
-		ndarray_view<Dim + 1, typename elem_traits<Input_elem>::scalar_type>, // out
+		ndarray_view<Dim + 1, typename elem_traits<std::remove_cv_t<Input_elem>>::scalar_type>, // out
 		ndarray_view<Dim, Input_elem> // in
 	>{
-		using elem_traits_type = elem_traits<Input_elem>;
+		using elem_traits_type = elem_traits<std::remove_cv_t<Input_elem>>;
 		using elem_scalar_type = typename elem_traits_type::scalar_type;
 		
 		using output_view_type = ndarray_view<Dim + 1, elem_scalar_type>;
@@ -83,14 +83,14 @@ namespace detail {
 	// scalars from elem, const
 	template<std::size_t Dim, typename Input_elem>
 	struct ndarray_view_caster<
-		ndarray_view<Dim + 1, const typename elem_traits<Input_elem>::scalar_type>, // out
-		ndarray_view<Dim, const Input_elem> // in
+		ndarray_view<Dim + 1, const typename elem_traits<std::remove_cv_t<Input_elem>>::scalar_type>, // out
+		ndarray_view<Dim, Input_elem> // in
 	>{
-		using elem_traits_type = elem_traits<Input_elem>;
+		using elem_traits_type = elem_traits<std::remove_cv_t<Input_elem>>;
 		using elem_scalar_type = const typename elem_traits_type::scalar_type;
 		
 		using output_view_type = ndarray_view<Dim + 1, const elem_scalar_type>;
-		using input_view_type = ndarray_view<Dim, const Input_elem>;
+		using input_view_type = ndarray_view<Dim, Input_elem>;
 		
 		output_view_type operator()(const input_view_type& arr) const {
 			auto* start = reinterpret_cast<const elem_scalar_type*>(arr.start());
