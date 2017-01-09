@@ -9,27 +9,10 @@
 #include "detail/ndarray_view_fcall.h"
 #include "pod_array_format.h"
 #include "ndarray_iterator.h"
+#include "ndarray_traits.h"
 
 
 namespace tff {
-
-template<std::size_t Dim, typename T> class ndarray_view;
-
-template<typename T>
-struct is_ndarray_view : std::false_type {};
-
-template<std::size_t Dim, typename T>
-struct is_ndarray_view<ndarray_view<Dim, T>> : std::true_type {};
-
-
-template<typename From_view, typename To_view>
-struct is_convertible_ndarray_view : conjunction<
-    is_ndarray_view<From_view>,
-	is_ndarray_view<To_view>
-	//std::is_convertible<typename From_view::value_type, typename To_view::value_type>,
-	//std::integral_constant<bool, From_view::dimension() == To_view::dimension()>
-> { };
-
 
 namespace detail {
 	template<std::size_t Dim, typename T>
@@ -195,6 +178,8 @@ public:
 	
 	/// \name Iteration
 	///@{
+	static reference dereference(pointer ptr) { return *ptr; }
+	
 	std::ptrdiff_t contiguous_length() const;
 		
 	iterator begin() const;
@@ -250,6 +235,11 @@ public:
 	}
 	///@}
 };
+
+
+template<std::size_t Dim, typename T>
+struct is_ndarray_view<ndarray_view<Dim, T>> : std::true_type {};
+
 
 
 template<std::size_t Dim, typename T1, typename T2>

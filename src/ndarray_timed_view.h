@@ -7,6 +7,7 @@
 #include "common.h"
 #include "ndarray_view.h"
 #include "detail/ndarray_timed_view_derived.h"
+#include "ndarray_traits.h"
 
 namespace tff {
 
@@ -14,6 +15,10 @@ namespace tff {
 /** Each frame `vw[i]` is associated with time index `t = start_time + i`. */
 template<std::size_t Dim, typename T>
 using ndarray_timed_view = detail::ndarray_timed_view_derived<ndarray_view<Dim, T>>;
+
+template<std::size_t Dim, typename T>
+struct is_ndarray_view<detail::ndarray_timed_view_derived<ndarray_view<Dim, T>>> : std::true_type {};
+
 
 }
 

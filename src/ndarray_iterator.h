@@ -27,18 +27,23 @@ public:
 	
 	using iterator_category = std::random_access_iterator_tag;
 	using difference_type = std::ptrdiff_t;
-	using pointer = value_type*;
-	using reference = value_type&;
+	using pointer = typename view_type::pointer;
+	using reference = typename view_type::reference;
 	
 	using index_type = typename view_type::index_type;
 	using coordinates_type = typename view_type::coordinates_type;
 
 private:
+	struct member_to_pointer_wrapper_ {
+		reference ref_;
+		member_to_pointer_wrapper_(const reference& ref) : ref_(ref) { }
+		const reference* operator->() const { return &ref_; }
+	};
+	
 	const view_type view_;
 	const std::ptrdiff_t contiguous_length_;
 	pointer pointer_ = nullptr;
 	index_type index_ = 0;
-	
 	
 	void forward_(std::ptrdiff_t);
 	void backward_(std::ptrdiff_t);
@@ -56,9 +61,9 @@ public:
 	coordinates_type coordinates() const { return view_.index_to_coordinates(index_); }
 
 	pointer ptr() const { return pointer_; }
-	reference operator*() const { return *pointer_; }
-	pointer operator->() const { return pointer_; }
+	reference operator*() const { return view_.dereference(ptr()); }
 	reference operator[](std::ptrdiff_t n) const { return *(*this + n); }
+	member_to_pointer_wrapper_ operator->() const { return operator*(); }
 
 	ndarray_iterator& operator++();
 	ndarray_iterator operator++(int);

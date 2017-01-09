@@ -1,28 +1,40 @@
-#ifndef TFF_NDARRAY_OPAQUE_VIEW_DERIVED_H_
-#define TFF_NDARRAY_OPAQUE_VIEW_DERIVED_H_
+/*
+#ifndef TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
+#define TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
 
+#include "../config.h"
+#if TFF_ND_WITH_OPAQUE && TFF_ND_WITH_WRAPAROUND
+
+#include <utility>
+#include <type_traits>
 #include "../common.h"
+#include "ndarray_opaque_iterator.h"
+#include "../ndarray_wraparound_view.h"
+#include "../detail/ndarray_view_fcall.h"
 
-namespace tff { namespace detail {
 
-template<
-	std::size_t Dim,
-	bool Mutable,
-	typename Frame_format,
-	template<std::size_t,typename> class Base_view
->
-class ndarray_opaque_view : private Base_view<Dim + 1, const_if<!Mutable, byte>> {
-	using base = Base_view<Dim + 1, const_if<!Mutable, byte>>;
-	
+namespace tff {
+
+template<std::size_t Dim, bool Mutable, typename Frame_format> class ndarray_wraparound_opaque_view;
+
+namespace detail {
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+using ndarray_opaque_view_base_ = ndarray_wraparound_view<Dim + 1, std::conditional_t<Mutable, byte, const byte>>;
+}
+
+
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+class ndarray_opaque_view : private detail::ndarray_opaque_view_base_<Dim, Mutable, Frame_format> {
+	using base = detail::ndarray_opaque_view_base_<Dim, Mutable, Frame_format>;
+
 public:
 	using frame_format_type = Frame_format;
-	using frame_view_type = ndarray_opaque_view<0, Mutable, Frame_format, Base_view>;
+	using frame_view_type = ndarray_opaque_view<0, Mutable, Frame_format>;
 	using frame_handle_type = std::conditional_t
 		<Mutable, typename frame_format_type::frame_handle_type, typename frame_format_type::const_frame_handle_type>;
 	using frame_pointer_type = std::conditional_t
 		<Mutable, typename frame_format_type::frame_pointer_type, typename frame_format_type::const_frame_pointer_type>;
 	
-	using reference = void;
 	using pointer = frame_pointer_type;
 	using index_type = std::ptrdiff_t;
 	using coordinates_type = ndptrdiff<Dim>;
@@ -30,7 +42,7 @@ public:
 	using strides_type = ndptrdiff<Dim>;
 	using span_type = ndspan<Dim>;
 	
-	//using iterator = ndarray_opaque_iterator<Dim, Mutable, Frame_format>;
+	using iterator = ndarray_opaque_iterator<Dim, Mutable, Frame_format>;
 	
 	static constexpr std::size_t dimension() { return Dim; }
 	static constexpr bool is_mutable() { return Mutable; }
@@ -52,7 +64,7 @@ public:
 	ndarray_opaque_view(const base& base_vw, const frame_format_type& frm) :
 		base(base_vw), frame_format_(frm) { }
 	
-	ndarray_opaque_view(const ndarray_opaque_view<Dim, true, Frame_format, Base_view>& vw) :
+	ndarray_opaque_view(const ndarray_opaque_view<Dim, true, Frame_format>& vw) :
 		base(vw.base_view()), frame_format_(vw.frame_format()) { }
 	
 	ndarray_opaque_view(pointer start, const shape_type&, const strides_type&, const frame_format_type&);
@@ -67,8 +79,8 @@ public:
 	
 	const base& base_view() const { return *this; }
 	///@}
-
-
+	
+	
 	/// \name Attributes
 	///@{
 	frame_pointer_type start() const { return static_cast<pointer>(base::start()); }
@@ -85,8 +97,8 @@ public:
 	
 	const frame_format_type& frame_format() const { return frame_format_; }
 	///@}
-
-
+	
+	
 	/// \name Frame handle
 	///@{
 	frame_handle_type frame_handle() const
@@ -94,35 +106,35 @@ public:
 	
 	operator frame_handle_type () const { return frame_handle(); }
 	///@}
-
-
+	
+	
 	/// \name Deep assignment
 	///@{
-	void assign(const ndarray_opaque_view<Dim, false, Frame_format, Base_view>&) const;
+	void assign(const ndarray_opaque_view<Dim, false, Frame_format>&) const;
 	
-	const ndarray_opaque_view& operator=(const ndarray_opaque_view<Dim, false, Frame_format, Base_view>& vw) const
-		{ assign(vw); return *this; }
-	const ndarray_opaque_view& operator=(const ndarray_opaque_view<Dim, true, Frame_format, Base_view>& vw) const
-		{ assign(vw); return *this; }
+	const ndarray_opaque_view& operator=(const ndarray_opaque_view<Dim, false, Frame_format>& vw) const
+	{ assign(vw); return *this; }
+	const ndarray_opaque_view& operator=(const ndarray_opaque_view<Dim, true, Frame_format>& vw) const
+	{ assign(vw); return *this; }
 	///@}
-
-
+	
+	
 	/// \name Deep comparison
 	///@{
-	bool compare(const ndarray_opaque_view<Dim, false, Frame_format, Base_view>&) const;
+	bool compare(const ndarray_opaque_view<Dim, false, Frame_format>&) const;
 	
-	bool operator==(const ndarray_opaque_view<Dim, false, Frame_format, Base_view>& vw) const { return compare(vw); }
-	bool operator!=(const ndarray_opaque_view<Dim, false, Frame_format, Base_view>& vw) const { return ! compare(vw); }
+	bool operator==(const ndarray_opaque_view<Dim, false, Frame_format>& vw) const { return compare(vw); }
+	bool operator!=(const ndarray_opaque_view<Dim, false, Frame_format>& vw) const { return ! compare(vw); }
 	///@}
-
-
+	
+	
 	/// \name Iteration
 	///@{
 	iterator begin() const { return iterator(base::begin(), frame_format_); }
 	iterator end() const { return iterator(base::end(), frame_format_); }
 	///@}
-
-
+	
+	
 	/// \name Indexing
 	///@{
 	frame_view_type at(const coordinates_type&) const;
@@ -139,8 +151,7 @@ public:
 	}
 	
 	auto slice(std::ptrdiff_t c, std::ptrdiff_t dimension) const {
-		return ndarray_opaque_view<Dim - 1, Mutable, Frame_format, Base_view>
-			(base::slice(c, dimension), frame_format_);
+		return ndarray_opaque_view<Dim - 1, Mutable, Frame_format>(base::slice(c, dimension), frame_format_);
 	}
 	auto operator[](std::ptrdiff_t c) const {
 		return slice(c, 0);
@@ -158,6 +169,51 @@ public:
 	///@}
 };
 
-}}
+
+template<bool Mutable, typename Frame_format>
+using ndarray_opaque_frame_view = ndarray_opaque_view<0, Mutable, Frame_format>;
+
+
+
+
+
+template<std::size_t Dim, bool Mutable1, bool Mutable2, typename Frame_format>
+bool same(const ndarray_opaque_view<Dim, Mutable1, Frame_format>&, const ndarray_opaque_view<Dim, Mutable2, Frame_format>&);
+
+
+template<std::size_t Opaque_dim, typename Opaque_frame_format, std::size_t Concrete_dim, typename Concrete_elem>
+auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view, const Opaque_frame_format&);
+
+
+template<std::size_t Opaque_dim, std::size_t Concrete_dim, typename Concrete_elem>
+auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view);
+
+
+template<std::size_t Concrete_dim, typename Concrete_elem, std::size_t Opaque_dim, bool Opaque_mutable, typename Opaque_frame_format>
+auto from_opaque(const ndarray_opaque_view<Opaque_dim, Opaque_mutable, Opaque_frame_format>& opaque_view);
+
+
+///////////////
+
+
+template<std::size_t Tail_dim, std::size_t Dim, bool Mutable, typename Frame_format>
+bool tail_has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+bool has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+
+template<std::size_t Tail_dim, std::size_t Dim, bool Mutable, typename Frame_format>
+pod_array_format tail_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+pod_array_format pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+	
+	
+	
+}
+
+#include "ndarray_opaque_view.tcc"
 
 #endif
+#endif
+*/

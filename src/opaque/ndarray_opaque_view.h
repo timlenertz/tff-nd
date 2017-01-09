@@ -7,7 +7,7 @@
 #include <utility>
 #include <type_traits>
 #include "../common.h"
-#include "ndarray_opaque_iterator.h"
+#include "../ndarray_iterator.h"
 #include "../ndarray_view.h"
 #include "../detail/ndarray_view_fcall.h"
 
@@ -34,14 +34,17 @@ public:
 	using frame_pointer_type = std::conditional_t
 		<Mutable, typename frame_format_type::frame_pointer_type, typename frame_format_type::const_frame_pointer_type>;
 
+	using value_type = frame_view_type;
+	using reference = frame_view_type;
 	using pointer = frame_pointer_type;
+	
 	using index_type = std::ptrdiff_t;
 	using coordinates_type = ndptrdiff<Dim>;
 	using shape_type = ndsize<Dim>;
 	using strides_type = ndptrdiff<Dim>;
 	using span_type = ndspan<Dim>;
 
-	using iterator = ndarray_opaque_iterator<Dim, Mutable, Frame_format>;
+	using iterator = ndarray_iterator<ndarray_opaque_view>;
 	
 	static constexpr std::size_t dimension() { return Dim; }
 	static constexpr bool is_mutable() { return Mutable; }
@@ -66,15 +69,26 @@ public:
 	ndarray_opaque_view(const ndarray_opaque_view<Dim, true, Frame_format>& vw) :
 		base(vw.base_view()), frame_format_(vw.frame_format()) { }
 	
-	ndarray_opaque_view(pointer start, const shape_type&, const strides_type&, const frame_format_type&);
-	ndarray_opaque_view(pointer start, const shape_type&, const frame_format_type&);
+	ndarray_opaque_view(pointer start, const shape_type& shp, const strides_type& str, const frame_format_type& frm) :
+		base(
+			static_cast<typename base::pointer>(start),
+			ndcoord_cat(shp, 1),
+			ndcoord_cat(str, frm.size())
+		),
+		frame_format_(frm) { }
+	
+	ndarray_opaque_view(pointer start, const shape_type& shp, const frame_format_type& frm) :
+		ndarray_opaque_view(start, shp, default_strides(shp, frm), frm) { }
 	
 	static ndarray_opaque_view null() { return ndarray_opaque_view(); }
 	bool is_null() const { return base::is_null(); }
 	explicit operator bool () const { return ! is_null(); }
 	
 	template<typename... Args> void reset(const Args&... args) { reset(ndarray_opaque_view(args...)); }
-	void reset(const ndarray_opaque_view& other);
+	void reset(const ndarray_opaque_view& other) {
+		base::reset(other.base_view());
+		frame_format_ = other.frame_format_;
+	}
 	
 	const base& base_view() const { return *this; }
 	///@}
@@ -89,10 +103,37 @@ public:
 	std::size_t size() const { return shape().product(); }
 	span_type full_span() const { return span_type(0, shape()); }
 	
-	static strides_type default_strides(const shape_type&, const frame_format_type&, std::size_t frame_padding = 0);
-	bool has_default_strides(std::ptrdiff_t minimal_dimension = 0) const;
-	std::size_t default_strides_padding(std::ptrdiff_t minimal_dimension = 0) const;
-	bool has_default_strides_without_padding(std::ptrdiff_t minimal_dimension = 0) const;
+	static strides_type default_strides(const shape_type& shp, const frame_format_type& frm, std::size_t frame_padding = 0) {
+		if(Dim == 0) return ndptrdiff<Dim>();
+		Assert(is_multiple_of(frame_padding, frm.alignment_requirement()));
+		strides_type strides;
+		strides[Dim - 1] = frm.size() + frame_padding;
+		for(std::ptrdiff_t i = Dim - 1; i > 0; --i)
+			strides[i - 1] = strides[i] * shp[i];
+		return strides;
+	}
+	
+	bool has_default_strides(std::ptrdiff_t minimal_dimension = 0) const {
+		if(Dim == 0) return true;
+		if(strides().back() < frame_format().size()) return false;
+		for(std::ptrdiff_t i = Dim - 2; i >= minimal_dimension; --i) {
+			std::ptrdiff_t expected_stride = shape()[i + 1] * strides()[i + 1];
+			if(strides()[i] != expected_stride) return false;
+		}
+		return true;
+	}
+	
+	std::size_t default_strides_padding(std::ptrdiff_t minimal_dimension = 0) const {
+		if(Dim == 0) return 0;
+		Assert(has_default_strides(minimal_dimension));
+		return (strides().back() - frame_format().size());
+	}
+	
+	bool has_default_strides_without_padding(std::ptrdiff_t minimal_dimension = 0) const {
+		if(Dim == 0) return true;
+		else if(has_default_strides(minimal_dimension)) return (default_strides_padding(minimal_dimension) == 0);
+		else return false;
+	}
 	
 	const frame_format_type& frame_format() const { return frame_format_; }
 	///@}
@@ -129,17 +170,45 @@ public:
 	
 	/// \name Iteration
 	///@{
-	iterator begin() const { return iterator(base::begin(), frame_format_); }
-	iterator end() const { return iterator(base::end(), frame_format_); }
-	///@}
+	frame_view_type dereference(pointer ptr) const {
+		return frame_view_type(ptr, make_ndsize(), frame_format_);
+	}
 	
+	std::ptrdiff_t contiguous_length() const { return base::contiguous_length(); }
+	
+	iterator begin() const {
+		return iterator(*this, 0, start());
+	}
+	iterator end() const {
+		index_type end_index = shape().product();
+		coordinates_type end_coord = index_to_coordinates(end_index);
+		return iterator(*this, end_index, coordinates_to_pointer(end_coord));
+	}
+	///@}
 	
 	/// \name Indexing
 	///@{
-	frame_view_type at(const coordinates_type&) const;
+	coordinates_type index_to_coordinates(index_type idx) const {
+		return head<Dim>(base::index_to_coordinates(idx));
+	}
+	index_type coordinates_to_index(const coordinates_type& coord) const {
+		return base::coordinates_to_index(ndcoord_cat(coord, 0));
+	}
+	pointer coordinates_to_pointer(const coordinates_type& coord) const {
+		return base::coordinates_to_pointer(ndcoord_cat(coord, 0));
+	}
 	
-	ndarray_opaque_view axis_section(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const;
-	// required by ndarray_view_fcall
+	frame_view_type at(const coordinates_type& coord) const {
+		auto base_coord = ndcoord_cat(coord, 0);
+		auto ptr = static_cast<frame_pointer_type>(&base::at(base_coord));
+		return frame_view_type(ptr, make_ndsize(), frame_format_);
+	}
+	
+	ndarray_opaque_view axis_section(std::ptrdiff_t dim, std::ptrdiff_t start, std::ptrdiff_t end, std::ptrdiff_t step) const {
+		// required by ndarray_view_fcall
+		Assert(dim < Dim);
+		return ndarray_opaque_view(base::axis_section(dim, start, end, step), frame_format_);
+	}
 	
 	ndarray_opaque_view section
 	(const coordinates_type& start, const coordinates_type& end, const strides_type& steps = strides_type(1)) const {
@@ -177,39 +246,55 @@ using ndarray_opaque_frame_view = ndarray_opaque_view<0, Mutable, Frame_format>;
 
 
 template<std::size_t Dim, bool Mutable1, bool Mutable2, typename Frame_format>
-bool same(const ndarray_opaque_view<Dim, Mutable1, Frame_format>&, const ndarray_opaque_view<Dim, Mutable2, Frame_format>&);
-
-
-template<std::size_t Opaque_dim, typename Opaque_frame_format, std::size_t Concrete_dim, typename Concrete_elem>
-auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view, const Opaque_frame_format&);
-
-
-template<std::size_t Opaque_dim, std::size_t Concrete_dim, typename Concrete_elem>
-auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view);
-
-
-template<std::size_t Concrete_dim, typename Concrete_elem, std::size_t Opaque_dim, bool Opaque_mutable, typename Opaque_frame_format>
-auto from_opaque(const ndarray_opaque_view<Opaque_dim, Opaque_mutable, Opaque_frame_format>& opaque_view);
-
+bool same(const ndarray_opaque_view<Dim, Mutable1, Frame_format>& a, const ndarray_opaque_view<Dim, Mutable2, Frame_format>& b) {
+	return same(a.base_view(), b.base_view()) && (a.frame_format() == b.frame_format());
+}
 
 ///////////////
 
 
 template<std::size_t Tail_dim, std::size_t Dim, bool Mutable, typename Frame_format>
-bool tail_has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+bool tail_has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	pod_array_format frame_pod_format = vw.frame_format().pod_format();
+	if(frame_pod_format.is_contiguous()) return vw.has_default_strides(Dim - Tail_dim);
+	else return vw.has_default_strides_without_padding(Dim - Tail_dim);
+}
 
 template<std::size_t Dim, bool Mutable, typename Frame_format>
-bool has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+bool has_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	return tail_has_pod_format<Dim>(vw);
+}
 
 template<std::size_t Tail_dim, std::size_t Dim, bool Mutable, typename Frame_format>
-pod_array_format tail_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
+pod_array_format tail_pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	pod_array_format frame_pod_format = vw.frame_format().pod_format();
+	
+	if(frame_pod_format.is_contiguous()) {
+		std::size_t frame_padding = vw.default_strides_padding(Dim - Tail_dim);
+		std::size_t elem_size = frame_pod_format.size();
+		std::size_t elem_align = frame_pod_format.elem_alignment();
+		std::size_t length = tail<Tail_dim>(vw.shape()).product();
+		std::size_t stride = vw.strides().back();
+		return pod_array_format(elem_size, elem_align, length, stride);
+		
+	} else {
+		Assert(vw.has_default_strides_without_padding(Dim - Tail_dim));
+		std::size_t elem_size = frame_pod_format.elem_size();
+		std::size_t elem_align = frame_pod_format.elem_alignment();
+		std::size_t length = tail<Tail_dim>(vw.shape()).product() * frame_pod_format.length();
+		std::size_t stride = frame_pod_format.stride();
+		return pod_array_format(elem_size, elem_align, length, stride);
+	}
+}
 
 template<std::size_t Dim, bool Mutable, typename Frame_format>
-pod_array_format pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw);
-
-
-
+pod_array_format pod_format(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	return tail_pod_format<Dim>(vw);
 }
+
+
+
+};
 
 #include "ndarray_opaque_view.tcc"
 

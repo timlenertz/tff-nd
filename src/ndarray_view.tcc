@@ -3,8 +3,6 @@
 #include <type_traits>
 #include "common.h"
 
-#include <stdexcept> // TODO remove
-
 namespace tff {
 
 
@@ -286,8 +284,8 @@ ndarray_view<Dim, T> swapaxis(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axi
 
 template<std::size_t Dim, typename T, std::size_t New_dim>
 ndarray_view<New_dim, T> reshape(const ndarray_view<Dim, T>& vw, const ndsize<New_dim>& new_shape) {
-	if(vw.strides() != vw.default_strides(vw.shape())) throw std::logic_error("can reshape only with default strides");
-	if(new_shape.product() != vw.shape().product()) throw std::invalid_argument("new shape must have same product");
+	Assert_crit(vw.strides() == vw.default_strides(vw.shape()), "can reshape only with default strides");
+	Assert_crit(new_shape.product() == vw.shape().product(), "new shape must have same product");
 	return ndarray_view<New_dim, T>(vw.start(), new_shape);
 }
 

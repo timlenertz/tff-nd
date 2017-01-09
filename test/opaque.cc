@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include "../src/opaque/ndarray_opaque_view.h"
+#include "../src/opaque/ndarray_opaque_view_cast.h"
 #include "../src/opaque_format/ndarray.h"
 #include "../src/opaque_format/raw.h"
 

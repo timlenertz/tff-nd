@@ -6,34 +6,34 @@
 using namespace tff;
 using namespace tff_ex;
 
-
+/*
 int main() {
-	auto lena = read_png("lena.png");
+	auto lena = read_png("../examples/lena.png");
 	using decomp_view_type = ndarray_view<3, std::uint8_t>;
 	auto decomp_view = ndarray_view_cast<decomp_view_type>(lena.view());
 	//decomp_view.slice(0, 2) = reverse(decomp_view.slice(1, 2), 0);
 	//decomp_view.slice(1, 2) = reverse(decomp_view.slice(1, 2), 1);
 
-	//swapaxis(decomp_view(100, 200)(100, 200)(), 0, 2) = wraparound(decomp_view, make_ndptrdiff(400, 200, 0), make_ndptrdiff(403, 300, 100));
+	swapaxis(decomp_view(100, 200)(100, 200)(), 0, 2) = wraparound(decomp_view, make_ndptrdiff(400, 200, 0), make_ndptrdiff(403, 300, 100));
 	
 	lena(0, 256)(0,-2,2) = lena(256, 512, -1)(1,-1,2);
 
 	write_png("lena_out.png", lena.view());
 }
+*/
 
 
-/*
 int main() {
-	auto lena = read_png("lena.png");
-	auto lena_wrap = wraparound(step(lena.view(), 0, 3), make_ndptrdiff(-200, -40), make_ndptrdiff(600, 2000));
+	auto lena = read_png("../examples/lena.png");
+	auto lena_wrap = wraparound(lena(200,400)(200,400,-1), make_ndptrdiff(-40, -100), make_ndptrdiff(220, 300));
 	ndarray<2, rgb_color> lena_out(lena_wrap);
 	write_png("lena_out.png", lena_out.view());
 }
-*/
+
 
 /*
 int main() {
-	auto cthead = read_cthead("cthead/");
+	auto cthead = read_cthead("../examples/cthead/");
 
 	for(std::ptrdiff_t z = 0; z < cthead.shape()[2]; ++z) {
 		//auto slice = cthead[z];

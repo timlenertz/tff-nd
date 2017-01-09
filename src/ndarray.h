@@ -7,16 +7,10 @@
 #include <memory>
 #include "ndarray_view.h"
 #include "detail/ndarray_wrapper.h"
+#include "ndarray_traits.h"
 
 namespace tff {
 
-
-/// Container for \ref ndarray_view.
-template<std::size_t Dim, typename Elem, typename Allocator>
-class ndarray;
-
-template<std::size_t Dim, typename T, typename Allocator>
-struct is_ndarray_view<ndarray<Dim, T, Allocator>> : std::true_type {};
 
 /// Container for \ref ndarray_view.
 template<std::size_t Dim, typename Elem, typename Allocator = std::allocator<Elem>>
@@ -86,6 +80,11 @@ public:
 	ndarray& operator=(ndarray&& arr);
 	///@}
 };
+
+
+template<std::size_t Dim, typename T, typename Allocator>
+struct is_ndarray_view<ndarray<Dim, T, Allocator>> : std::true_type {};
+
 
 
 template<std::size_t Dim, typename Elem>

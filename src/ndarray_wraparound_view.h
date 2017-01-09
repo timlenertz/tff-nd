@@ -7,15 +7,12 @@
 #include "ndarray_view.h"
 #include "detail/ndarray_view_fcall.h"
 #include "ndarray_iterator.h"
+#include "ndarray_traits.h"
 #include <utility>
 
 namespace tff {
 
-template<std::size_t Dim, typename T>
-class ndarray_wraparound_view;
-
-template<std::size_t Dim, typename T>
-struct is_ndarray_view<ndarray_wraparound_view<Dim, T>> : std::true_type {};
+template<std::size_t Dim, typename T> class ndarray_wraparound_view;
 
 
 namespace detail {
@@ -135,6 +132,8 @@ public:
 	
 	/// \name Iteration
 	///@{
+	static reference dereference(pointer ptr) { return *ptr; }
+
 	std::ptrdiff_t contiguous_length() const { return 1; }
 	
 	iterator begin() const;
@@ -180,6 +179,11 @@ public:
 	}
 	///@}
 };
+
+
+template<std::size_t Dim, typename T>
+struct is_ndarray_view<ndarray_wraparound_view<Dim, T>> : std::true_type {};
+
 
 
 template<std::size_t Dim, typename T>

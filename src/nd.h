@@ -38,6 +38,7 @@
 #if TFF_ND_WITH_OPAQUE
 	#include "opaque/ndarray_opaque_view.h"
 	#include "opaque/ndarray_opaque_iterator.h"
+	#include "opaque/ndarray_opaque_view_cast.h"
 	#if TFF_ND_WITH_ALLOCATION
 		#include "opaque/ndarray_opaque.h"
 	#endif

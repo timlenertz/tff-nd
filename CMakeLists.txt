@@ -39,4 +39,4 @@ foreach(ex_cpp ${EXAMPLE_SRC})
 endforeach()
 
 
-add_compile_options(-Wno-unused-comparison -Wall -Wextra -Wpedantic)
+add_compile_options(-Wall -Wextra -Wpedantic)

@@ -9,6 +9,7 @@
 #include <type_traits>
 #include <limits>
 #include <iterator>
+#include <algorithm>
 #include "common.h"
 #include "ndcoord.h"
 
