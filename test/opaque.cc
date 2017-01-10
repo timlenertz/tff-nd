@@ -266,7 +266,7 @@ TEST_CASE("opaque_ndarray_format, non-pod", "[nd][opaque_ndarray_format]") {
 		REQUIRE_THROWS(vw.assign(vw2));
 	}
 	
-	SECTION("cast, pod") {
+	SECTION("cast") {
 		struct obj_t {
 			int i;
 			obj_t() : i(4) { }
@@ -319,10 +319,8 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 		std::vector<byte> raw(1000);
 		
 		// default strides
-		REQUIRE(( opaque_view_type::default_strides(make_ndsize(3, 2), frm) ==
-			make_ndptrdiff(2*100, 100) ));
-		REQUIRE(( opaque_view_type::default_strides(make_ndsize(3, 2), frm, 1) ==
-			make_ndptrdiff(2*101, 101) ));
+		REQUIRE(( opaque_view_type::default_strides(make_ndsize(3, 2), frm) == make_ndptrdiff(2*100, 100) ));
+		REQUIRE(( opaque_view_type::default_strides(make_ndsize(3, 2), frm, 1) == make_ndptrdiff(2*101, 101) ));
 
 		// default strides view
 		auto shp = make_ndsize(2, 3);

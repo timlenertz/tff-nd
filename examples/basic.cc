@@ -27,6 +27,11 @@ int main() {
 	auto lena = read_png("../examples/lena.png");
 	auto lena_wrap = wraparound(lena(200,400)(200,400,-1), make_ndptrdiff(-40, -100), make_ndptrdiff(220, 300));
 	ndarray<2, rgb_color> lena_out(lena_wrap);
+	ndarray_view<2, rgb_color> sec = lena_out(100,200)(50,150);
+	using decomp_view_type = ndarray_view<3, std::uint8_t>;
+	auto decomp_view = ndarray_view_cast<decomp_view_type>(sec);
+	decomp_view()()(1) = decomp_view()()(2);
+
 	write_png("lena_out.png", lena_out.view());
 }
 

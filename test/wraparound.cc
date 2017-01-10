@@ -91,6 +91,16 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 			// reverse, step
 			REQUIRE(same(reverse(row0_w1(1, 9)), row0_w1(1, 9, -1)));
 			REQUIRE(same(step(row0_w1(1, 9), 2), row0_w1(1, 9, 2)));
+			
+			// unique representation
+			REQUIRE(same(
+				wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(10)),
+				wraparound(row0, make_ndptrdiff(-2 + 4), make_ndptrdiff(10 + 4))
+			));	
+			REQUIRE(same(
+				wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(10)),
+				wraparound(row0, make_ndptrdiff(-2 - 8), make_ndptrdiff(10 - 8))
+			));
 		}
 		
 		

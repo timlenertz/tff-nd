@@ -104,12 +104,12 @@ public:
 	enable_if_convertible_<Other_view> assign(const Other_view &) const;
 	
 	template<typename Arg>
-	const ndarray_wraparound_view &operator=(Arg &&arg) const {
+	const ndarray_wraparound_view& operator=(Arg &&arg) const {
 		assign(std::forward<Arg>(arg));
 		return *this;
 	}
 	
-	const ndarray_wraparound_view &operator=(const ndarray_wraparound_view &other) const {
+	const ndarray_wraparound_view& operator=(const ndarray_wraparound_view &other) const {
 		assign(other);
 		return *this;
 	}
