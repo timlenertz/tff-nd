@@ -60,6 +60,8 @@ TEST_CASE("ndarray_wraparound_opaque_view", "[nd][ndarray_wraparound_opaque_view
 		REQUIRE_FALSE(axis_wraparound(arr_w, 3));
 		
 		ndarray_wraparound_opaque_view<2, true, opaque_ndarray_format> arr_w_op = to_opaque<2>(arr_w);
+
+		REQUIRE(reinterpret_cast<int*>(arr_w_op[1][2].start()) == arr_w[1][2].start());
 		
 		ndarray_wraparound_view<4, int> arr_w_re = from_opaque<4, int>(arr_w_op);
 		REQUIRE(same(arr_w_re, arr_w));
