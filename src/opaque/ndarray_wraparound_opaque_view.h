@@ -14,6 +14,24 @@ template<std::size_t Dim, bool Mutable, typename Frame_format>
 using ndarray_wraparound_opaque_view = detail::ndarray_opaque_view_wrapper<Dim, Mutable, Frame_format, ndarray_wraparound_view>;
 
 
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+bool axis_wraparound(const ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format>& vw, std::ptrdiff_t axis) {
+	return (vw.base_view().wrap_circumferences()[axis] - vw.base_view().wrap_offsets()[axis]) < vw.shape()[axis] * vw.strides()[axis];
+}
+
+
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+ndptrdiff<Dim> wrap_offsets(const ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	return head<Dim>(vw.base_view().wrap_offsets());
+}
+
+
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+ndptrdiff<Dim> wrap_circumferences(const ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format>& vw) {
+	return head<Dim>(vw.base_view().wrap_circumferences());
+}
+
+
 template<std::size_t Tail_dim, std::size_t Dim, bool Mutable, typename Frame_format>
 bool tail_has_pod_format(const ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format>& vw) {
 	return (Tail_dim == 0) && (vw.frame_format().is_pod());

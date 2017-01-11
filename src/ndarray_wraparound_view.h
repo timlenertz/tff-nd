@@ -95,6 +95,11 @@ public:
 	
 	const strides_type& wrap_offsets() const { return wrap_offsets_; }
 	const strides_type& wrap_circumferences() const { return wrap_circumferences_; }
+	
+	using base::default_strides;
+	using base::has_default_strides;
+	using base::default_strides_padding;
+	using base::has_default_strides_without_padding;
 	///@}
 	
 	
@@ -196,7 +201,25 @@ ndarray_wraparound_view<Dim, T> wraparound(
 
 
 template<std::size_t Dim, typename T1, typename T2>
-bool same(const ndarray_wraparound_view<Dim, T1> &, const ndarray_wraparound_view<Dim, T2> &);
+bool same(const ndarray_wraparound_view<Dim, T1>&, const ndarray_wraparound_view<Dim, T2>&);
+
+
+template<std::size_t Dim, typename T>
+bool axis_wraparound(const ndarray_wraparound_view<Dim, T>& vw, std::ptrdiff_t axis) {
+	return (vw.wrap_circumferences()[axis] - vw.wrap_offsets()[axis]) < vw.shape()[axis] * vw.strides()[axis];
+}
+
+
+template<std::size_t Dim, typename T>
+const ndptrdiff<Dim>& wrap_offsets(const ndarray_wraparound_view<Dim, T>& vw) {
+	return vw.wrap_offsets();
+}
+
+template<std::size_t Dim, typename T>
+const ndptrdiff<Dim>& wrap_circumferences(const ndarray_wraparound_view<Dim, T>& vw) {
+	return vw.wrap_circumferences();
+}
+
 
 
 template<typename T>

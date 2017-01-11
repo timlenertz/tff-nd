@@ -45,7 +45,7 @@ auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view, c
 
 template<std::size_t Opaque_dim, std::size_t Concrete_dim, typename Concrete_elem>
 auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view) {
-	Assert(concrete_view.has_default_strides());
+	Assert(concrete_view.has_default_strides(Opaque_dim));
 	opaque_ndarray_format frame_format(
 		sizeof(Concrete_elem),
 		alignof(Concrete_elem),

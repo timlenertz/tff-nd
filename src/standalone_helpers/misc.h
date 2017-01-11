@@ -69,8 +69,7 @@ template<typename T>
 bool is_even(T x) { return (x % 2) == 0; }
 
 
-template<typename T, typename T2>
-inline auto positive_modulo(T i, T2 d) {
+inline auto positive_modulo(std::ptrdiff_t i, std::ptrdiff_t d) {
 	return (i % d + d) % d;
 }
 

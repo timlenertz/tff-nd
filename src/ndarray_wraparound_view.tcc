@@ -20,10 +20,10 @@ ndarray_wraparound_view<Dim, T> wraparound(
 	strides_type wrap_offsets;
 	strides_type wrap_circumferences;
 	
-	for(std::ptrdiff_t i = 0; i < Dim; ++i) {
-		std::ptrdiff_t start = start_pos[i];
-		std::ptrdiff_t end = end_pos[i];
-		std::ptrdiff_t step = steps[i];
+	for(std::ptrdiff_t axis = 0; axis < Dim; ++axis) {
+		std::ptrdiff_t start = start_pos[axis];
+		std::ptrdiff_t end = end_pos[axis];
+		std::ptrdiff_t step = steps[axis];
 			
 		Assert_crit(start < end, "section start must be lower than end");
 		Assert_crit(step != 0, "section step must not be zero");
@@ -32,19 +32,19 @@ ndarray_wraparound_view<Dim, T> wraparound(
 		std::ptrdiff_t n = end - start;
 		std::ptrdiff_t rel_start;
 		
-		wrap_circumferences[i] = vw.shape()[i] * vw.strides()[i];
-		new_strides[i] = vw.strides()[i] * step;
+		wrap_circumferences[axis] = vw.shape()[axis] * vw.strides()[axis];
+		new_strides[axis] = vw.strides()[axis] * step;
 		
 		if(step > 0) {
-			new_shape[i] = 1 + ((n - 1) / step);
-			rel_start = positive_modulo(start, vw.shape()[i]);
+			new_shape[axis] = 1 + ((n - 1) / step);
+			rel_start = positive_modulo(start, vw.shape()[axis]);
 		} else {
-			new_shape[i] = 1 + ((n - 1) / -step);
-			rel_start = positive_modulo(start - (step * (new_shape[i]-1)), vw.shape()[i]);
+			new_shape[axis] = 1 + ((n - 1) / -step);
+			rel_start = positive_modulo(start - (step * (new_shape[axis]-1)), vw.shape()[axis]);
 		}
 		
-		new_start = advance_raw_ptr(new_start, vw.strides()[i] * rel_start);
-		wrap_offsets[i] = rel_start * vw.strides()[i];
+		new_start = advance_raw_ptr(new_start, vw.strides()[axis] * rel_start);
+		wrap_offsets[axis] = rel_start * vw.strides()[axis];
 		
 		// TODO negative wrap_circumferences (if this->strides < 0)
 		// seems to work (-> tests)
@@ -187,13 +187,21 @@ ndarray_wraparound_view<Dim, T> ndarray_wraparound_view<Dim, T>::section
 
 template<std::size_t Dim, typename T>
 ndarray_wraparound_view<Dim - 1, T> ndarray_wraparound_view<Dim, T>::slice
-(std::ptrdiff_t c, std::ptrdiff_t dimension) const {
+(std::ptrdiff_t pos, std::ptrdiff_t axis) const {
+	if(pos < 0) pos = base::shape_[axis] + pos;
+		
+	Assert_crit(pos >= 0 && pos <= base::shape_[axis], "position range");
+	
+	std::ptrdiff_t start_diff = base::strides_[axis] * pos;
+	start_diff = positive_modulo(start_diff + wrap_offsets_[axis], wrap_circumferences_[axis]) - wrap_offsets_[axis];
+	pointer new_start = advance_raw_ptr(base::start_, start_diff);
+	
 	return ndarray_wraparound_view<Dim - 1, T>(
-		advance_raw_ptr(base::start_, base::strides_[dimension] * fix_coordinate_(c, dimension)),
-		base::shape_.erase(dimension),
-		base::strides_.erase(dimension),
-		wrap_offsets_.erase(dimension),
-		wrap_circumferences_.erase(dimension)
+		new_start,
+		base::shape().erase(axis),
+		base::strides().erase(axis),
+		wrap_offsets_.erase(axis),
+		wrap_circumferences_.erase(axis)
 	);
 }
 

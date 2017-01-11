@@ -2,27 +2,30 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
-      <config projectName="mf" targetName="basic" />
       <config projectName="mf" targetName="tff_nd_test" />
+      <config projectName="mf" targetName="basic" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="true">
+  <component name="CMakeSettings">
     <configurations>
       <configuration CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="108c0ab4-0c04-49f0-b69b-021dfcced53e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/opaque_wraparound.cc" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view.tcc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_derived.h" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nd.h" afterPath="$PROJECT_DIR$/src/nd.h" />
+    <list default="true" id="311d0b29-acdb-419f-ae4b-c24ee87b66e1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/opaque/ndarray_timed_wraparound_opaque_view.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/opaque_timed_wraparound.cc" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/timlenertz.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ndarray_wraparound_view.h" afterPath="$PROJECT_DIR$/src/ndarray_wraparound_view.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view.h" afterPath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ndarray_wraparound_view.tcc" afterPath="$PROJECT_DIR$/src/ndarray_wraparound_view.tcc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h" afterPath="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view.h" afterPath="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/opaque.cc" afterPath="$PROJECT_DIR$/test/opaque.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view_cast.h" afterPath="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view_cast.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/standalone_helpers/misc.h" afterPath="$PROJECT_DIR$/src/standalone_helpers/misc.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/opaque_wraparound.cc" afterPath="$PROJECT_DIR$/test/opaque_wraparound.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/wraparound.cc" afterPath="$PROJECT_DIR$/test/wraparound.cc" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,103 +39,62 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
-  <component name="ExportToHTMLSettings">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ndarray_wraparound_opaque_view.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view.h">
+      <file leaf-file-name="opaque_wraparound.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/opaque_wraparound.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="49" column="1" lean-forward="false" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
-                <element signature="e#283#337#0" expanded="true" />
-                <element signature="e#478#554#0" expanded="true" />
-                <element signature="e#710#764#0" expanded="true" />
-                <element signature="e#896#972#0" expanded="true" />
-                <element signature="e#1211#1265#0" expanded="true" />
-                <element signature="e#1401#1455#0" expanded="true" />
+                <element signature="e#0#20#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ndarray_wraparound_view.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.h">
+      <file leaf-file-name="ndarray_timed_wraparound_opaque_view.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_timed_wraparound_opaque_view.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="210">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="e#199#242#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="opaque_timed_wraparound.cc" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/opaque_timed_wraparound.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>contiguous</find>
-      <find>contiguous_length_</find>
-      <find>section_(</find>
-      <find>ndarray_view</find>
-      <find>ndarray_opaque_view</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>ndarray_wraparound_view</replace>
-      <replace>ndarray_opaque_view_wrapper</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="Tim Lenertz &lt;timlenertz@gmail.com&gt;" />
-      </list>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ndarray_iterator.tcc" />
-        <option value="$PROJECT_DIR$/src/standalone_helpers/misc.h" />
-        <option value="$PROJECT_DIR$/src/detail/ndarray_wrapper.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_view_cast.h" />
-        <option value="$PROJECT_DIR$/src/detail/ndarray_view_fcall.h" />
-        <option value="$PROJECT_DIR$/src/ndcoord.h" />
-        <option value="$PROJECT_DIR$/test/basic.cc" />
-        <option value="$PROJECT_DIR$/src/ndarray.tcc" />
-        <option value="$PROJECT_DIR$/test/wraparound.cc" />
         <option value="$PROJECT_DIR$/src/ndarray_wraparound_view.tcc" />
-        <option value="$PROJECT_DIR$/src/config.h" />
-        <option value="$PROJECT_DIR$/src/ndcoord_dyn.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_view_fwd.h" />
-        <option value="$PROJECT_DIR$/src/ndarray.h" />
-        <option value="$PROJECT_DIR$/src/detail/ndarray_timed_view_derived.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_timed_view.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_timed_wraparound_view.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_traits.h" />
-        <option value="$PROJECT_DIR$/examples/basic.cc" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/ndarray_view.tcc" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_iterator_derived.h" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_derived.tcc" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_derived.h" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view.tcc" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_iterator.h" />
-        <option value="$PROJECT_DIR$/test/opaque.cc" />
-        <option value="$PROJECT_DIR$/src/ndarray_iterator.h" />
-        <option value="$PROJECT_DIR$/src/ndarray_view.h" />
-        <option value="$PROJECT_DIR$/src/nd.h" />
-        <option value="$PROJECT_DIR$/src/detail/ndarray_opaque_view.h" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_timed_opaque_view.h" />
-        <option value="$PROJECT_DIR$/test/opaque_timed.cc" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque.h" />
+        <option value="$PROJECT_DIR$/src/standalone_helpers/misc.h" />
+        <option value="$PROJECT_DIR$/test/wraparound.cc" />
         <option value="$PROJECT_DIR$/src/ndarray_wraparound_view.h" />
-        <option value="$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h" />
-        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view.h" />
         <option value="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view.h" />
+        <option value="$PROJECT_DIR$/test/opaque_wraparound.cc" />
+        <option value="$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view_cast.h" />
+        <option value="$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h" />
+        <option value="$PROJECT_DIR$/src/opaque/ndarray_timed_wraparound_opaque_view.h" />
+        <option value="$PROJECT_DIR$/test/opaque_timed_wraparound.cc" />
       </list>
     </option>
   </component>
@@ -142,7 +104,6 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
     <option name="x" value="1969" />
     <option name="y" value="24" />
@@ -156,13 +117,10 @@
           <State>
             <id />
           </State>
-          <State>
-            <id>General</id>
-          </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>CoffeeScript</id>
+            <id>C/C++</id>
           </State>
         </selected-state>
       </profile-state>
@@ -237,7 +195,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="opaque_format" />
+              <option name="myItemId" value="standalone_helpers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -282,23 +240,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;null&#9;null" />
-    <property name="settings.editor.splitter.proportion" value="0.25989848" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/detail" />
-    </key>
   </component>
   <component name="RunManager" selected="Application.tff_nd_test">
-    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="tff_nd_test" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
+    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="basic" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="tff_nd_test" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="basic" CONFIG_NAME="Debug">
       <envs />
       <method />
     </configuration>
@@ -341,12 +292,6 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -461,7 +406,7 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration default="false" name="basic" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="basic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="mf" RUN_TARGET_NAME="basic">
       <envs />
       <method />
     </configuration>
@@ -469,104 +414,55 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="basic" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mf" TARGET_NAME="basic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="mf" RUN_TARGET_NAME="basic">
+    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="mf" RUN_TARGET_NAME="tff_nd_test" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
       <method />
     </configuration>
     <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="0" class="java.lang.String" itemvalue="Application.basic" />
       <item index="1" class="java.lang.String" itemvalue="Application.tff_nd_test" />
-      <item index="2" class="java.lang.String" itemvalue="Application.basic" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Build All" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
-  <component name="SvnConfiguration">
-    <configuration>$USER_HOME$/.subversion</configuration>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="108c0ab4-0c04-49f0-b69b-021dfcced53e" name="Default" comment="" />
-      <created>1483465729844</created>
+      <changelist id="311d0b29-acdb-419f-ae4b-c24ee87b66e1" name="Default" comment="" />
+      <created>1484145468017</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1483465729844</updated>
-      <workItem from="1483465731109" duration="29210000" />
-      <workItem from="1483626420646" duration="38157000" />
-      <workItem from="1483957289592" duration="12498000" />
-      <workItem from="1483979358102" duration="13909000" />
-      <workItem from="1484063650739" duration="893000" />
+      <updated>1484145468017</updated>
+      <workItem from="1484145470286" duration="571000" />
+      <workItem from="1484147402310" duration="8395000" />
     </task>
-    <task id="LOCAL-00001" summary="wraparound...">
-      <created>1483553338584</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1483553338584</updated>
-    </task>
-    <task id="LOCAL-00002" summary="wraparound">
-      <created>1483706348162</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1483706348162</updated>
-    </task>
-    <task id="LOCAL-00003" summary="sfinae, dimension(), ...">
-      <created>1483720723358</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1483720723358</updated>
-    </task>
-    <task id="LOCAL-00004" summary="timed wraparound, ...&#10;">
-      <created>1483725647853</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1483725647853</updated>
-    </task>
-    <task id="LOCAL-00005" summary="iterator cleanup (no more opaque_iterator), fixes, ...">
-      <created>1483984038334</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1483984038334</updated>
-    </task>
-    <task id="LOCAL-00006" summary="iterator cleanup (no more opaque_iterator), fixes, ...">
-      <created>1483984149435</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1483984149435</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94667000" />
+    <option name="totallyTimeSpent" value="8966000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1969" y="24" width="1871" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18261345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5992346" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29579005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22054054" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25267667" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42755604" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4732334" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -576,429 +472,29 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="wraparound..." />
-    <MESSAGE value="wraparound" />
-    <MESSAGE value="sfinae, dimension(), ..." />
-    <MESSAGE value="timed wraparound, ...&#10;" />
-    <MESSAGE value="iterator cleanup (no more opaque_iterator), fixes, ..." />
-    <option name="LAST_COMMIT_MESSAGE" value="iterator cleanup (no more opaque_iterator), fixes, ..." />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="20" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/ndarray_wraparound_view.h</url>
+          <line>170</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/wraparound.cc</url>
+          <line>36</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ndarray_iterator.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_wrapper.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-860">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/support/ndarray.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_view_fcall.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_view_cast.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2408">
-          <caret line="178" column="42" lean-forward="false" selection-start-line="178" selection-start-column="42" selection-end-line="178" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/container.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="43" column="8" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_wrapper.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="102" column="77" lean-forward="false" selection-start-line="102" selection-start-column="77" selection-end-line="102" selection-end-column="77" />
-          <folding>
-            <marker date="1483718543721" expanded="true" signature="224:4046" ph="{...}" />
-            <marker date="1483718543721" expanded="true" signature="243:4045" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="938">
-          <caret line="67" column="1" lean-forward="false" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
-          <folding>
-            <element signature="e#377#429#0" expanded="false" />
-            <element signature="e#438#469#0" expanded="false" />
-            <element signature="e#1783#1835#0" expanded="false" />
-            <element signature="e#1844#1865#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="193" column="0" lean-forward="false" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/standalone_helpers/misc.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="58" column="33" lean-forward="true" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/basic.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="703" column="46" lean-forward="true" selection-start-line="703" selection-start-column="46" selection-end-line="703" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/timed.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/support/cthead.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/support/cthead.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndcoord_dyn.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_timed_wraparound_view.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="91" lean-forward="false" selection-start-line="17" selection-start-column="91" selection-end-line="17" selection-end-column="91" />
-          <folding>
-            <element signature="e#160#179#0" expanded="false" />
-            <element signature="e#464#493#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_timed_view.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#112#131#0" expanded="false" />
-            <element signature="e#541#570#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_traits.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding>
-            <element signature="e#86#101#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/basic.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="29" column="47" lean-forward="true" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="168" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-          <folding>
-            <element signature="e#134#152#0" expanded="true" />
-            <element signature="e#310#412#0" expanded="true" />
-            <element signature="e#373#395#0" expanded="true" />
-            <element signature="e#458#560#0" expanded="true" />
-            <element signature="e#521#543#0" expanded="true" />
-            <element signature="e#681#783#0" expanded="true" />
-            <element signature="e#744#766#0" expanded="true" />
-            <element signature="e#3186#3204#0" expanded="true" />
-            <element signature="e#9931#10049#0" expanded="true" />
-            <element signature="e#10010#10032#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_iterator_derived.h" />
-    <entry file="file://$PROJECT_DIR$/src/ndarray.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="44" column="4" lean-forward="true" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-          <folding>
-            <element signature="e#1483#1551#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_iterator.h" />
-    <entry file="file://$PROJECT_DIR$/src/ndarray_view.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="180" column="45" lean-forward="false" selection-start-line="180" selection-start-column="45" selection-end-line="180" selection-end-column="45" />
-          <folding>
-            <element signature="e#501#513#0" expanded="true" />
-            <element signature="e#6599#6620#0" expanded="true" />
-            <element signature="e#7029#7050#0" expanded="true" />
-            <element signature="e#7203#7217#0" expanded="true" />
-            <element signature="e#7304#7318#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_iterator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="39" column="14" lean-forward="false" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nd.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view_derived.h" />
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view.tcc" />
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-630">
-          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndarray_view.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="126" column="85" lean-forward="false" selection-start-line="126" selection-start-column="85" selection-end-line="126" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_timed_opaque_view.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-          <folding>
-            <element signature="e#151#183#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/opaque_timed.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_timed_view_derived.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pod_array_format.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pod_array_format.icc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ndcoord.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="120" column="4" lean-forward="false" selection-start-line="120" selection-start-column="4" selection-end-line="120" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="896">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/support/ndarray.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque_format/ndarray.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/opaque_container.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2058">
-          <caret line="147" column="34" lean-forward="false" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#118#168#0" expanded="false" />
-            <element signature="e#224#278#0" expanded="false" />
-            <element signature="e#397#473#0" expanded="false" />
-            <element signature="e#843#897#0" expanded="false" />
-            <element signature="e#1029#1105#0" expanded="false" />
-            <element signature="e#2143#2197#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/opaque_wraparound.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/wraparound.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-          <folding>
-            <element signature="e#134#152#0" expanded="true" />
-            <element signature="e#310#412#0" expanded="true" />
-            <element signature="e#373#395#0" expanded="true" />
-            <element signature="e#458#560#0" expanded="true" />
-            <element signature="e#521#543#0" expanded="true" />
-            <element signature="e#681#783#0" expanded="true" />
-            <element signature="e#744#766#0" expanded="true" />
-            <element signature="e#3186#3204#0" expanded="true" />
-            <element signature="e#9931#10049#0" expanded="true" />
-            <element signature="e#10010#10032#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/opaque.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
+        <state relative-caret-position="630">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
@@ -1007,23 +503,253 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.tcc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/external/include/catch.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92232">
+          <caret line="6588" column="0" lean-forward="false" selection-start-line="6588" selection-start-column="0" selection-end-line="6588" selection-end-column="0" />
+          <folding>
+            <element signature="e#367072#367693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1288">
+          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1708">
+          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_view.tcc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3528">
+          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndcoord.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1946">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/5/array">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1554">
+          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/external/include/catch.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="6588" column="0" lean-forward="false" selection-start-line="6588" selection-start-column="0" selection-end-line="6588" selection-end-column="0" />
+          <folding>
+            <element signature="e#367072#367693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/5/array">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.tcc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/standalone_helpers/misc.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="71" column="65" lean-forward="true" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/wraparound.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="58" column="41" lean-forward="false" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_opaque_view_wrapper.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#77#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_view.tcc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="49" column="1" lean-forward="false" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+        <state relative-caret-position="220">
+          <caret line="29" column="14" lean-forward="false" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
           <folding>
-            <element signature="e#283#337#0" expanded="true" />
-            <element signature="e#478#554#0" expanded="true" />
-            <element signature="e#710#764#0" expanded="true" />
-            <element signature="e#896#972#0" expanded="true" />
-            <element signature="e#1211#1265#0" expanded="true" />
-            <element signature="e#1401#1455#0" expanded="true" />
+            <element signature="e#166#216#0" expanded="true" />
+            <element signature="e#510#564#0" expanded="true" />
+            <element signature="e#823#877#0" expanded="true" />
+            <element signature="e#1040#1094#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view_cast.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="30" column="29" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_wraparound_opaque_view_cast.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="51" column="156" lean-forward="false" selection-start-line="51" selection-start-column="156" selection-end-line="51" selection-end-column="156" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndcoord.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="218" column="0" lean-forward="false" selection-start-line="218" selection-start-column="0" selection-end-line="218" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="213" column="5" lean-forward="false" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ndarray_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_timed_opaque_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_timed_wraparound_opaque_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#199#242#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/opaque_wraparound.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque_view.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/detail/ndarray_timed_view_derived.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/timed.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/opaque_timed_wraparound.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
