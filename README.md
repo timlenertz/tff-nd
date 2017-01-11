@@ -29,11 +29,15 @@ Some features:
   instead of being casted `ndarray`s. Runtime-determined alignment requirement of frames is respected. Integrates
   application-defined *frame handle* class for convenient access to frame content.
 
+* Any combination of these. For example 1D opaque array used for type-generic _TFF_ ring buffers. Timed wraparound view to
+  section of the array for readable and writable segment. For frames containing _n_-d arrays of given data type `T`, the section
+  view is casted to a concrete `ndarray_wraparound_view<1 + Frame_dim, T>`, which is passed to application code.
+
 Possible future features:
 
 * Element-wise arithmetic or other operations on `ndarray_view`, possibly parallelized execution.
 * More features from _Numpy_ ndarray.
-* Convolution operations with _n_-dimensional kernel.
+* Convolution operations with _n_-dimensional kernel. Masked arrays.
 * Arrays with non-contiguous memory, possibly partially offloaded to secondary storage.
 * Oblique slices, for example sloped line in 2D image. Iteration using Bresenham's line algorithm or similar.
 * Virtual memory mapping optimization for wrap-around, allowing contiguous memory access across border.
