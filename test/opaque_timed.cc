@@ -20,7 +20,7 @@ TEST_CASE("ndarray_timed_opaque_view", "[nd][ndarray_timed_opaque_view]") {
 		ndarray_opaque_view<3, true, opaque_raw_format>::default_strides(shp, frm),
 		frm
 	);
-	ndarray_timed_opaque_view<3, true, opaque_raw_format> a1(a1nt, 100);
+	ndarray_timed_opaque_view<3, true, opaque_raw_format> a1 = timed(a1nt, 100);
 
 	SECTION("basics") {
 		REQUIRE(a1.start() == raw.data());

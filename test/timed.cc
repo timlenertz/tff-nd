@@ -13,7 +13,7 @@ TEST_CASE("ndarray_timed_view", "[nd][ndarray_timed_view]") {
 	for(int i = 0; i < len; ++i) raw[i] = i;
 
 	ndarray_view<3, int> a1nt(raw.data(), shp);
-	ndarray_timed_view<3, int> a1(a1nt, 100);
+	ndarray_timed_view<3, int> a1 = timed(a1nt, 100);
 
 	SECTION("basics") {
 		REQUIRE(a1.start() == raw.data());

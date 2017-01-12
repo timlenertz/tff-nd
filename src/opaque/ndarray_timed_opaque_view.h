@@ -12,6 +12,11 @@ namespace tff {
 template<std::size_t Dim, bool Mutable, typename Frame_format>
 using ndarray_timed_opaque_view = detail::ndarray_timed_view_derived<ndarray_opaque_view<Dim, Mutable, Frame_format>>;
 
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+auto timed(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw, time_unit start_time = 0) {
+	return ndarray_timed_opaque_view<Dim, Mutable, Frame_format>(vw, start_time);
+}
+
 }
 
 #endif

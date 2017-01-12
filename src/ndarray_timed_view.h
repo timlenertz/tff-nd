@@ -19,8 +19,12 @@ using ndarray_timed_view = detail::ndarray_timed_view_derived<ndarray_view<Dim, 
 template<std::size_t Dim, typename T>
 struct is_ndarray_view<detail::ndarray_timed_view_derived<ndarray_view<Dim, T>>> : std::true_type {};
 
-
+template<std::size_t Dim, typename T>
+auto timed(const ndarray_view<Dim, T>& vw, time_unit start_time = 0) {
+	return ndarray_timed_view<Dim, T>(vw, start_time);
 }
+
+};
 
 #endif
 #endif
