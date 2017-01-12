@@ -26,7 +26,7 @@ public:
 		#endif
 	}
 	
-	void raw_deallocate(void* ptr, std::size_t size) {
+	void raw_deallocate(void* ptr, std::size_t) {
 		#if __cplusplus > 201500
 		std::free(ptr);
 		#else

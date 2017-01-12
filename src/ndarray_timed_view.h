@@ -24,7 +24,7 @@ auto timed(const ndarray_view<Dim, T>& vw, time_unit start_time = 0) {
 	return ndarray_timed_view<Dim, T>(vw, start_time);
 }
 
-};
+}
 
 #endif
 #endif

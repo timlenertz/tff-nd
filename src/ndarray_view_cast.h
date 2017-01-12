@@ -174,7 +174,6 @@ constexpr bool ndarray_view_can_cast =
  ** input view. */
 template<typename Output_view, typename Input_view>
 Output_view ndarray_view_reinterpret_cast(const Input_view& in_view) {
-	using in_elem_type = typename Input_view::value_type;
 	using out_elem_type = typename Output_view::value_type;
 	static_assert(Output_view::dimension() == Input_view::dimension(), "output and input view must have same dimension");
 	std::ptrdiff_t in_stride = in_view.strides().back();

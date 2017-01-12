@@ -101,11 +101,11 @@ public:
 	/// \name Attributes
 	///@{
 	constexpr static std::size_t dimension() { return view_type::dimension(); }
-	WRAP_VIEW_FUNCTION(start);
-	WRAP_VIEW_FUNCTION(shape);
-	WRAP_VIEW_FUNCTION(strides);
-	WRAP_VIEW_FUNCTION(size);
-	WRAP_VIEW_FUNCTION(full_span);
+	WRAP_VIEW_FUNCTION(start)
+	WRAP_VIEW_FUNCTION(shape)
+	WRAP_VIEW_FUNCTION(strides)
+	WRAP_VIEW_FUNCTION(size)
+	WRAP_VIEW_FUNCTION(full_span)
 	
 	std::size_t allocated_size() const { return allocated_size_; }
 	///@}
@@ -134,11 +134,11 @@ public:
 	
 	/// \name Indexing
 	///@{
-	WRAP_VIEW_FUNCTION(section);
-	WRAP_VIEW_FUNCTION(slice);
-	WRAP_VIEW_FUNCTION(operator[]);
-	WRAP_VIEW_FUNCTION(operator());
-	WRAP_VIEW_FUNCTION(at);
+	WRAP_VIEW_FUNCTION(section)
+	WRAP_VIEW_FUNCTION(slice)
+	WRAP_VIEW_FUNCTION(operator[])
+	WRAP_VIEW_FUNCTION(operator())
+	WRAP_VIEW_FUNCTION(at)
 	///@}
 };
 

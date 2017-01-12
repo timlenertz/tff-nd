@@ -203,7 +203,7 @@ std::ostream& operator<<(std::ostream& str, const ndcoord<Dim, T>& coord) {
 
 
 template<typename T>
-std::ostream& operator<<(std::ostream& str, const ndcoord<0, T>& coord) {
+std::ostream& operator<<(std::ostream& str, const ndcoord<0, T>&) {
 	return str << "()";
 }
 

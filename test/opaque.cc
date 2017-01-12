@@ -598,8 +598,6 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 		REQUIRE(vw1 != vw2);
 
 		// assign and compare 0-d section (= frame view)
-		auto fr1 = vw1[1][1];
-		auto fr2 = vw2[1][1];
 		vw1[1][1] = vw2[1][1];
 		REQUIRE(vw1[1][0] != vw2[1][0]);
 		REQUIRE(vw1[1][1] == vw2[1][1]);
@@ -630,7 +628,6 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			auto frame_shp = make_ndsize(3, 4);
 			opaque_ndarray_format frm(sizeof(int), alignof(int), sizeof(int), true, frame_shp);
 			auto op_shp = make_ndsize(2, 2);
-			auto shp = ndcoord_cat(op_shp, frame_shp);
 			REQUIRE(frm.is_pod());
 			REQUIRE(frm.pod_format().is_contiguous());
 		
@@ -674,7 +671,6 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			auto frame_shp = make_ndsize(3, 4);
 			opaque_ndarray_format frm(sizeof(int), alignof(int), 2*sizeof(int), true, frame_shp);
 			auto op_shp = make_ndsize(2, 2);
-			auto shp = ndcoord_cat(op_shp, frame_shp);
 			REQUIRE(frm.is_pod());
 			REQUIRE_FALSE(frm.pod_format().is_contiguous());
 			REQUIRE(frm.pod_format().elem_padding() == sizeof(int));

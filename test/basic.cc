@@ -243,7 +243,6 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 
 	SECTION("3dim") {
 		ndarray_view<3, int> arr3(raw.data(), make_ndsize(3, 4, 4));
-		ndarray_view<1, int> row = arr3[0][0];	
 		// arr3:
 		//
 		// 00 01 02 03

@@ -240,4 +240,4 @@ ndarray_wraparound_view<Dim, T> swapaxis(const ndarray_wraparound_view<Dim, T>& 
 
 
 
-};
+}

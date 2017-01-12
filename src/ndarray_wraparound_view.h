@@ -231,17 +231,17 @@ ndarray_wraparound_view<Dim, T> swapaxis(const ndarray_wraparound_view<Dim, T>&,
 template<std::size_t Dim, typename T>
 ndarray_wraparound_view<Dim, T> step(const ndarray_wraparound_view<Dim, T>& vw, std::ptrdiff_t axis, std::ptrdiff_t step) {
 	return vw.axis_section(axis, 0, vw.shape()[axis], step);
-};
+}
 
 template<typename T>
 ndarray_wraparound_view<1, T> step(const ndarray_wraparound_view<1, T>& vw, std::ptrdiff_t step) {
 	return vw.axis_section(0, 0, vw.shape()[0], step);
-};
+}
 
 template<std::size_t Dim, typename T>
 ndarray_wraparound_view<Dim, T> reverse(const ndarray_wraparound_view<Dim, T>& vw, std::ptrdiff_t axis = 0) {
 	return step(vw, axis, -1);
-};
+}
 
 
 
