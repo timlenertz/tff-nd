@@ -38,11 +38,18 @@
 #if TFF_ND_WITH_OPAQUE
 	#include "detail/ndarray_opaque_view_wrapper.h"
 	#include "opaque/ndarray_opaque_view_cast.h"
-	#if TFF_ND_WITH_ALLOCATION
-		#include "opaque/ndarray_opaque.h"
+	#if TFF_ND_WITH_WRAPAROUND
+		#include "opaque/ndarray_wraparound_opaque_view.h"
+		#include "opaque/ndarray_wraparound_opaque_view_cast.h"
 	#endif
 	#if TFF_ND_WITH_TIMED
 		#include "opaque/ndarray_timed_opaque_view.h"
+		#if TFF_ND_WITH_WRAPAROUND
+			#include "opaque/ndarray_timed_wraparound_opaque_view.h"
+		#endif
+	#endif
+	#if TFF_ND_WITH_ALLOCATION
+		#include "opaque/ndarray_opaque.h"
 	#endif
 	#include "opaque_format/ndarray.h"
 	#include "opaque_format/raw.h"

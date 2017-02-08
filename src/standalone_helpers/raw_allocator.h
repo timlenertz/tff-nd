@@ -13,7 +13,7 @@ public:
 	static std::size_t size_granularity() { return 1; }
 
 	void* raw_allocate(std::size_t size, std::size_t alignment = 1) {
-		#if __cplusplus > 201500
+		#if __cplusplus >= 201500
 		return std::aligned_alloc(alignment, size);
 		#else
 		std::ptrdiff_t offset = alignment - 1 + sizeof(void*);
@@ -27,7 +27,7 @@ public:
 	}
 	
 	void raw_deallocate(void* ptr, std::size_t) {
-		#if __cplusplus > 201500
+		#if __cplusplus >= 201500
 		std::free(ptr);
 		#else
 		void** p2 = reinterpret_cast<void**>(ptr);
