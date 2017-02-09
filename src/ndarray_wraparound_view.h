@@ -80,8 +80,7 @@ public:
 	
 	template<typename... Args>
 	void reset(const Args &... args) { reset(ndarray_wraparound_view(args...)); }
-	
-	void reset(const ndarray_wraparound_view &);
+	void reset(const ndarray_wraparound_view&);
 	
 	const ndarray_view<Dim, T>& non_wraparound() const { return *this; }
 	///@}

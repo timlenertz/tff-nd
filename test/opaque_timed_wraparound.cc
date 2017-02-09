@@ -39,6 +39,26 @@ TEST_CASE("ndarray_timed_wraparound_opaque_view", "[nd][ndarray_timed_wraparound
 		
 		REQUIRE(vw_w_t.time_to_coordinate(102) == 2);
 		REQUIRE(vw_w_t.coordinate_to_time(2) == 102);
+		
+	}
+	
+	
+	SECTION("same, reset") {
+		ndarray_wraparound_opaque_view<3, true, opaque_raw_format> vw_w2 = wraparound(
+			vw,
+			make_ndptrdiff(-2, 2, 1),
+			make_ndptrdiff(3, 7, 3),
+			make_ndptrdiff(1, 2, -1)
+		);
+
+		ndarray_timed_wraparound_opaque_view<3, true, opaque_raw_format> vw_w_t2 = timed(vw_w, 200);
+		ndarray_timed_wraparound_opaque_view<3, true, opaque_raw_format> vw_w_t3 = timed(vw_w2, 100);
+		REQUIRE_FALSE(same(vw_w_t, vw_w_t2));
+		REQUIRE_FALSE(same(vw_w_t, vw_w_t3));
+		vw_w_t2.reset(vw_w_t);
+		REQUIRE(same(vw_w_t, vw_w_t2));
+		vw_w_t3.reset(vw_w_t);
+		REQUIRE(same(vw_w_t, vw_w_t3));
 	}
 
 
