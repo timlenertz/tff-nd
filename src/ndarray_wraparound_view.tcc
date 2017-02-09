@@ -77,7 +77,7 @@ ndarray_wraparound_view<Dim, T>::ndarray_wraparound_view(
 template<std::size_t Dim, typename T>
 ndarray_wraparound_view<Dim, T>::ndarray_wraparound_view
 (const ndarray_wraparound_view<Dim, std::remove_const_t<T>>& vw) :
-	base(vw),
+	base(vw.non_wraparound()),
 	wrap_offsets_(vw.wrap_offsets()),
 	wrap_circumferences_(vw.wrap_circumferences()) { }
 
