@@ -36,8 +36,18 @@ public:
 	template<typename T2>
 	ndspan(const ndspan<Dim, T2>& other) :
 		start_(other.start_pos()), end_(other.end_pos()) { }
+	
+	ndspan(const time_span& tspan) :
+		start_(tspan.begin), end_(tspan.end) { static_assert(Dim == 1, "only ndspan<1> from time_span"); }
 		
 	ndspan& operator=(const ndspan&) = default;
+
+	ndspan& operator=(const time_span& tspan) {
+		static_assert(Dim == 1, "only ndspan<1> from time_span");
+		start_[0] = tspan.begin;
+		end_[0] = tspan.end;
+		return *this;
+	}
 	
 	const coordinates_type& start_pos() const { return start_; }
 	const coordinates_type& end_pos() const { return end_; }
@@ -86,31 +96,6 @@ std::ostream& operator<<(std::ostream& str, const ndspan<Dim, T>& span) {
 
 template<std::size_t Dim, typename T>
 ndspan<Dim, T> span_intersection(const ndspan<Dim, T>& a, const ndspan<Dim, T>& b);
-
-
-
-/// One-dimensional time span.
-/** Derived from `ndspan<1, time_unit>.` */
-class time_span : public ndspan<1, time_unit> {	
-public:
-	time_span() = default;
-	time_span(const ndspan& span) : ndspan(span) { }
-	time_span(time_unit start, time_unit end) :
-		ndspan(start, end) { }
-	
-	time_unit start_time() const { return start_pos().front(); }
-	time_unit end_time() const { return end_pos().front(); }
-	time_unit duration() const { return size(); }
-	
-	void set_start_time(time_unit t) { set_start_pos(t); }
-	void set_end_time(time_unit t) { set_end_pos(t); }
-};
-
-
-inline std::ostream& operator<<(std::ostream& str, const time_span& span) {
-	str << '[' << span.start_time() << ", " << span.end_time() << '[';
-	return str;
-}
 
 }
 

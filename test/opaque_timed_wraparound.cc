@@ -33,7 +33,6 @@ TEST_CASE("ndarray_timed_wraparound_opaque_view", "[nd][ndarray_timed_wraparound
 		REQUIRE(vw_w_t.start_time() == 100);
 		REQUIRE(vw_w_t.end_time() == 105);
 		REQUIRE(vw_w_t.duration() == 5);
-		REQUIRE(vw_w_t.tspan() == time_span(100, 105));
 		
 		ndarray_wraparound_opaque_view<3, true, opaque_raw_format> vw_w_re = vw_w_t.non_timed();
 		REQUIRE(same(vw_w, vw_w_re));
@@ -47,7 +46,7 @@ TEST_CASE("ndarray_timed_wraparound_opaque_view", "[nd][ndarray_timed_wraparound
 		REQUIRE(same(vw_w_t.at_time(101), vw_w[1]));
 		REQUIRE(same(vw_w_t.at_time(104), vw_w[4]));
 		
-		REQUIRE(same(vw_w_t.tsection(time_span(101, 104)), vw_w(1, 4)));
+		REQUIRE(same(vw_w_t.tsection(101, 104), vw_w(1, 4)));
 		REQUIRE(vw_w_t(2, 4)()(0, 1).start_time() == 102);
 		REQUIRE(vw_w_t(3)(0)(1).start_time() == 103);
 		REQUIRE(vw_w_t()(1, 3)(1).start_time() == 100);

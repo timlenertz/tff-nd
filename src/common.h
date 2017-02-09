@@ -9,9 +9,10 @@
 
 #else
 
-#ifndef TFF_ND_HAS_DEPENDENCIES
-#error TFF_ND_HAS_DEPENDENCIES not defined before including tff-nd
-#endif
+#include "../common.h"
+#include "../utility/assert.h"
+#include "../utility/misc.h"
+#include "../utility/raw_allocator.h"
 
 #endif
 

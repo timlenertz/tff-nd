@@ -10,6 +10,18 @@ namespace tff {
 using time_unit = std::ptrdiff_t;
 constexpr static time_unit undefined_time = -1;
 
+
+struct time_span {
+	time_unit begin;
+	time_unit end;
+	
+	time_span() = default;
+	time_span(time_unit b, time_unit e) : begin(b), end(e) { }
+	
+	time_unit duration() const { return end - begin; }
+};
+
+
 using byte = std::uint8_t;
 	
 template<typename...> using void_t = void;

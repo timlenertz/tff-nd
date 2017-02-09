@@ -61,8 +61,6 @@ public:
 	
 	std::ptrdiff_t time_to_coordinate(time_unit t) const { return t - start_time_; }
 	time_unit coordinate_to_time(std::ptrdiff_t i) const { return start_time_ + base::fix_coordinate_(i, 0); }
-
-	time_span tspan() const { return time_span(start_time(), start_time() + duration()); }
 	///@}
 	
 	
@@ -78,9 +76,9 @@ public:
 	
 	decltype(auto) at_time(time_unit t) const { return base::operator[](time_to_coordinate(t)); }
 	
-	auto tsection(time_span span) {
-		std::ptrdiff_t start = time_to_coordinate(span.start_time());
-		std::ptrdiff_t end = time_to_coordinate(span.end_time());
+	auto tsection(time_unit start_t, time_unit end_t) {
+		std::ptrdiff_t start = time_to_coordinate(start_t);
+		std::ptrdiff_t end = time_to_coordinate(end_t);
 		return operator()(start, end);
 	}
 

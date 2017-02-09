@@ -24,7 +24,6 @@ TEST_CASE("ndarray_timed_view", "[nd][ndarray_timed_view]") {
 		REQUIRE(a1.start_time() == 100);
 		REQUIRE(a1.end_time() == 110);
 		REQUIRE(a1.duration() == 10);
-		REQUIRE(a1.tspan() == time_span(100, 110));
 		
 		ndarray_view<3, int> a1nt_re = a1.non_timed();
 		REQUIRE(same(a1nt_re, a1nt));
@@ -34,7 +33,7 @@ TEST_CASE("ndarray_timed_view", "[nd][ndarray_timed_view]") {
 	
 	SECTION("section, indexing") {
 		REQUIRE(same(a1.at_time(105), a1[5]));
-		REQUIRE(same(a1.tsection(time_span(101, 103)), a1(1, 3)));
+		REQUIRE(same(a1.tsection(101, 103), a1(1, 3)));
 		REQUIRE(same(
 			a1.section(make_ndspan(make_ndptrdiff(1, 0, 1), make_ndptrdiff(4, 1, 2))),
 			a1nt.section(make_ndspan(make_ndptrdiff(1, 0, 1), make_ndptrdiff(4, 1, 2)))
