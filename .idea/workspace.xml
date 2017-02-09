@@ -10,13 +10,16 @@
   <component name="CMakeSettings">
     <configurations>
       <configuration CONFIG_NAME="Debug" />
+      <configuration CONFIG_NAME="Release" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="311d0b29-acdb-419f-ae4b-c24ee87b66e1" name="Default" comment="main header,">
+    <list default="true" id="311d0b29-acdb-419f-ae4b-c24ee87b66e1" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/copyright.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +33,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state relative-caret-position="518">
+              <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -60,16 +63,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ndcoord.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ndcoord.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2870">
-              <caret line="205" column="64" lean-forward="false" selection-start-line="205" selection-start-column="64" selection-end-line="205" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="basic.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/basic.cc">
           <provider selected="true" editor-type-id="text-editor">
@@ -83,18 +76,28 @@
       <file leaf-file-name="pod_array_format.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/pod_array_format.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14">
+            <state relative-caret-position="364">
               <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ndarray_opaque.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ndarray_opaque.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="364">
+              <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="opaque_timed_wraparound.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/opaque_timed_wraparound.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="45" column="29" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -126,7 +129,7 @@
         <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.tcc">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3388">
-              <caret line="242" column="1" lean-forward="false" selection-start-line="242" selection-start-column="1" selection-end-line="242" selection-end-column="1" />
+              <caret line="243" column="0" lean-forward="false" selection-start-line="243" selection-start-column="0" selection-end-line="243" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -175,10 +178,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1969" />
-    <option name="y" value="24" />
+    <option name="x" value="2187" />
+    <option name="y" value="52" />
     <option name="width" value="1871" />
-    <option name="height" value="1056" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -302,7 +305,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
   </component>
@@ -482,7 +485,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="tff_nd_test" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tff-nd" TARGET_NAME="tff_nd_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="tff-nd" RUN_TARGET_NAME="tff_nd_test">
+    <configuration default="false" name="tff_nd_test" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tff-nd" TARGET_NAME="tff_nd_test" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="tff-nd" RUN_TARGET_NAME="tff_nd_test">
       <envs />
       <method />
     </configuration>
@@ -510,7 +513,9 @@
       <workItem from="1484225869883" duration="2000" />
       <workItem from="1484225874887" duration="1740000" />
       <workItem from="1486568389042" duration="128000" />
-      <workItem from="1486572199902" duration="244000" />
+      <workItem from="1486572199902" duration="347000" />
+      <workItem from="1486575129018" duration="63000" />
+      <workItem from="1486633184187" duration="202000" />
     </task>
     <task id="LOCAL-00001" summary="opaque wraparound view">
       <created>1484155828036</created>
@@ -554,23 +559,37 @@
       <option name="project" value="LOCAL" />
       <updated>1486572292783</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="...">
+      <created>1486572448303</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1486572448303</updated>
+    </task>
+    <task id="LOCAL-00008" summary="...">
+      <created>1486633201433</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1486633201433</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14599000" />
+    <option name="totallyTimeSpent" value="14967000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1969" y="24" width="1871" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="2187" y="52" width="1871" height="1028" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21159104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.215965" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50246036" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4155276" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36358666" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36358666" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -632,11 +651,11 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="opaque wraparound view" />
-    <MESSAGE value="..." />
     <MESSAGE value="timed tests" />
     <MESSAGE value="fixes" />
     <MESSAGE value="main header, non-standalone" />
-    <option name="LAST_COMMIT_MESSAGE" value="main header, non-standalone" />
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -905,13 +924,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/opaque_timed_wraparound.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="52" column="55" lean-forward="false" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/standalone_helpers/assert.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
@@ -937,11 +949,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1960">
           <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-          <folding>
-            <marker date="1484227373054" expanded="true" signature="224:4036" ph="{...}" />
-            <marker date="1484227373054" expanded="true" signature="243:4035" ph="{...}" />
-            <marker date="1484227373054" expanded="true" signature="1032:4004" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,7 +963,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -964,14 +970,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2870">
           <caret line="205" column="64" lean-forward="false" selection-start-line="205" selection-start-column="64" selection-end-line="205" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ndarray_wraparound_view.tcc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3388">
-          <caret line="242" column="1" lean-forward="false" selection-start-line="242" selection-start-column="1" selection-end-line="242" selection-end-column="1" />
+          <caret line="243" column="0" lean-forward="false" selection-start-line="243" selection-start-column="0" selection-end-line="243" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1018,17 +1023,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/pod_array_format.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
+        <state relative-caret-position="364">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
@@ -1036,8 +1033,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/opaque/ndarray_opaque.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="364">
+          <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/opaque_timed_wraparound.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="45" column="29" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>

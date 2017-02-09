@@ -1,5 +1,6 @@
 build/
+.idea/
 .DS_Store
 examples/cthead/
 cmake-build-debug/
-
+cmake-build-release/
