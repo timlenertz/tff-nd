@@ -8,7 +8,8 @@ import sets
 included_files = sets.Set()
 
 
-copyright_prefix = open('copyright.txt', 'r').read()
+#copyright_prefix = open('copyright.txt', 'r').read()
+copyright_prefix = ""
 
 prefix = copyright_prefix + """
 //--- TFF nd single-header version

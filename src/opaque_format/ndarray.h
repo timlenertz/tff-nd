@@ -6,6 +6,7 @@
 
 #include "../pod_array_format.h"
 #include "../ndcoord_dyn.h"
+#include <type_traits>
 
 namespace tff {
 
@@ -49,6 +50,18 @@ public:
 	friend bool operator==(const opaque_ndarray_format& a, const opaque_ndarray_format& b);
 	friend bool operator!=(const opaque_ndarray_format& a, const opaque_ndarray_format& b);
 };
+
+
+template<typename Elem>
+opaque_ndarray_format default_opaque_ndarray_format(const ndsize_dyn& shp) {
+	return opaque_ndarray_format(
+		sizeof(Elem),
+		alignof(Elem),
+		sizeof(Elem),
+		std::is_pod<Elem>::value,
+		shp
+	);
+}
 
 
 template<bool Mutable>

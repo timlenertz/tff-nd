@@ -27,6 +27,9 @@ namespace detail {
 		const view_type& operator()(const view_type& arr) const {
 			return arr;
 		}
+		const ndsize<Dim>& casted_shape(const ndsize<Dim>& shp) const {
+			return shp;
+		}
 	};
 
 	
@@ -56,6 +59,9 @@ namespace detail {
 				arr.strides()
 			);
 		}
+		const ndsize<Dim>& casted_shape(const ndsize<Dim>& shp) const {
+			return shp;
+		}
 	};
 	
 	// scalars from elem
@@ -77,6 +83,9 @@ namespace detail {
 				ndcoord_cat(arr.shape(), make_ndsize(elem_traits_type::components)),
 				ndcoord_cat(arr.strides(), make_ndptrdiff(elem_traits_type::stride))
 			);
+		}
+		ndsize<Dim + 1> casted_shape(const ndsize<Dim>& shp) const {
+			return ndcoord_cat(shp, make_ndsize(elem_traits_type::components));
 		}
 	};
 	
@@ -100,6 +109,9 @@ namespace detail {
 				ndcoord_cat(arr.strides(), make_ndptrdiff(elem_traits_type::stride))
 			);
 		}
+		ndsize<Dim + 1> casted_shape(const ndsize<Dim>& shp) const {
+			return ndcoord_cat(shp, make_ndsize(elem_traits_type::components));
+		}
 	};
 	
 	#endif
@@ -116,14 +128,18 @@ namespace detail {
 		using output_view_type = ndarray_timed_view<Output_dim, Output_elem>;
 		using input_view_type = ndarray_timed_view<Input_dim, Input_elem>;
 
-		using untimed_output_view_type = ndarray_view<Output_dim, Output_elem>;
-		using untimed_input_view_type = ndarray_view<Input_dim, Input_elem>;
+		using non_timed_output_view_type = ndarray_view<Output_dim, Output_elem>;
+		using non_timed_input_view_type = ndarray_view<Input_dim, Input_elem>;
+		
+		using non_timed_caster_type = ndarray_view_caster<non_timed_output_view_type, non_timed_input_view_type>;
 		
 		output_view_type operator()(const input_view_type& vw) const {
-			auto untimed_output_view = ndarray_view_cast<untimed_output_view_type>(
-				untimed_input_view_type(vw)
-			);
-			return ndarray_timed_view<Output_dim, Output_elem>(untimed_output_view, vw.start_time());
+			non_timed_caster_type caster;
+			return timed(caster(vw.non_timed()), vw.start_time());
+		}
+		ndsize<Output_dim> casted_shape(const ndsize<Input_dim>& shp) const {
+			non_timed_caster_type caster;
+			return caster.casted_shape(shp);
 		}
 	};
 	
@@ -158,6 +174,13 @@ template<typename Output_view, typename Input_view>
 Output_view ndarray_view_cast(const Input_view& vw) {
 	detail::ndarray_view_caster<Output_view, Input_view> caster;
 	return caster(vw);
+}
+
+
+template<typename Output_view, typename Input_view>
+auto ndarray_view_casted_shape(const typename Input_view::shape_type& shp) {
+	detail::ndarray_view_caster<Output_view, Input_view> caster;
+	return caster.casted_shape(shp);
 }
 
 
