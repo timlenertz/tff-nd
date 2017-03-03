@@ -17,7 +17,7 @@ auto timed(const ndarray_opaque_view<Dim, Mutable, Frame_format>& vw, time_unit 
 	return ndarray_timed_opaque_view<Dim, Mutable, Frame_format>(vw, start_time);
 }
 
-}
+};
 
 #endif
 #endif

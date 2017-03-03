@@ -31,7 +31,7 @@ auto to_opaque(const ndarray_view<Concrete_dim, Concrete_elem>& concrete_view, c
 	base_view_type base_view(
 		reinterpret_cast<typename base_view_type::pointer>(concrete_view.start()),
 		ndcoord_cat(head<Opaque_dim>(concrete_view.shape()), 1),
-		ndcoord_cat(head<Opaque_dim>(concrete_view.strides()), 0)
+		ndcoord_cat(head<Opaque_dim>(concrete_view.strides()), frm.size())
 	);
 	
 	opaque_view_type view(base_view, frm);

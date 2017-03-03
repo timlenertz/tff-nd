@@ -44,8 +44,10 @@
 	#endif
 	#if TFF_ND_WITH_TIMED
 		#include "opaque/ndarray_timed_opaque_view.h"
+		#include "opaque/ndarray_timed_opaque_view_cast.h"
 		#if TFF_ND_WITH_WRAPAROUND
 			#include "opaque/ndarray_timed_wraparound_opaque_view.h"
+			#include "opaque/ndarray_timed_wraparound_opaque_view_cast.h"
 		#endif
 	#endif
 	#if TFF_ND_WITH_ALLOCATION

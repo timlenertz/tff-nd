@@ -33,9 +33,9 @@ auto to_opaque(const ndarray_wraparound_view<Concrete_dim, Concrete_elem>& concr
 	base_view_type base_view(
 		reinterpret_cast<typename base_view_type::pointer>(concrete_view.start()),
 		ndcoord_cat(head<Opaque_dim>(concrete_view.shape()), 1),
-		ndcoord_cat(head<Opaque_dim>(concrete_view.strides()), 0),
+		ndcoord_cat(head<Opaque_dim>(concrete_view.strides()), frm.size()),
 		ndcoord_cat(head<Opaque_dim>(concrete_view.wrap_offsets()), 0),
-		ndcoord_cat(head<Opaque_dim>(concrete_view.wrap_circumferences()), 1)
+		ndcoord_cat(head<Opaque_dim>(concrete_view.wrap_circumferences()), frm.size())
 	);
 	
 	opaque_view_type view(base_view, frm);
