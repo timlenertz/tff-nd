@@ -32,7 +32,7 @@ int main() {
 	auto decomp_view = ndarray_view_cast<decomp_view_type>(sec);
 	decomp_view()()(1) = decomp_view()()(2);
 
-	write_png("lena_out.png", lena_out.view());
+	write_png("lena_out.png", lena_out);
 }
 
 

@@ -155,12 +155,10 @@ public:
 	template<typename Other_view>
 	enable_if_convertible_<Other_view> assign(const Other_view&) const;
 	
-	void assign(const ndarray_view<Dim, const T>& other) const;
-
-	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const
-		{ assign(std::forward<Arg>(arg)); return *this; }
-	const ndarray_view& operator=(const ndarray_view& other) const
-		{ assign(other); return *this; }
+	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const { assign(std::forward<Arg>(arg)); return *this; }
+	const ndarray_view& operator=(const ndarray_view& other) const { assign(other); return *this; }
+	
+	void fill(const value_type&) const;
 	///@}
 
 
@@ -169,9 +167,7 @@ public:
 	///@{
 	template<typename Other_view>
 	enable_if_convertible_<Other_view, bool> compare(const Other_view&) const;
-	
-	bool compare(const ndarray_view<Dim, const T>& other) const;
-		
+			
 	template<typename Arg> bool operator==(Arg&& arg) const { return compare(std::forward<Arg>(arg)); }
 	template<typename Arg> bool operator!=(Arg&& arg) const { return ! compare(std::forward<Arg>(arg)); }
 	///@}

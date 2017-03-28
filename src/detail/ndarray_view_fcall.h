@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstring>
 #include <type_traits>
+#include "../ndarray_traits.h"
 
 namespace tff { namespace detail {
 
@@ -34,5 +35,12 @@ public:
 };
 
 }}
+
+namespace tff {
+
+template<typename View, std::ptrdiff_t Target_dim>
+struct is_ndarray_view<detail::ndarray_view_fcall<View, Target_dim>> : std::true_type {};
+
+}
 
 #endif

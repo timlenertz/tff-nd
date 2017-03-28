@@ -110,47 +110,37 @@ void ndarray_view<Dim, T>::reset(const ndarray_view& other) {
 
 template<std::size_t Dim, typename T> template<typename Other_view>
 auto ndarray_view<Dim, T>::assign(const Other_view& other) const -> enable_if_convertible_<Other_view> {
-	// converting assignment
-	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
-	if(shape().product() == 0) return;
-	std::copy(other.begin(), other.end(), begin());
+	static_assert(! std::is_const<value_type>::value, "cannot assign to const ndarray_view");
+	
+	using elem_type = std::remove_cv_t<value_type>;
+	using other_elem_type = std::remove_cv_t<typename Other_view::value_type>;
+	if(std::is_same<elem_type, other_elem_type>::value && has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+		// optimize when possible
+		pod_array_copy(static_cast<void*>(start()), static_cast<const void*>(other.start()), pod_format());
+	} else {
+		Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
+		if(shape().product() == 0) return;
+		std::copy(other.begin(), other.end(), begin());
+	}
 }
 
 
 template<std::size_t Dim, typename T>
-void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, const T>& other) const {
-	// assignment without conversion
-	
-	Assert_crit(shape() == other.shape(), "ndarray_view must have same shape for assignment");
-	if(shape().product() == 0) return;
-		
-	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
-		// optimize when possible
-		const pod_array_format& frm = pod_format();
-		Assert_crit(frm == other.pod_format());
-		pod_array_copy(static_cast<void*>(start()), static_cast<const void*>(other.start()), frm);
-	} else {
-		std::copy(other.begin(), other.end(), begin());
-	}
+void ndarray_view<Dim, T>::fill(const value_type& val) const {
+	static_assert(! std::is_const<value_type>::value, "cannot assign to const ndarray_view");
+	std::fill(begin(), end(), val);
 }
 
 
 template<std::size_t Dim, typename T> template<typename Other_view>
 auto ndarray_view<Dim, T>::compare(const Other_view& other) const -> enable_if_convertible_<Other_view, bool> {
 	if(shape() != other.shape()) return false;
-	else return std::equal(other.begin(), other.end(), begin());
-}
+	//else if(same(*this, other)) return true;
 
-
-template<std::size_t Dim, typename T>
-bool ndarray_view<Dim, T>::compare(const ndarray_view<Dim, const T>& other) const {
-	if(shape() != other.shape()) return false;
-	else if(same(*this, other)) return true;
-
-	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
-		const pod_array_format& frm = pod_format();
-		Assert_crit(frm == other.pod_format());
-		return pod_array_compare(static_cast<const void*>(start()), static_cast<const void*>(other.start()), frm);
+	using elem_type = std::remove_cv_t<value_type>;
+	using other_elem_type = std::remove_cv_t<typename Other_view::value_type>;
+	if(std::is_same<elem_type, other_elem_type>::value && has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+		return pod_array_compare(static_cast<const void*>(start()), static_cast<const void*>(other.start()), pod_format());
 	} else {
 		return std::equal(other.begin(), other.end(), begin());
 	}
