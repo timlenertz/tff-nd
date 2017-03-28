@@ -74,7 +74,7 @@ std::enable_if_t<elem_traits<Elem>::is_nullable, bool> is_null(const Elem& elem)
 
 /// Test if elem is null.
 template<typename Elem>
-std::enable_if_t<! elem_traits<Elem>::is_nullable, bool> is_null(const Elem& elem) {
+std::enable_if_t<! elem_traits<Elem>::is_nullable, bool> is_null(const Elem&) {
 	return false;
 }
 

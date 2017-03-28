@@ -152,9 +152,9 @@ public:
 	
 	/// \name POD format
 	///@{
-	template<std::size_t Tail_dim> bool tail_has_pod_format() const { return view_.tail_has_pod_format<Tail_dim>(); }
+	template<std::size_t Tail_dim> bool tail_has_pod_format() const { return view_.template tail_has_pod_format<Tail_dim>(); }
 	bool has_pod_format() const { return view_.has_pod_format(); }
-	template<std::size_t Tail_dim> pod_array_format tail_pod_format() const { return view_.tail_pod_format<Tail_dim>(); }
+	template<std::size_t Tail_dim> pod_array_format tail_pod_format() const { return view_.template tail_pod_format<Tail_dim>(); }
 	pod_array_format pod_format() const { return view_.pod_format(); }
 	///@}
 };
