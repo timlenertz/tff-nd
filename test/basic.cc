@@ -379,6 +379,10 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			REQUIRE(it2 - 4 == it);
 			REQUIRE(it2 - it == 4);
 			REQUIRE(it - it2 == -4);
+
+			// reverse iterator
+			REQUIRE(compare_sequence_(arr3[1].rbegin(), arr3[1].rend(),
+			{ 0x1F, 0x1E, 0x1D, 0x1C, 0x1B, 0x1A, 0x19, 0x18, 0x17, 0x16, 0x15, 0x14, 0x13, 0x12, 0x11, 0x10 }));
 		}
 		
 		SECTION("section") {

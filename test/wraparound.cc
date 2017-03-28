@@ -122,6 +122,9 @@ TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 				REQUIRE(same(reverse(row0_w1(1, 9)), row0_w1(1, 9, -1)));
 				REQUIRE(same(step(row0_w1(1, 9), 2), row0_w1(1, 9, 2)));
 				
+				// reverse iterator
+				REQUIRE(compare_sequence_(row0_w1(1, 9).rbegin(), row0_w1(1, 9).rend(), { 0x02, 0x01, 0x00, 0x03, 0x02, 0x01, 0x00, 0x03 }));
+				
 				// unique representation
 				REQUIRE(same(
 					wraparound(row0, make_ndptrdiff(-2), make_ndptrdiff(10)),

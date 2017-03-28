@@ -1,4 +1,6 @@
 # TFF n-d array
+Version 0.1
+
 General-purpose _n_-dimensional array for C++, with many features useful for handling dense data.
 Developed as part of _timed flow framework_ (TFF), but independent.
 Encapsulates low-level issues such as indexing and alignment in dealing with raw data, allowing for readable and

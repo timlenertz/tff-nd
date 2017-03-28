@@ -128,7 +128,14 @@ public:
 	auto cbegin() const { return cview().begin(); }	
 	auto end() { return view().end(); }
 	auto end() const { return cview().end(); }	
-	auto cend() const { return cview().end(); }	
+	auto cend() const { return cview().end(); }
+	
+	auto rbegin() { return view().rbegin(); }
+	auto rbegin() const { return cview().rbegin(); }
+	auto crbegin() const { return cview().rbegin(); }
+	auto rend() { return view().rend(); }
+	auto rend() const { return cview().rend(); }
+	auto crend() const { return cview().rend(); }
 	///@}
 	
 	

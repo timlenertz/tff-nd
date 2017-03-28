@@ -43,6 +43,7 @@ public:
 	using typename base::span_type;
 	
 	using iterator = ndarray_iterator<ndarray_wraparound_view<Dim, T>>;
+	using reverse_iterator = ndarray_iterator<ndarray_wraparound_view<Dim, T>>;
 	
 protected:
 	strides_type wrap_offsets_;
@@ -144,6 +145,8 @@ public:
 	
 	iterator begin() const;
 	iterator end() const;
+	reverse_iterator rbegin() const { return reverse_all(*this).begin(); }
+	reverse_iterator rend() const { return reverse_all(*this).end(); }
 	///@}
 	
 	
@@ -243,6 +246,12 @@ template<std::size_t Dim, typename T>
 ndarray_wraparound_view<Dim, T> reverse(const ndarray_wraparound_view<Dim, T>& vw, std::ptrdiff_t axis = 0) {
 	return step(vw, axis, -1);
 }
+
+template<std::size_t Dim, typename T>
+ndarray_wraparound_view<Dim, T> reverse_all(const ndarray_wraparound_view<Dim, T>& vw) {
+	return vw.section(vw.full_span(), ndptrdiff<Dim>(-1));
+}
+
 
 
 

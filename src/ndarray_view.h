@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <utility>
+#include <iterator>
 #include "common.h"
 #include "ndcoord.h"
 #include "ndspan.h"
@@ -73,6 +74,7 @@ public:
 	using span_type = ndspan<Dim>;
 	
 	using iterator = ndarray_iterator<ndarray_view<Dim, T>>;
+	using reverse_iterator = ndarray_iterator<ndarray_view<Dim, T>>;
 	
 protected:
 	pointer start_;
@@ -184,6 +186,8 @@ public:
 		
 	iterator begin() const;
 	iterator end() const;
+	reverse_iterator rbegin() const { return reverse_all(*this).begin(); }
+	reverse_iterator rend() const { return reverse_all(*this).end(); }
 	///@}
 
 
@@ -280,6 +284,11 @@ ndarray_view<1, T> step(const ndarray_view<1, T>& vw, std::ptrdiff_t step) {
 template<std::size_t Dim, typename T>
 ndarray_view<Dim, T> reverse(const ndarray_view<Dim, T>& vw, std::ptrdiff_t axis = 0) {
 	return step(vw, axis, -1);
+}
+
+template<std::size_t Dim, typename T>
+ndarray_view<Dim, T> reverse_all(const ndarray_view<Dim, T>& vw) {
+	return vw.section(vw.full_span(), ndptrdiff<Dim>(-1));
 }
 
 
