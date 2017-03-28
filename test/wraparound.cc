@@ -2,6 +2,7 @@
 #include <vector>
 #include "../src/ndarray_view.h"
 #include "../src/ndarray_wraparound_view.h"
+#include "../src/ndarray_view_operations.h"
 #include "support/ndarray.h"
 
 using namespace tff;

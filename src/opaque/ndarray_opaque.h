@@ -59,9 +59,6 @@ public:
 
 	frame_handle_type frame_handle() { return base::get_view_().frame_handle(); }
 	operator frame_handle_type () { return base::get_view_().frame_handle(); }
-	
-	explicit operator const view_type& () { return base::view(); }
-	explicit operator const const_view_type& () const { return base::cview(); }
 };
 
 

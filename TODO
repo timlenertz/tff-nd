@@ -1,5 +1,4 @@
 NEXT
-- ndarray: implicit .view()
 - opaque/timed reverse iterator
 - remove/generalize timed?
 - convenience functions
@@ -52,3 +51,7 @@ CONVENIENCE FUNCTIONS
 
 
 
+
+TAKING ndarray_view ONLY
+
+TAKING AND Ndarray_view type (ndarray, wraparound, timed)

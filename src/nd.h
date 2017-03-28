@@ -20,6 +20,7 @@
 #include "ndarray_view.h"
 #include "ndarray_iterator.h"
 #include "ndarray_view_cast.h"
+#include "ndarray_view_operations.h"
 
 #if TFF_ND_WITH_WRAPAROUND
 	#include "ndarray_wraparound_view.h"

@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include "../src/ndarray_view.h"
+#include "../src/ndarray_view_operations.h"
 #include "../src/pod_array_format.h"
 #include "support/ndarray.h"
 
