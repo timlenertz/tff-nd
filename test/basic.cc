@@ -829,7 +829,7 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			ndarray_view<3, int> vw(raw.data(), shp, str);
 			
 			SECTION("full") {
-				pod_array_format afrm = pod_format(vw);
+				pod_array_format afrm = vw.pod_format();
 				REQUIRE(afrm.size() == (3*4*4) * str.back());
 				REQUIRE(afrm.length() == 3*4*4);
 				REQUIRE(afrm.stride() == str.back());
@@ -839,7 +839,7 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			}
 	
 			SECTION("tail 2") {
-				pod_array_format afrm = tail_pod_format<2>(vw);
+				pod_array_format afrm = vw.tail_pod_format<2>();
 				REQUIRE(afrm.size() == (4*4) * str.back());
 				REQUIRE(afrm.length() == 4*4);
 				REQUIRE(afrm.stride() == str.back());
@@ -849,7 +849,7 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			}
 			
 			SECTION("tail 3") {
-				pod_array_format afrm = tail_pod_format<1>(vw);
+				pod_array_format afrm = vw.tail_pod_format<1>();
 				REQUIRE(afrm.size() == 4 * str.back());
 				REQUIRE(afrm.length() == 4);
 				REQUIRE(afrm.stride() == str.back());
@@ -859,11 +859,11 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 			}
 
 			SECTION("assignment, comparison") {
-				pod_array_format afrm = pod_format(vw);
+				pod_array_format afrm = vw.pod_format();
 				pod_array_format afrm2 = afrm;
 				REQUIRE(afrm == afrm2);
 				REQUIRE_FALSE(afrm != afrm2);
-				afrm = tail_pod_format<2>(vw);
+				afrm = vw.tail_pod_format<2>();
 				REQUIRE_FALSE(afrm == afrm2);
 				REQUIRE(afrm != afrm2);
 			}

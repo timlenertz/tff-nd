@@ -1,6 +1,8 @@
 #ifndef TFF_NDARRAY_TRAITS_H_
 #define TFF_NDARRAY_TRAITS_H_
 
+#include "common.h"
+
 namespace tff {
 
 template<typename View>

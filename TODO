@@ -1,0 +1,54 @@
+NEXT
+- ndarray: implicit .view()
+- opaque/timed reverse iterator
+- remove/generalize timed?
+- convenience functions
+- member+non-member functions
+- initializer-list
+- ndarray storage order (c/fortran)
+- swapaxis -> swap_axis
+
+LATER
+- expressions
+- mask
+- indirection
+- reallocation, resize
+
+MAYBE
+- rename _view (ref, span)
+- <int, 3>
+- fixed size array --> normal view
+
+
+
+
+
+
+CONVENIENCE FUNCTIONS
+- empty
+- ones
+- zeros
+- full
+- array
+
+- flip
+- add_front_axis
+- add_back_axis
+- swap_axis
+- reshape
+- flatten
+- step
+- reverse
+- reverse_all
+- squeeze
+
+- concatenate
+- stack
+
+
+- interleave
+
+
+
+
+

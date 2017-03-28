@@ -69,6 +69,11 @@ ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format> wraparound(
 }
 
 
+template<std::size_t Dim, bool Mutable, typename Frame_format>
+struct is_ndarray_opaque_view<ndarray_wraparound_opaque_view<Dim, Mutable, Frame_format>> : std::true_type {};
+
+
+
 }
 
 #endif

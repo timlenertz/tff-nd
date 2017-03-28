@@ -640,15 +640,15 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			REQUIRE(vw.default_strides_padding(1) == 4);
 
 			SECTION("0 dim (frame)") {
-				REQUIRE(tail_has_pod_format<0>(vw));
-				pod_array_format tfrm = tail_pod_format<0>(vw);
+				REQUIRE(vw.tail_has_pod_format<0>());
+				pod_array_format tfrm = vw.tail_pod_format<0>();
 				REQUIRE(same_coverage(tfrm, frm.pod_format()));
 				REQUIRE(tfrm.elem_alignment() == alignof(int));
 			}
 			
 			SECTION("1 dim") {
-				REQUIRE(tail_has_pod_format<1>(vw));
-				pod_array_format tfrm = tail_pod_format<1>(vw);
+				REQUIRE(vw.tail_has_pod_format<1>());
+				pod_array_format tfrm = vw.tail_pod_format<1>();
 				REQUIRE(tfrm.elem_size() == frm.size());
 				REQUIRE(tfrm.stride() == frm.size() + 4);
 				REQUIRE(tfrm.length() == 2);
@@ -656,10 +656,10 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			}
 			
 			SECTION("2 dim") {
-				REQUIRE_FALSE(tail_has_pod_format<2>(vw));
-				REQUIRE_THROWS(tail_pod_format<2>(vw));
-				REQUIRE_FALSE(has_pod_format(vw));
-				REQUIRE_THROWS(pod_format(vw));
+				REQUIRE_FALSE(vw.tail_has_pod_format<2>());
+				REQUIRE_THROWS(vw.tail_pod_format<2>());
+				REQUIRE_FALSE(vw.has_pod_format());
+				REQUIRE_THROWS(vw.pod_format());
 			}
 		}
 		
@@ -684,8 +684,8 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			REQUIRE(vw.default_strides_padding(1) == 0);
 
 			SECTION("0 dim (frame)") {
-				REQUIRE(tail_has_pod_format<0>(vw));
-				pod_array_format tfrm = tail_pod_format<0>(vw);
+				REQUIRE(vw.tail_has_pod_format<0>());
+				pod_array_format tfrm = vw.tail_pod_format<0>();
 				REQUIRE(same_coverage(tfrm, frm.pod_format()));
 				REQUIRE(tfrm.elem_alignment() == alignof(int));
 				
@@ -695,8 +695,8 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			}
 			
 			SECTION("1 dim") {
-				REQUIRE(tail_has_pod_format<1>(vw));
-				pod_array_format tfrm = tail_pod_format<1>(vw);
+				REQUIRE(vw.tail_has_pod_format<1>());
+				pod_array_format tfrm = vw.tail_pod_format<1>();
 				REQUIRE(tfrm.elem_size() == sizeof(int));
 				REQUIRE(tfrm.stride() == 2*sizeof(int));
 				REQUIRE(tfrm.length() == 2 * 3*4);
@@ -704,10 +704,10 @@ TEST_CASE("ndarray_opaque_view", "[nd][ndarray_opaque_view]") {
 			}
 			
 			SECTION("2 dim") {
-				REQUIRE_FALSE(tail_has_pod_format<2>(vw));
-				REQUIRE_THROWS(tail_pod_format<2>(vw));
-				REQUIRE_FALSE(has_pod_format(vw));
-				REQUIRE_THROWS(pod_format(vw));
+				REQUIRE_FALSE(vw.tail_has_pod_format<2>());
+				REQUIRE_THROWS(vw.tail_pod_format<2>());
+				REQUIRE_FALSE(vw.has_pod_format());
+				REQUIRE_THROWS(vw.pod_format());
 			}
 		}
 	}

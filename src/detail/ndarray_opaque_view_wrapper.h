@@ -9,6 +9,7 @@
 #include "../common.h"
 #include "../ndarray_iterator.h"
 #include "ndarray_view_fcall.h"
+#include "../opaque/ndarray_opaque_traits.h"
 
 
 namespace tff { namespace detail {
@@ -50,10 +51,13 @@ public:
 	static constexpr bool is_mutable() { return Mutable; }
 
 private:
-	frame_format_type frame_format_;
-	
+	template<typename Other_view, typename U = void>
+	using enable_if_convertible_ = std::enable_if_t<is_convertible_ndarray_opaque_view<Other_view, ndarray_opaque_view_wrapper>::value, U>;
+
 	using fcall_type = ndarray_view_fcall<ndarray_opaque_view_wrapper, 1>;
 
+	frame_format_type frame_format_;
+	
 protected:
 	using base::fix_coordinate_;
 	// required by ndarray_timed_view_derived<ndarray_opaque_view_wrapper>
@@ -150,13 +154,13 @@ public:
 	
 	/// \name Deep assignment
 	///@{
-	void assign(const ndarray_opaque_view_wrapper<Dim, false, Frame_format, Base_view>& other) const {
-		Assert(!is_null() && !other.is_null());
+	template<typename Other_view>
+	enable_if_convertible_<Other_view> assign(const Other_view& other) const {
 		Assert(other.frame_format() == frame_format());
 		Assert(other.shape() == shape());
 		
-		if(has_pod_format(*this) && has_pod_format(other) && pod_format(*this) == pod_format(other)) {
-			pod_array_copy(start(), other.start(), pod_format(*this));
+		if(has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+			pod_array_copy(start(), other.start(), pod_format());
 		} else {
 			auto it = begin();
 			for(const auto& other_view : other) {
@@ -165,24 +169,24 @@ public:
 		}
 	}
 	
-	// TODO: other view (wraparound)
-	
-	const ndarray_opaque_view_wrapper& operator=(const ndarray_opaque_view_wrapper<Dim, false, Frame_format, Base_view>& vw) const
-		{ assign(vw); return *this; }
-	const ndarray_opaque_view_wrapper& operator=(const ndarray_opaque_view_wrapper<Dim, true, Frame_format, Base_view>& vw) const
+	template<typename Arg>
+	const ndarray_opaque_view_wrapper& operator=(Arg&& arg) const
+		{ assign(std::forward<Arg>(arg)); return *this; }
+	const ndarray_opaque_view_wrapper& operator=(const ndarray_opaque_view_wrapper& vw) const
 		{ assign(vw); return *this; }
 	///@}
 	
 	
 	/// \name Deep comparison
 	///@{
-	bool compare(const ndarray_opaque_view_wrapper<Dim, false, Frame_format, Base_view>& other) const {
-		Assert(!is_null() && !other.is_null());
+	template<typename Other_view>
+	enable_if_convertible_<Other_view, bool> compare(const Other_view& other) const {
+		// TODO support nullable Other_view, check is_null, also assign()
 		Assert(other.frame_format() == frame_format());
 		Assert(other.shape() == shape());
 		
-		if(has_pod_format(*this) && has_pod_format(other) && pod_format(*this) == pod_format(other)) {
-			return pod_array_compare(start(), other.start(), pod_format(*this));
+		if(has_pod_format() && other.has_pod_format() && pod_format() == other.pod_format()) {
+			return pod_array_compare(start(), other.start(), pod_format());
 		} else {
 			auto it = begin();
 			for(const auto& other_view : other) {
@@ -193,8 +197,8 @@ public:
 		}
 	}
 	
-	bool operator==(const ndarray_opaque_view_wrapper<Dim, false, Frame_format, Base_view>& vw) const { return compare(vw); }
-	bool operator!=(const ndarray_opaque_view_wrapper<Dim, false, Frame_format, Base_view>& vw) const { return ! compare(vw); }
+	template<typename Arg> bool operator==(const Arg& arg) const { return compare(arg); }
+	template<typename Arg> bool operator!=(const Arg& arg) const { return ! compare(arg); }
 	///@}
 	
 	
@@ -263,6 +267,52 @@ public:
 	}
 	fcall_type operator()() const {
 		return ndarray_opaque_view_wrapper(base::operator()(), frame_format_);
+	}
+	///@}
+	
+	
+	/// \name POD format
+	///@{
+	template<std::size_t Tail_dim>
+	bool tail_has_pod_format() const {
+		if(! frame_format().is_pod()) return false;
+		pod_array_format frame_pod_format = frame_format().pod_format();
+		if(frame_pod_format.is_contiguous()) return has_default_strides(Dim - Tail_dim);
+		else return has_default_strides_without_padding(Dim - Tail_dim);
+	}
+	
+	
+	bool has_pod_format() const {
+		return tail_has_pod_format<Dim>();
+	}
+	
+	template<std::size_t Tail_dim>
+	pod_array_format tail_pod_format() const {
+		pod_array_format frame_pod_format = frame_format().pod_format();
+		
+		if(Tail_dim == 0) {
+			return frame_pod_format;
+			
+		} else if(frame_pod_format.is_contiguous()) {
+			std::size_t frame_padding = default_strides_padding(Dim - Tail_dim);
+			std::size_t elem_size = frame_pod_format.size();
+			std::size_t elem_align = frame_pod_format.elem_alignment();
+			std::size_t length = tail<Tail_dim>(shape()).product();
+			std::size_t stride = strides().back();
+			return pod_array_format(elem_size, elem_align, length, stride);
+			
+		} else {
+			Assert(has_default_strides_without_padding(Dim - Tail_dim));
+			std::size_t elem_size = frame_pod_format.elem_size();
+			std::size_t elem_align = frame_pod_format.elem_alignment();
+			std::size_t length = tail<Tail_dim>(shape()).product() * frame_pod_format.length();
+			std::size_t stride = frame_pod_format.stride();
+			return pod_array_format(elem_size, elem_align, length, stride);
+		}
+	}
+	
+	pod_array_format pod_format() const {
+		return tail_pod_format<Dim>();
 	}
 	///@}
 };

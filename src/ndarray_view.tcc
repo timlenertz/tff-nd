@@ -126,8 +126,8 @@ void ndarray_view<Dim, T>::assign(const ndarray_view<Dim, const T>& other) const
 		
 	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
 		// optimize when possible
-		const pod_array_format& frm = pod_format(*this);
-		Assert_crit(frm == pod_format(other));
+		const pod_array_format& frm = pod_format();
+		Assert_crit(frm == other.pod_format());
 		pod_array_copy(static_cast<void*>(start()), static_cast<const void*>(other.start()), frm);
 	} else {
 		std::copy(other.begin(), other.end(), begin());
@@ -148,10 +148,9 @@ bool ndarray_view<Dim, T>::compare(const ndarray_view<Dim, const T>& other) cons
 	else if(same(*this, other)) return true;
 
 	if(std::is_pod<T>::value && strides() == other.strides() && has_default_strides()) {
-		const pod_array_format& frm = pod_format(*this);
-		Assert_crit(frm == pod_format(other));
-		return pod_array_compare
-			(static_cast<const void*>(start()), static_cast<const void*>(other.start()), frm);
+		const pod_array_format& frm = pod_format();
+		Assert_crit(frm == other.pod_format());
+		return pod_array_compare(static_cast<const void*>(start()), static_cast<const void*>(other.start()), frm);
 	} else {
 		return std::equal(other.begin(), other.end(), begin());
 	}

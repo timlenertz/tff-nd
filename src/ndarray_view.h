@@ -238,6 +238,33 @@ public:
 		return *this;
 	}
 	///@}
+	
+	
+	/// \name POD format
+	///@{
+	template<std::size_t Tail_dim>
+	bool tail_has_pod_format() const {
+		using elem_type = std::remove_cv_t<value_type>;
+		return std::is_pod<elem_type>::value && has_default_strides(Dim - Tail_dim);
+	}
+
+	bool has_pod_format() const {
+		return tail_has_pod_format<Dim>();
+	}
+
+	template<std::size_t Tail_dim>
+	pod_array_format tail_pod_format() const {
+		using elem_type = std::remove_cv_t<value_type>;
+		Assert(tail_has_pod_format<Tail_dim>());
+		std::size_t count = tail<Tail_dim>(shape()).product();
+		std::size_t stride = strides().back();
+		return make_pod_array_format<elem_type>(count, stride);
+	}
+	
+	pod_array_format pod_format() const {
+		return tail_pod_format<Dim>();
+	}
+	///@}
 };
 
 
@@ -290,37 +317,6 @@ template<std::size_t Dim, typename T>
 ndarray_view<Dim, T> reverse_all(const ndarray_view<Dim, T>& vw) {
 	return vw.section(vw.full_span(), ndptrdiff<Dim>(-1));
 }
-
-
-
-///////////////
-
-
-template<std::size_t Tail_dim, std::size_t Dim, typename Elem>
-bool tail_has_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return std::is_pod<Elem>::value && vw.has_default_strides(Dim - Tail_dim);
-}
-
-template<std::size_t Dim, typename Elem>
-bool has_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return tail_has_pod_format<Dim>(vw);
-}
-
-
-template<std::size_t Tail_dim, std::size_t Dim, typename Elem>
-pod_array_format tail_pod_format(const ndarray_view<Dim, Elem>& vw) {
-	Assert(tail_has_pod_format<Tail_dim>(vw));
-	std::size_t count = tail<Tail_dim>(vw.shape()).product();
-	std::size_t stride = vw.strides().back();
-	return make_pod_array_format<Elem>(count, stride);
-}
-
-
-template<std::size_t Dim, typename Elem>
-pod_array_format pod_format(const ndarray_view<Dim, Elem>& vw) {
-	return tail_pod_format<Dim>(vw);
-}
-
 
 }
 

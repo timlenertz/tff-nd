@@ -59,6 +59,9 @@ public:
 
 	frame_handle_type frame_handle() { return base::get_view_().frame_handle(); }
 	operator frame_handle_type () { return base::get_view_().frame_handle(); }
+	
+	explicit operator const view_type& () { return base::view(); }
+	explicit operator const const_view_type& () const { return base::cview(); }
 };
 
 
@@ -70,6 +73,10 @@ template<typename Frame_format, typename Allocator = raw_allocator>
 auto make_ndarray_opaque_frame(const Frame_format& frm, const Allocator& allocator = Allocator()) {
 	return ndarray_opaque_frame<Frame_format, Allocator>(make_ndsize(), frm, 0, allocator);
 }
+
+
+template<std::size_t Dim, typename Frame_format, typename Allocator>
+struct is_ndarray_opaque_view<ndarray_opaque<Dim, Frame_format, Allocator>> : std::true_type {};
 
 
 }

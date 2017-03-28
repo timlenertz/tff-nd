@@ -8,6 +8,7 @@
 #include "../common.h"
 #include "../ndarray_view.h"
 #include "../ndcoord.h"
+#include "../pod_array_format.h"
 
 namespace tff { namespace detail {
 
@@ -92,8 +93,8 @@ public:
 	const_view_type view() const { return cview(); }
 	const_view_type cview() const { return const_view_type(view_);  }
 	
-	//operator view_type () { return view(); }
-	operator const_view_type () const { return cview(); }
+	operator const view_type& () { return view(); }
+	operator const const_view_type& () const { return cview(); }
 	///@}
 	
 	
@@ -146,6 +147,15 @@ public:
 	WRAP_VIEW_FUNCTION(operator[])
 	WRAP_VIEW_FUNCTION(operator())
 	WRAP_VIEW_FUNCTION(at)
+	///@}
+	
+	
+	/// \name POD format
+	///@{
+	template<std::size_t Tail_dim> bool tail_has_pod_format() const { return view_.tail_has_pod_format<Tail_dim>(); }
+	bool has_pod_format() const { return view_.has_pod_format(); }
+	template<std::size_t Tail_dim> pod_array_format tail_pod_format() const { return view_.tail_pod_format<Tail_dim>(); }
+	pod_array_format pod_format() const { return view_.pod_format(); }
 	///@}
 };
 

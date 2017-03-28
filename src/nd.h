@@ -16,6 +16,7 @@
 
 #include "pod_array_format.h"
 
+#include "ndarray_traits.h"
 #include "ndarray_view.h"
 #include "ndarray_iterator.h"
 #include "ndarray_view_cast.h"
@@ -36,6 +37,7 @@
 #endif
 
 #if TFF_ND_WITH_OPAQUE
+	#include "opaque/ndarray_opaque_traits.h"
 	#include "detail/ndarray_opaque_view_wrapper.h"
 	#include "opaque/ndarray_opaque_view_cast.h"
 	#if TFF_ND_WITH_WRAPAROUND
