@@ -75,6 +75,14 @@ TEST_CASE("ndarray_view", "[nd][ndarray_view]") {
 		REQUIRE(same(a1c, a1));
 		REQUIRE(same(a1, a1c));
 		a1c.reset(a1);
+		
+		// assign using initializer_list
+		a1[0] = {{1, 2, 3, 4}, {2, 3, 4, 5}, {3, 4, 5, 6}};
+		REQUIRE(a1[0][0][0] == 1);
+		REQUIRE(a1[0][1][1] == 3);
+		REQUIRE_THROWS((a1[0] = {{1, 2, 3, 4}, {2, 3, 4, 5, 123}, {3, 4, 5, 6}}));
+		REQUIRE_THROWS((a1[0] = {{1, 2, 3, 4}, {3, 4, 5, 6}}));
+		REQUIRE_THROWS((a1[0] = {{1, 2, 3}, {2, 3, 4}, {3, 4, 5}}));
 	}
 	
 	

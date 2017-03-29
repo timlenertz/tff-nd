@@ -8,6 +8,8 @@
 using namespace tff;
 using namespace tff::test;
 
+// TODO assign view from different kinds tests
+
 TEST_CASE("ndarray_wraparound_view", "[nd][ndarray_wraparound_view]") {
 	constexpr std::ptrdiff_t l = sizeof(int);
 	constexpr std::ptrdiff_t pad = l;

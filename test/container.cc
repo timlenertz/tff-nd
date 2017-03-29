@@ -1,6 +1,7 @@
 #include <catch.hpp>
 #include <algorithm>
 #include "../src/ndarray.h"
+#include "../src/ndarray_view.h"
 #include "support/ndarray.h"
 
 using namespace tff;
@@ -46,8 +47,7 @@ TEST_CASE("ndarray", "[nd][ndarray]") {
 		REQUIRE(arr2.shape() == arr_vw_sec.shape());
 		REQUIRE((arr2.strides() == ndarray_view<3, int>::default_strides(arr_vw_sec.shape())));
 		verify_ndarray_memory_(arr2);
-		arr2[1][1][1] = 456;
-		REQUIRE(arr2[1][1][1] == 456);
+		arr2[1][1][1] = 456;REQUIRE(arr2[1][1][1] == 456);
 		REQUIRE_FALSE(arr_vw[1][1][1] == 456);
 		
 		// construction from view (ndarray gets padded default strides)
@@ -89,7 +89,20 @@ TEST_CASE("ndarray", "[nd][ndarray]") {
 		REQUIRE(arr5.strides() == arr5_cmp.strides());
 		REQUIRE(arr4.allocated_byte_size() == 0);
 		verify_ndarray_memory_(arr5);
-	}
+
+		// construction using initializer_list
+		ndarray<2, int> arr6({
+			{1, 2, 3},
+			{4, 5, 6}
+		});
+		REQUIRE(arr6.shape() == make_ndsize(2, 3));
+		REQUIRE(arr6[0][0] == 1);
+		REQUIRE(arr6[1][1] == 5);
+		
+		// invalid initializer_list
+		REQUIRE_THROWS(( new ndarray<2, int>{{1}, {1, 2}}  ));
+		REQUIRE_THROWS(( new ndarray<2, int>{{}, {}}  ));
+	};
 
 
 	SECTION("assignment") {
@@ -150,6 +163,22 @@ TEST_CASE("ndarray", "[nd][ndarray]") {
 		REQUIRE(arr_9_.view().compare(arr_f.cview()));
 		REQUIRE(arr_9_.shape() == arr_f.shape());
 		REQUIRE((arr_9_.strides() == ndarray_view<3, int>::default_strides(shp, pad)));
+		
+		// assign using initializer_list (operator= : new ndarray shape can be different)
+		ndarray<3, int> arr_init(previous_shape);
+		REQUIRE(arr_init.shape() == previous_shape);
+		arr_init = {{{0, 1, 2} , {3, 4, 5}}};
+		REQUIRE(arr_init.shape() == make_ndsize(1, 2, 3));
+		REQUIRE(arr_init[0][0][0] == 0);
+		REQUIRE(arr_init[0][1][1] == 4);
+
+		// assign using initializer_list (assign() : assign to view, shape must be same)
+		ndarray<2, int> arr_init2(make_ndsize(2, 3));
+		REQUIRE(arr_init2.shape() == make_ndsize(2, 3));
+		arr_init2.assign({{0, 1, 2} , {3, 4, 5}});
+		REQUIRE_THROWS((arr_init2.assign({{0, 1, 2} , {3, 4, 5, 6}})));
+		REQUIRE_THROWS((arr_init2.assign({{0, 1, 2} , {3, 4, 5}, {6, 7, 8}})));
+		REQUIRE_THROWS((arr_init2.assign({{0, 1} , {3, 4}})));
 	}
 	
 	

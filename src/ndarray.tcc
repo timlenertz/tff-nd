@@ -1,5 +1,14 @@
 namespace tff {
 
+
+template<std::size_t Dim, typename Elem, typename Allocator>
+auto ndarray<Dim, Elem, Allocator>::from_initializer_list_
+(initializer_list_type init, std::size_t elem_padding, const Allocator& allocator) -> ndarray {
+	Assert(initializer_helper_type::is_valid(init), "ndarray initializer_list must have valid format");
+	ndsize<Dim> shape = initializer_helper_type::shape(init);
+	return ndarray(shape, elem_padding, allocator);
+}
+
 template<std::size_t Dim, typename Elem, typename Allocator>
 ndarray<Dim, Elem, Allocator>::ndarray(const shape_type& shape, std::size_t elem_padding, const Allocator& allocator) :
 base(
@@ -40,12 +49,22 @@ base(
 ) {
 	construct_elems_();
 	base::view().assign(arr.cview());
+	// TODO copy/move construction
 }
 
 
 template<std::size_t Dim, typename Elem, typename Allocator>
 ndarray<Dim, Elem, Allocator>::ndarray(ndarray&& arr) :
 base(std::move(arr)) { }
+
+
+template<std::size_t Dim, typename Elem, typename Allocator>
+ndarray<Dim, Elem, Allocator>::ndarray(initializer_list_type init, std::size_t elem_padding, const Allocator& allocator) :
+	ndarray(from_initializer_list_(init, elem_padding, allocator))
+{
+	construct_elems_();
+	initializer_helper_type::copy_into(init, base::view());
+}
 
 
 template<std::size_t Dim, typename Elem, typename Allocator>
@@ -83,6 +102,12 @@ auto ndarray<Dim, Elem, Allocator>::assign(const Other_view& vw, std::size_t ele
 
 
 template<std::size_t Dim, typename Elem, typename Allocator>
+void ndarray<Dim, Elem, Allocator>::assign(initializer_list_type init) {
+	base::view().assign(init);
+}
+
+
+template<std::size_t Dim, typename Elem, typename Allocator>
 auto ndarray<Dim, Elem, Allocator>::operator=(const ndarray& arr) -> ndarray& {
 	if(&arr == this) return *this;
 	base::reset_(
@@ -99,6 +124,13 @@ auto ndarray<Dim, Elem, Allocator>::operator=(const ndarray& arr) -> ndarray& {
 template<std::size_t Dim, typename Elem, typename Allocator>
 auto ndarray<Dim, Elem, Allocator>::operator=(ndarray&& arr) -> ndarray& {
 	base::operator=(std::move(arr));
+	return *this;
+}
+
+
+template<std::size_t Dim, typename Elem, typename Allocator>
+auto ndarray<Dim, Elem, Allocator>::operator=(initializer_list_type init) -> ndarray& {
+	base::operator=(ndarray(init));
 	return *this;
 }
 

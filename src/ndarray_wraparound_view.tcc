@@ -106,6 +106,14 @@ auto ndarray_wraparound_view<Dim, T>::assign(const Other_view& other) const -> e
 }
 
 
+template<std::size_t Dim, typename T>
+void ndarray_wraparound_view<Dim, T>::assign(initializer_list_type init) const {
+	Assert(initializer_helper_type::is_valid(init), "initializer_list must be valid");
+	Assert(initializer_helper_type::shape(init) == shape(), "initializer_list to assign from has different shape");
+	initializer_helper_type::copy_into(init, *this);
+}
+
+
 template<std::size_t Dim, typename T> template<typename Other_view>
 auto ndarray_wraparound_view<Dim, T>::compare(const Other_view& other) const -> enable_if_convertible_<Other_view, bool> {
 	if(shape() != other.shape()) return false;

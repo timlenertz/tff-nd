@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <type_traits>
 #include "common.h"
+#include "detail/ndarray_initializer_helper.h"
+#include <iostream>
 
 namespace tff {
 
@@ -122,6 +124,14 @@ auto ndarray_view<Dim, T>::assign(const Other_view& other) const -> enable_if_co
 		if(shape().product() == 0) return;
 		std::copy(other.begin(), other.end(), begin());
 	}
+}
+
+
+template<std::size_t Dim, typename T>
+void ndarray_view<Dim, T>::assign(initializer_list_type init) const {
+	Assert(initializer_helper_type::is_valid(init), "initializer_list must be valid");
+	Assert(initializer_helper_type::shape(init) == shape(), "initializer_list to assign from has different shape");
+	initializer_helper_type::copy_into(init, *this);
 }
 
 

@@ -25,6 +25,8 @@ namespace detail {
 	T& get_subscript(const ndarray_view<1, T>& array, std::ptrdiff_t c) {
 		return array.at({c});
 	}
+
+	template<std::size_t Dim, typename Elem> struct ndarray_initializer_helper;
 }
 
 
@@ -75,6 +77,9 @@ public:
 	
 	using iterator = ndarray_iterator<ndarray_view<Dim, T>>;
 	using reverse_iterator = ndarray_iterator<ndarray_view<Dim, T>>;
+
+	using initializer_helper_type = typename detail::ndarray_initializer_helper<Dim, std::remove_const_t<T>>;
+	using initializer_list_type = typename initializer_helper_type::initializer_list_type;
 	
 protected:
 	pointer start_;
@@ -155,8 +160,11 @@ public:
 	template<typename Other_view>
 	enable_if_convertible_<Other_view> assign(const Other_view&) const;
 	
+	void assign(initializer_list_type) const;
+	
 	template<typename Arg> const ndarray_view& operator=(Arg&& arg) const { assign(std::forward<Arg>(arg)); return *this; }
 	const ndarray_view& operator=(const ndarray_view& other) const { assign(other); return *this; }
+	const ndarray_view& operator=(initializer_list_type init) const { assign(init); return *this; }
 	
 	void fill(const value_type&) const;
 	///@}
@@ -167,7 +175,8 @@ public:
 	///@{
 	template<typename Other_view>
 	enable_if_convertible_<Other_view, bool> compare(const Other_view&) const;
-			
+	// TODO initializer list compare
+	
 	template<typename Arg> bool operator==(Arg&& arg) const { return compare(std::forward<Arg>(arg)); }
 	template<typename Arg> bool operator!=(Arg&& arg) const { return ! compare(std::forward<Arg>(arg)); }
 	///@}
