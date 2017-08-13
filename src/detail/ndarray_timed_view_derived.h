@@ -1,14 +1,14 @@
-#ifndef TFF_NDARRAY_TIMED_VIEW_DERIVED_H_
-#define TFF_NDARRAY_TIMED_VIEW_DERIVED_H_
+#ifndef TLZ_NDARRAY_TIMED_VIEW_DERIVED_H_
+#define TLZ_NDARRAY_TIMED_VIEW_DERIVED_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_TIMED
+#if TLZ_ND_WITH_TIMED
 
 #include "../common.h"
 #include "../ndarray_view.h"
 #include "ndarray_view_fcall.h"
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
 
 template<typename Base>

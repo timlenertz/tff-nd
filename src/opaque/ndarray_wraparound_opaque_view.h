@@ -1,14 +1,14 @@
-#ifndef TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
-#define TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
+#ifndef TLZ_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
+#define TLZ_NDARRAY_WRAPAROUND_OPAQUE_VIEW_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_OPAQUE && TFF_ND_WITH_WRAPAROUND
+#if TLZ_ND_WITH_OPAQUE && TLZ_ND_WITH_WRAPAROUND
 
 #include "../detail/ndarray_opaque_view_wrapper.h"
 #include "../ndarray_wraparound_view.h"
 #include "ndarray_opaque_view.h"
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Dim, bool Mutable, typename Frame_format>
 using ndarray_wraparound_opaque_view = detail::ndarray_opaque_view_wrapper<Dim, Mutable, Frame_format, ndarray_wraparound_view>;

@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include "../src/ndcoord.h"
 
-using namespace tff;
+using namespace tlz;
 
 
 TEST_CASE("ndcoord", "[nd][ndcoord]") {

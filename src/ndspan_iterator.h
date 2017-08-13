@@ -1,11 +1,11 @@
-#ifndef TFF_NDSPAN_ITERATOR_H_
-#define TFF_NDSPAN_ITERATOR_H_
+#ifndef TLZ_NDSPAN_ITERATOR_H_
+#define TLZ_NDSPAN_ITERATOR_H_
 
 #include <iterator>
 #include "ndspan.h"
 #include "ndcoord.h"
 
-namespace tff {
+namespace tlz {
 
 /// Iterator over all coordinates in an \ref ndspan.
 /** Value type of iterator is `ndcoord<Dim, T>`. Forward iterator only. Iterates over coordinates in same order as

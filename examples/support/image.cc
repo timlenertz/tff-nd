@@ -4,7 +4,7 @@
 #include <png.h>
 #include <csetjmp>
 
-namespace tff_ex {
+namespace tlz_ex {
 
 void write_png(const std::string& filename, const tff::ndarray_view<2, rgb_color>& vw) {
 	std::FILE* file = std::fopen(filename.c_str(), "wb");

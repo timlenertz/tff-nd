@@ -1,14 +1,14 @@
-#ifndef TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_CAST_H_
-#define TFF_NDARRAY_WRAPAROUND_OPAQUE_VIEW_CAST_H_
+#ifndef TLZ_NDARRAY_WRAPAROUND_OPAQUE_VIEW_CAST_H_
+#define TLZ_NDARRAY_WRAPAROUND_OPAQUE_VIEW_CAST_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_OPAQUE && TFF_ND_WITH_WRAPAROUND
+#if TLZ_ND_WITH_OPAQUE && TLZ_ND_WITH_WRAPAROUND
 
 #include "ndarray_opaque_view.h"
 #include "../ndarray_wraparound_view.h"
 #include "../opaque_format/ndarray.h"
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Opaque_dim, typename Opaque_frame_format, std::size_t Concrete_dim, typename Concrete_elem>
 auto to_opaque(const ndarray_wraparound_view<Concrete_dim, Concrete_elem>& concrete_view, const Opaque_frame_format& frm) {

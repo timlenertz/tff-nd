@@ -1,8 +1,8 @@
-#ifndef TFF_NDARRAY_OPAQUE_VIEW_WRAPPER_H_
-#define TFF_NDARRAY_OPAQUE_VIEW_WRAPPER_H_
+#ifndef TLZ_NDARRAY_OPAQUE_VIEW_WRAPPER_H_
+#define TLZ_NDARRAY_OPAQUE_VIEW_WRAPPER_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_OPAQUE
+#if TLZ_ND_WITH_OPAQUE
 
 #include <utility>
 #include <type_traits>
@@ -12,7 +12,7 @@
 #include "../opaque/ndarray_opaque_traits.h"
 
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
 template<std::size_t Dim, bool Mutable, typename Frame_format, template<std::size_t,typename> class Base_view>
 class ndarray_opaque_view_wrapper;

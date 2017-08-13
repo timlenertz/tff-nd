@@ -1,14 +1,14 @@
-#ifndef TFF_NDARRAY_OPAQUE_FORMAT_NDARRAY_H_
-#define TFF_NDARRAY_OPAQUE_FORMAT_NDARRAY_H_
+#ifndef TLZ_NDARRAY_OPAQUE_FORMAT_NDARRAY_H_
+#define TLZ_NDARRAY_OPAQUE_FORMAT_NDARRAY_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_OPAQUE
+#if TLZ_ND_WITH_OPAQUE
 
 #include "../pod_array_format.h"
 #include "../ndcoord_dyn.h"
 #include <type_traits>
 
-namespace tff {
+namespace tlz {
 
 template<bool Mutable>
 class opaque_ndarray_frame_handle;

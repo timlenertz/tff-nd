@@ -7,7 +7,7 @@
 #include "../../src/ndarray.h"
 #include "../../src/opaque_format/raw.h"
 
-namespace tff { namespace test {
+namespace tlz { namespace test {
 
 struct obj_t {
 	int i = 0;

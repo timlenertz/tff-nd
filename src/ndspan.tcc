@@ -1,6 +1,6 @@
 #include "ndspan_iterator.h"
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Dim, typename T>
 bool ndspan<Dim, T>::invariant_() const {

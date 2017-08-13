@@ -1,8 +1,8 @@
-#ifndef TFF_NDARRAY_WRAPPER_H_
-#define TFF_NDARRAY_WRAPPER_H_
+#ifndef TLZ_NDARRAY_WRAPPER_H_
+#define TLZ_NDARRAY_WRAPPER_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_ALLOCATION
+#if TLZ_ND_WITH_ALLOCATION
 
 #include <utility>
 #include "../common.h"
@@ -10,14 +10,14 @@
 #include "../ndcoord.h"
 #include "../pod_array_format.h"
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
-#define WRAP_VIEW_FUNCTION(__function__) \
-	template<typename... Args> decltype(auto) __function__(Args&&... args) { \
-		return view_.__function__(std::forward<Args>(args)...); \
+#define WRAP_VIEW_FUNCTION(__func__) \
+	template<typename... Args> decltype(auto) __func__(Args&&... args) { \
+		return view_.__func__(std::forward<Args>(args)...); \
 	} \
-	template<typename... Args> auto __function__(Args&&... args) const { \
-		return cview().__function__(std::forward<Args>(args)...); \
+	template<typename... Args> auto __func__(Args&&... args) const { \
+		return cview().__func__(std::forward<Args>(args)...); \
 	}
 // const version returns copies, from cview() (itself a temporary copy of view_)
 // non-const version may return references (i.e. at() -> ref to elem)

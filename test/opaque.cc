@@ -4,7 +4,7 @@
 #include "../src/opaque_format/ndarray.h"
 #include "../src/opaque_format/raw.h"
 
-using namespace tff;
+using namespace tlz;
 
 constexpr std::size_t sz = 243;
 constexpr std::size_t al = 32;

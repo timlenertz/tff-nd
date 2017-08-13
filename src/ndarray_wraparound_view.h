@@ -1,8 +1,8 @@
-#ifndef TFF_NDARRAY_WRAPAROUND_VIEW_H_
-#define TFF_NDARRAY_WRAPAROUND_VIEW_H_
+#ifndef TLZ_NDARRAY_WRAPAROUND_VIEW_H_
+#define TLZ_NDARRAY_WRAPAROUND_VIEW_H_
 
 #include "config.h"
-#if TFF_ND_WITH_WRAPAROUND
+#if TLZ_ND_WITH_WRAPAROUND
 
 #include "ndarray_view.h"
 #include "detail/ndarray_view_fcall.h"
@@ -11,7 +11,7 @@
 #include "ndarray_view.h"
 #include <utility>
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Dim, typename T> class ndarray_wraparound_view;
 

@@ -1,5 +1,5 @@
-#ifndef TFF_NDARRAY_VIEW_FCALL_H_
-#define TFF_NDARRAY_VIEW_FCALL_H_
+#ifndef TLZ_NDARRAY_VIEW_FCALL_H_
+#define TLZ_NDARRAY_VIEW_FCALL_H_
 
 #include <cstdlib>
 #include <algorithm>
@@ -7,7 +7,7 @@
 #include <type_traits>
 #include "../ndarray_traits.h"
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
 template<typename View, std::ptrdiff_t Target_dim>
 class ndarray_view_fcall : public View {
@@ -36,7 +36,7 @@ public:
 
 }}
 
-namespace tff {
+namespace tlz {
 
 template<typename View, std::ptrdiff_t Target_dim>
 struct is_ndarray_view<detail::ndarray_view_fcall<View, Target_dim>> : std::true_type {};

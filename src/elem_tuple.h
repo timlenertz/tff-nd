@@ -1,8 +1,8 @@
-#ifndef TFF_ELEM_TUPLE_H_
-#define TFF_ELEM_TUPLE_H_
+#ifndef TLZ_ELEM_TUPLE_H_
+#define TLZ_ELEM_TUPLE_H_
 
 #include "config.h"
-#if TFF_ND_WITH_ELEM
+#if TLZ_ND_WITH_ELEM
 
 #include <cstddef>
 #include <cstdint>
@@ -10,7 +10,7 @@
 #include <type_traits>
 #include "elem.h"
 
-namespace tff {
+namespace tlz {
 
 /// Heterogeneous tuple of elem, with standard layout.
 /** Similar to `std::tuple`, but is also a standard layout type, and guarantees memory layout. Items must be `elem`

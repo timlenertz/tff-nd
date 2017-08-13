@@ -1,9 +1,9 @@
-#ifndef TFF_NDARRAY_VIEW_OPERATIONS_H_
-#define TFF_NDARRAY_VIEW_OPERATIONS_H_
+#ifndef TLZ_NDARRAY_VIEW_OPERATIONS_H_
+#define TLZ_NDARRAY_VIEW_OPERATIONS_H_
 
 #include "ndarray_view.h"
 
-namespace tff {
+namespace tlz {
 
 template<typename T>
 ndarray_view<2, T> flip(const ndarray_view<2, T>& vw) { return swapaxis(vw, 0, 1); }

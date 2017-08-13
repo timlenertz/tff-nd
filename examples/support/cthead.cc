@@ -1,7 +1,7 @@
 #include "cthead.h"
 #include <cstdio>
 
-namespace tff_ex {
+namespace tlz_ex {
 
 tff::ndarray<3, std::int16_t> read_cthead(const std::string& dirname) {
 	auto shape = tff::make_ndsize(113, 256, 256);

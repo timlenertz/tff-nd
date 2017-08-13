@@ -5,7 +5,7 @@
 #include "detail/ndarray_initializer_helper.h"
 #include <iostream>
 
-namespace tff {
+namespace tlz {
 
 
 template<std::size_t Dim, typename T>

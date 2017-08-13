@@ -1,11 +1,11 @@
-#ifndef TFF_NDARRAY_POD_ARRAY_FORMAT_H_
-#define TFF_NDARRAY_POD_ARRAY_FORMAT_H_
+#ifndef TLZ_NDARRAY_POD_ARRAY_FORMAT_H_
+#define TLZ_NDARRAY_POD_ARRAY_FORMAT_H_
 
 #include <cstdlib>
 #include <type_traits>
 #include "common.h"
 
-namespace tff {
+namespace tlz {
 
 class pod_array_format {
 private:		

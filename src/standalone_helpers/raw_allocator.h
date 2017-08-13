@@ -1,12 +1,12 @@
-#ifndef TFF_ND_RAW_ALLOCATOR_H_
-#define TFF_ND_RAW_ALLOCATOR_H_
+#ifndef TLZ_ND_RAW_ALLOCATOR_H_
+#define TLZ_ND_RAW_ALLOCATOR_H_
 
 #include "../config.h"
 #include <cstdlib>
 
-namespace tff {
+namespace tlz {
 	
-#if TFF_ND_WITH_ALLOCATION
+#if TLZ_ND_WITH_ALLOCATION
 
 class raw_allocator {
 public:

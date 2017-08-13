@@ -1,8 +1,8 @@
-#ifndef TFF_ELEM_H_
-#define TFF_ELEM_H_
+#ifndef TLZ_ELEM_H_
+#define TLZ_ELEM_H_
 
 #include "config.h"
-#if TFF_ND_WITH_ELEM
+#if TLZ_ND_WITH_ELEM
 
 #include <cstddef>
 #include <array>
@@ -10,7 +10,7 @@
 #include <type_traits>
 #include "common.h"
 
-namespace tff {
+namespace tlz {
 
 /// Elem traits base class with the required members.
 template<typename Elem, typename Scalar = Elem, std::size_t Components = 1, bool Nullable = false>

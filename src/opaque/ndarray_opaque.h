@@ -1,14 +1,14 @@
-#ifndef TFF_NDARRAY_OPAQUE_H_
-#define TFF_NDARRAY_OPAQUE_H_
+#ifndef TLZ_NDARRAY_OPAQUE_H_
+#define TLZ_NDARRAY_OPAQUE_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_ALLOCATION && TFF_ND_WITH_OPAQUE
+#if TLZ_ND_WITH_ALLOCATION && TLZ_ND_WITH_OPAQUE
 
 #include "../common.h"
 #include "ndarray_opaque_view.h"
 #include "../detail/ndarray_wrapper.h"
 
-namespace tff {
+namespace tlz {
 	
 namespace detail {
 	template<std::size_t Dim, typename Frame_format, typename Allocator>

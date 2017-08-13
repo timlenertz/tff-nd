@@ -3,8 +3,8 @@
 #include "../src/opaque_format/raw.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 TEST_CASE("ndarray_opaque", "[nd][ndarray_opaque]") {
 	constexpr std::size_t l = sizeof(int);

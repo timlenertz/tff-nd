@@ -3,8 +3,8 @@
 #include "support/cthead.h"
 #include <algorithm>
 
-using namespace tff;
-using namespace tff_ex;
+using namespace tlz;
+using namespace tlz_ex;
 
 /*
 int main() {

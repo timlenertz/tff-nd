@@ -1,9 +1,9 @@
-#ifndef TFF_NDARRAY_ITERATOR_H_
-#define TFF_NDARRAY_ITERATOR_H_
+#ifndef TLZ_NDARRAY_ITERATOR_H_
+#define TLZ_NDARRAY_ITERATOR_H_
 
 #include <iterator>
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Dim, typename Elem>
 class ndarray_view;

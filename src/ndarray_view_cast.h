@@ -1,15 +1,14 @@
-#ifndef TFF_NDARRAY_VIEW_CAST_H_
-#define TFF_NDARRAY_VIEW_CAST_H_
+#ifndef TLZ_NDARRAY_VIEW_CAST_H_
+#define TLZ_NDARRAY_VIEW_CAST_H_
 
 #include <cstddef>
 #include <type_traits>
 #include "common.h"
 #include "ndarray_view.h"
-#include "ndarray_timed_view.h"
 #include "elem.h"
 #include "elem_tuple.h"
 
-namespace tff {
+namespace tlz {
 	
 template<typename Output_view, typename Input_view> Output_view ndarray_view_cast(const Input_view& vw);
 
@@ -33,7 +32,7 @@ namespace detail {
 	};
 
 	
-	#if TFF_ND_WITH_ELEM
+	#if TLZ_ND_WITH_ELEM
 	
 	// single element from elem_tuple
 	template<typename Output_elem, std::size_t Dim, typename... Input_elems>
@@ -116,35 +115,6 @@ namespace detail {
 	
 	#endif
 
-	
-	#if TFF_ND_WITH_TIMED
-	
-	// ndarray_timed_view to ndarray_timed_view
-	template<std::size_t Output_dim, typename Output_elem, std::size_t Input_dim, typename Input_elem>
-	struct ndarray_view_caster<
-		ndarray_timed_view<Output_dim, Output_elem>, // out
-		ndarray_timed_view<Input_dim, Input_elem> // in
-	>{
-		using output_view_type = ndarray_timed_view<Output_dim, Output_elem>;
-		using input_view_type = ndarray_timed_view<Input_dim, Input_elem>;
-
-		using non_timed_output_view_type = ndarray_view<Output_dim, Output_elem>;
-		using non_timed_input_view_type = ndarray_view<Input_dim, Input_elem>;
-		
-		using non_timed_caster_type = ndarray_view_caster<non_timed_output_view_type, non_timed_input_view_type>;
-		
-		output_view_type operator()(const input_view_type& vw) const {
-			non_timed_caster_type caster;
-			return timed(caster(vw.non_timed()), vw.start_time());
-		}
-		ndsize<Output_dim> casted_shape(const ndsize<Input_dim>& shp) const {
-			non_timed_caster_type caster;
-			return caster.casted_shape(shp);
-		}
-	};
-	
-	#endif
-	
 	template<typename Output_view, typename Input_view, typename Void = void_t<>>
 	struct ndarray_view_cast_detector : std::false_type { };
 	

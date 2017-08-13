@@ -1,13 +1,13 @@
-#ifndef TFF_NDARRAY_OPAQUE_FORMAT_RAW_H_
-#define TFF_NDARRAY_OPAQUE_FORMAT_RAW_H_
+#ifndef TLZ_NDARRAY_OPAQUE_FORMAT_RAW_H_
+#define TLZ_NDARRAY_OPAQUE_FORMAT_RAW_H_
 
 #include "../config.h"
-#if TFF_ND_WITH_OPAQUE
+#if TLZ_ND_WITH_OPAQUE
 
 #include <cstring>
 #include "../ndcoord_dyn.h"
 
-namespace tff {
+namespace tlz {
 	
 template<bool Mutable> class opaque_raw_frame_handle;
 

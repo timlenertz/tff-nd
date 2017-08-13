@@ -2,7 +2,7 @@
 #include <type_traits>
 #include "../src/elem_tuple.h"
 
-using namespace tff;
+using namespace tlz;
 
 TEST_CASE("elem_tuple", "[elem_tuple]") {
 	using tuple_type = elem_tuple<float, int, char>;

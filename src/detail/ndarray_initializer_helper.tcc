@@ -1,6 +1,6 @@
 #include "ndarray_initializer_helper.h"
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
 template<std::size_t Dim, typename Elem>
 ndsize<Dim> ndarray_initializer_helper<Dim, Elem>::shape(const initializer_list_type& init) {

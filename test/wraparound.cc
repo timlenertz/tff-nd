@@ -5,8 +5,8 @@
 #include "../src/ndarray_view_operations.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 // TODO assign view from different kinds tests
 

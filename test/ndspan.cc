@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include "../src/ndspan.h"
 
-using namespace tff;
+using namespace tlz;
 
 TEST_CASE("ndspan", "[nd][ndspan]") {
 	using span_type = ndspan<3, std::size_t>;

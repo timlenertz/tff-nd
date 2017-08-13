@@ -1,8 +1,8 @@
-project(tff-nd CXX)
+project(tlz-nd CXX)
 cmake_minimum_required(VERSION 3.1)
 
 if(UNIX)
-	add_compile_options(-std=c++14)
+	add_compile_options(-Wall -Wextra -Wno-sign-compare -std=c++14)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lpthread")
 elseif(WIN32)
 	add_compile_options(/wd4018)
@@ -11,13 +11,12 @@ endif()
 enable_testing()
 
 include_directories(SYSTEM external/include)
-add_compile_options(-Wall -Wextra -Wno-sign-compare)
 
 # Test
 file(GLOB_RECURSE TEST_SRC "test/*.cc" "src/*")
-add_executable(tff_nd_test ${TEST_SRC})
-target_compile_definitions(tff_nd_test PRIVATE TFF_ND_STANDALONE)
-add_test(COMMAND tff_nd_test)
+add_executable(nd_test ${TEST_SRC})
+target_compile_definitions(nd_test PRIVATE TLZ_ND_STANDALONE)
+add_test(COMMAND nd_test)
 
 # Examples
 find_package(PNG REQUIRED)
@@ -30,7 +29,7 @@ foreach(ex_cpp ${EXAMPLE_SRC})
 	get_filename_component(ex_nm ${ex_cpp} NAME_WE)
 	message(${ex_nm})
 	add_executable(${ex_nm} ${ex_cpp} ${EXAMPLE_SUPPORT_SRC})
-	target_compile_definitions(${ex_nm} PRIVATE TFF_ND_STANDALONE)
+	target_compile_definitions(${ex_nm} PRIVATE TLZ_ND_STANDALONE)
 	target_link_libraries(${ex_nm} ${PNG_LIBRARY})
 endforeach()
 

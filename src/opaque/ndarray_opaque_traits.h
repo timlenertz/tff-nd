@@ -1,7 +1,7 @@
-#ifndef TFF_NDARRAY_OPAQUE_TRAITS_H_
-#define TFF_NDARRAY_OPAQUE_TRAITS_H_
+#ifndef TLZ_NDARRAY_OPAQUE_TRAITS_H_
+#define TLZ_NDARRAY_OPAQUE_TRAITS_H_
 
-namespace tff {
+namespace tlz {
 
 namespace detail {
 

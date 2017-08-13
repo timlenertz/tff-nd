@@ -1,6 +1,6 @@
 #include "ndarray_view_operations.h"
 
-namespace tff {
+namespace tlz {
 
 
 template<std::size_t Dim, typename T>

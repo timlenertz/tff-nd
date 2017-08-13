@@ -4,8 +4,8 @@
 #include "../src/ndarray_view.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 static void verify_ndarray_memory_(ndarray<3, int>& arr) {
 	const auto& shp = arr.shape();

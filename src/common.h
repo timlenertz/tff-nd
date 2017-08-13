@@ -1,7 +1,7 @@
-#ifndef TFF_ND_COMMON_H_
-#define TFF_ND_COMMON_H_
+#ifndef TLZ_ND_COMMON_H_
+#define TLZ_ND_COMMON_H_
 
-#ifdef TFF_ND_STANDALONE
+#ifdef TLZ_ND_STANDALONE
 
 #include "standalone_helpers/assert.h"
 #include "standalone_helpers/misc.h"

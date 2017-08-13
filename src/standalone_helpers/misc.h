@@ -1,11 +1,11 @@
-#ifndef TFF_ND_MISC_H_
-#define TFF_ND_MISC_H_
+#ifndef TLZ_ND_MISC_H_
+#define TLZ_ND_MISC_H_
 
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
 
-namespace tff {
+namespace tlz {
 
 using time_unit = std::ptrdiff_t;
 constexpr static time_unit undefined_time = -1;

@@ -6,8 +6,8 @@
 #include "../src/pod_array_format.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 
 TEST_CASE("ndarray_view", "[nd][ndarray_view]") {

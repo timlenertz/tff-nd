@@ -1,7 +1,7 @@
 #include "ndarray.h"
 #include <random>
 
-namespace tff { namespace test {
+namespace tlz { namespace test {
 
 int obj_t::counter = 0;
 int nonpod_frame_handle::counter = 0;

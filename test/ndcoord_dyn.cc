@@ -2,7 +2,7 @@
 #include "../src/ndcoord_dyn.h"
 #include "../src/ndcoord.h"
 
-using namespace tff;
+using namespace tlz;
 
 
 TEST_CASE("ndcoord_dyn_dyn", "[nd][ndcoord_dyn_dyn]") {

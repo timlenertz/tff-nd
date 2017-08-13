@@ -1,5 +1,5 @@
-#ifndef TFF_NDCOORD_H_
-#define TFF_NDCOORD_H_
+#ifndef TLZ_NDCOORD_H_
+#define TLZ_NDCOORD_H_
 
 #include <cstddef>
 #include <array>
@@ -12,7 +12,7 @@
 
 
 
-namespace tff {
+namespace tlz {
 
 /// Vector of n-dimensional coordinates.
 /** Vector of size `Dim` with items of arithmetic type `T`. Used mainly for coordinates of \ref ndarray_view.

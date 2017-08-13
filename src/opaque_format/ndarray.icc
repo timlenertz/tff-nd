@@ -1,6 +1,6 @@
 #include <functional>
 
-namespace tff {
+namespace tlz {
 
 inline opaque_ndarray_format::opaque_ndarray_format
 (std::size_t elem_size, std::size_t align, std::size_t stride, bool pod, const ndsize_dyn& shape) :

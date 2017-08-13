@@ -4,8 +4,8 @@
 #include "../src/pod_array_format.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 constexpr std::size_t len = 3 * 4 * 4;
 ndsize<3> shp{3, 4, 4};

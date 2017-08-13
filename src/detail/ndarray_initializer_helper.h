@@ -1,7 +1,7 @@
-#ifndef TFF_NDARRAY_INITIALIZER_HELPER_H_
-#define TFF_NDARRAY_INITIALIZER_HELPER_H_
+#ifndef TLZ_NDARRAY_INITIALIZER_HELPER_H_
+#define TLZ_NDARRAY_INITIALIZER_HELPER_H_
 
-namespace tff { namespace detail {
+namespace tlz { namespace detail {
 
 template<std::size_t Dim, typename Elem>
 struct ndarray_initializer_helper {

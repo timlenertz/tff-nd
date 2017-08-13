@@ -1,11 +1,11 @@
-#ifndef TFF_NDSPAN_H_
-#define TFF_NDSPAN_H_
+#ifndef TLZ_NDSPAN_H_
+#define TLZ_NDSPAN_H_
 
 #include <ostream>
 #include "common.h"
 #include "ndcoord.h"
 
-namespace tff {
+namespace tlz {
 
 template<std::size_t Dim, typename T> class ndspan_iterator;
 

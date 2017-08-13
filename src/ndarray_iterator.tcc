@@ -1,7 +1,7 @@
 #include "common.h"
 #include "ndarray_view.h"
 
-namespace tff {
+namespace tlz {
 
 
 template<typename View>

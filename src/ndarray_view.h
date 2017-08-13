@@ -1,5 +1,5 @@
-#ifndef TFF_NDARRAY_VIEW_H_
-#define TFF_NDARRAY_VIEW_H_
+#ifndef TLZ_NDARRAY_VIEW_H_
+#define TLZ_NDARRAY_VIEW_H_
 
 #include <type_traits>
 #include <utility>
@@ -13,7 +13,7 @@
 #include "ndarray_traits.h"
 
 
-namespace tff {
+namespace tlz {
 
 namespace detail {
 	template<std::size_t Dim, typename T>

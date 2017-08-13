@@ -1,9 +1,9 @@
-#ifndef TFF_NDARRAY_TRAITS_H_
-#define TFF_NDARRAY_TRAITS_H_
+#ifndef TLZ_NDARRAY_TRAITS_H_
+#define TLZ_NDARRAY_TRAITS_H_
 
 #include "common.h"
 
-namespace tff {
+namespace tlz {
 
 namespace detail {
 

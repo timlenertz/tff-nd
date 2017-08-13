@@ -1,8 +1,8 @@
-#ifndef TFF_NDARRAY_H_
-#define TFF_NDARRAY_H_
+#ifndef TLZ_NDARRAY_H_
+#define TLZ_NDARRAY_H_
 
 #include "config.h"
-#if TFF_ND_WITH_ALLOCATION
+#if TLZ_ND_WITH_ALLOCATION
 
 #include <memory>
 #include <initializer_list>
@@ -12,7 +12,7 @@
 #include "detail/ndarray_initializer_helper.h"
 #include "ndarray_traits.h"
 
-namespace tff {
+namespace tlz {
 
 /// Container for \ref ndarray_view.
 template<std::size_t Dim, typename Elem, typename Allocator = std::allocator<Elem>>

@@ -6,8 +6,8 @@
 #include "../src/opaque_format/raw.h"
 #include "support/ndarray.h"
 
-using namespace tff;
-using namespace tff::test;
+using namespace tlz;
+using namespace tlz::test;
 
 TEST_CASE("ndarray_wraparound_opaque_view", "[nd][ndarray_wraparound_opaque_view]") {
 	SECTION("basics") {

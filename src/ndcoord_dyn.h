@@ -1,5 +1,5 @@
-#ifndef TFF_NDCOORD_DYN_H_
-#define TFF_NDCOORD_DYN_H_
+#ifndef TLZ_NDCOORD_DYN_H_
+#define TLZ_NDCOORD_DYN_H_
 
 #include <cstddef>
 #include <array>
@@ -13,7 +13,7 @@
 #include "common.h"
 #include "ndcoord.h"
 
-namespace tff {
+namespace tlz {
 
 
 template<typename T, std::size_t Max_dim = 4>
